@@ -1,0 +1,18 @@
+premiere implémentation:
+	caractéristiques:
+		case:
+		plantes:
+			aspect spatial:
+			aspect temporel:
+				production par chunk de temps fixée
+				saisonalité
+			nombre de plantes:
+				2: patate; tomates; fraise; poireaux;
+	fonction cout:
+		masse produite
+
+	to do list:
+		coder objet jardin
+		 
+
+	
