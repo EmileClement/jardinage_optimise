@@ -1,1 +1,1 @@
-# jardinage_optimise
+# Optimisation de la production annuelle d'un jardin
