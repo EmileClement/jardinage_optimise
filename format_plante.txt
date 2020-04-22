@@ -1,0 +1,5 @@
+nom_plante:{ ##commentaire##
+		plantage:{ [0000000000000000000000000000000000000000000000000000] }
+		récolte:{ time_chunk = X ; mass_produite = Y }
+
+		}
