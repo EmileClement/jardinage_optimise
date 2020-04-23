@@ -33,6 +33,7 @@ class Emplacement():
             libre &= isinstance(elem, Jachere)
         return libre
 
+
 class Occupant():
     def __init__(self):
         assert 0, "Not implemeted"
@@ -130,6 +131,22 @@ class Patate(Plante):
         self.jour_semis = None
         self.deja_recolte = False
 
+class Tomate(Plante):
+    def __init__(self):
+        self.plantage = [False] * 100 + [True] * 100 + [False] * (165)
+        self.time_chunk = 30
+        self.masse_produite = 5
+        self.jour_semis = None
+        self.deja_recolte = False
+
+class Poireaux(Plante):
+    def __init__(self):
+        self.plantage = [False] * 100 + [True] * 100 + [False] * (165)
+        self.time_chunk = 30
+        self.masse_produite = 5
+        self.jour_semis = None
+        self.deja_recolte = False
+
 #%% Gene:
 
 class Gene():
@@ -150,6 +167,16 @@ class Gene():
     
     def __str__(self):
         return self.ADN
+    
+    def jardin(self):
+        jar = Jardin(self.len_x, self.len_y)
+        for x in range(self.len_x):
+            for y in range(self.len_y):
+                for jour in range(365):
+                    allele = self.ADN[(x+y)*365 + jour : 
+                                      (x+y)*365 + jour + N_bit_espece]
+                    jar.emplacement[y][x].calendrier[jour] = Gene.decodeur_espece[allele]()
+        return jar
             
 #%% Herbier
 # herbier = {}
