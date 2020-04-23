@@ -46,6 +46,7 @@ class Plante(Occupant):
         self.time_chunk = 0
         self.masse_produite = 0
         self.semaine_semis = None
+        self.deja_recolte = False
 
     def plantable(self, semaine):
         """
@@ -64,7 +65,7 @@ class Plante(Occupant):
 
     def recolte_masse(self, semaine):
         """
-        Quel quantité va ont recolter cet semaine
+        Quelle quantité va ont recolter cette semaine
 
         Parameters
         ----------
@@ -77,8 +78,11 @@ class Plante(Occupant):
 
 
         """
-        if semaine - self.semaine_semis >= self.time_chunk:
+        if (semaine - self.semaine_semis >= self.time_chunk) and (self.deja_recolte == False ):
+            
+            self.deja_recolte = True
             return self.masse_produite
+        
         return 0
 
     def planter(self, emplacement, debut, fin):
