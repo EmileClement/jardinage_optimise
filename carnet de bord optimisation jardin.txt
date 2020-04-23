@@ -7,7 +7,7 @@ premiere implémentation:
 				production par chunk de temps fixée
 				saisonalité
 			nombre de plantes:
-				2: patate; tomates; fraise; poireaux;
+				2: patate; tomates; jachère; poireaux;
 	fonction cout:
 		masse produite
 
