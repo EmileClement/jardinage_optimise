@@ -125,25 +125,25 @@ class Plante(Occupant):
 #%% type démo
 class Patate(Plante):
     def __init__(self):
-        self.plantage = [False] * 100 + [True] * 100 + [False] * (165)
-        self.time_chunk = 30
-        self.masse_produite = 5
+        self.plantage = [False] * 52 + [True] * 253 + [False] * (365 - 305)
+        self.time_chunk = 100
+        self.masse_produite = 1.
         self.jour_semis = None
         self.deja_recolte = False
 
 class Tomate(Plante):
     def __init__(self):
-        self.plantage = [False] * 100 + [True] * 100 + [False] * (165)
-        self.time_chunk = 30
-        self.masse_produite = 5
+        self.plantage = [False] * 121 + [True] * 60 + [False] * (365 - 171)
+        self.time_chunk = 134
+        self.masse_produite = 2.5
         self.jour_semis = None
         self.deja_recolte = False
 
-class Poireaux(Plante):
+class Poireau(Plante):
     def __init__(self):
-        self.plantage = [False] * 100 + [True] * 100 + [False] * (165)
+        self.plantage = [True] * 90 + [False] * 153 + [False] * (122)
         self.time_chunk = 30
-        self.masse_produite = 5
+        self.masse_produite = 0.150
         self.jour_semis = None
         self.deja_recolte = False
 
