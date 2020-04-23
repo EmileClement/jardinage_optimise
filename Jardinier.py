@@ -16,6 +16,12 @@ class Jardin():
     def __repr__(self):
         return "Jardin({},{})".format(len(self.emplacement[0]), len(self.emplacement))
 
+    def rendement(self):
+        masse = 0
+        for ligne in self.emplacement:
+            for case in ligne:
+                masse += case.rendement()
+        return masse
 
 class Emplacement():
     def __init__(self, jardin):
@@ -32,7 +38,16 @@ class Emplacement():
         for elem in self.calendrier[debut:fin]:
             libre &= isinstance(elem, Jachere)
         return libre
-
+    
+    def rendement(self):
+        plantes = set()
+        for jour in self.calendrier:
+            if isinstance(jour, Plante):
+                plantes.add(jour)
+        masse = 0
+        for elem in plantes:
+            masse += elem.recolte_masse(elem.jour_recolte)
+        return masse
 
 class Occupant():
     def __init__(self):
@@ -51,6 +66,7 @@ class Plante(Occupant):
         self.time_chunk = 0
         self.masse_produite = 0
         self.jour_semis = None
+        self.jour_recolte = None
         self.deja_recolte = False
 
     def plantable(self, jour) -> bool:
@@ -122,6 +138,7 @@ class Plante(Occupant):
             for i in range(debut, fin):
                 emplacement.calendrier[i] = self
             self.jour_semis = debut
+            self.jour_recolte = fin
             return 0
         raise ValueError
 
@@ -171,6 +188,10 @@ class Gene():
     def __str__(self):
         return self.ADN
     
+    def __repr__(self):
+        n = int(self.ADN, 2)
+        return "gene : {}".format(n)
+    
     def jardin(self) -> Jardin:
         """
         Créer le jardin corespondant a ce géne
@@ -187,8 +208,8 @@ class Gene():
                 emplacement = jar.emplacement[y][x]
                 ebauche = [] 
                 for jour in range(365):
-                    allele = self.ADN[(x * y) * 365 + jour :
-                                  (x * y) * 365 + jour + N_bit_espece]
+                    allele = self.ADN[(x + (y * self.len_x)) * 365 + jour :
+                                 (x + (y * self.len_x)) * 365 + jour + N_bit_espece]
                     ebauche += [Gene.decodeur_espece[allele]]
                 idx_exploration = 0
                 while idx_exploration < 365:
@@ -204,9 +225,8 @@ class Gene():
                         try:
                             plante.planter(emplacement, idx_depart, idx_fin)
                         except ValueError:
-                            print("Erreur de plantation")
-                 
-        return jar, ebauche
+                            pass
+        return jar
             
 #%% Herbier
 # herbier = {}
