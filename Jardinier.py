@@ -16,11 +16,25 @@ class Jardin():
     def __repr__(self):
         return "Jardin({},{})".format(len(self.emplacement[0]), len(self.emplacement))
 
-    def rendement(self):
+    def rendement(self, biais=False) -> float:
+        """
+        Renvoie le rendement du jardin, permet l'evaluation de la qualité de l'arangement
+
+        Parameters
+        ----------
+        biais : bool, optional
+            Mettre True pour prendre en compte la biomasse. The default is False.
+
+        Returns
+        -------
+        float
+            Masse produite par le jardin. La biomasse permet de prendre en compte les plantes qui ne sont pas arrivé a maturité
+
+        """
         masse = 0
         for ligne in self.emplacement:
             for case in ligne:
-                masse += case.rendement()
+                masse += case.rendement(biais)
         return masse
 
 class Emplacement():
@@ -30,23 +44,53 @@ class Emplacement():
 
     def __repr__(self):
         return "Emplacement: " + "\n ".join([str(i) + ": " + elem.__repr__()
-                                            for i, elem in
-                                            enumerate(self.calendrier)]) + ";"
+                                             for i, elem in
+                                             enumerate(self.calendrier)]) + ";"
 
     def libre(self, debut, fin) -> bool:
+        """
+        Es ce que On peut placer une plante sur cette plague de temps
+
+        Parameters
+        ----------
+        debut : int
+            Jour de la plantation.
+        fin : int
+            Jour de la récolte.
+
+        Returns
+        -------
+        bool
+            Ce lapse de temps est il libre.
+
+        """
         libre = True
         for elem in self.calendrier[debut:fin]:
             libre &= isinstance(elem, Jachere)
         return libre
-    
-    def rendement(self):
+
+    def rendement(self, biais=False) -> float:
+        """
+        Renvoie la masse produite par cette emplacement
+
+        Parameters
+        ----------
+        biais : bool, optional
+            Mettre True pour prendre en compte la biomasse. The default is False.
+
+        Returns
+        -------
+        float
+            Masse produite, la biomasse permet de prendre en compte les plantes qui ne sont pas arrivées à maturation.
+
+        """
         plantes = set()
         for jour in self.calendrier:
             if isinstance(jour, Plante):
                 plantes.add(jour)
         masse = 0
         for elem in plantes:
-            masse += elem.recolte_masse(elem.jour_recolte)
+            masse += elem.recolte_masse(elem.jour_recolte, biais)
         return masse
 
 class Occupant():
@@ -86,8 +130,22 @@ class Plante(Occupant):
             return self.plantage[jour]
         except IndexError:
             return False
+        """
+        Peut on planter la plante pendant le jour cible
+        Parameters
+        ----------
+        jour : int
+            jour cible
+        Returns
+        -------
+        bool
+        """
+        try:
+            return self.plantage[jour]
+        except IndexError:
+            return False
 
-    def recolte_masse(self, jour) -> float:
+    def recolte_masse(self, jour, biais=False) -> float:
         """
         Quel quantité va ont recolter ce jour.
 
@@ -103,11 +161,11 @@ class Plante(Occupant):
             Masse de produit
 
         """
-        if (jour - self.jour_semis >= self.time_chunk) and (self.deja_recolte == False ):
+        if (jour - self.jour_semis >= self.time_chunk) and (self.deja_recolte == False):
             self.deja_recolte = True
             return self.masse_produite
-        
-        return 0
+
+        return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
 
     def planter(self, emplacement, debut, fin):
         """
@@ -182,19 +240,19 @@ class Gene():
         if ADN:
             self.ADN = ADN
         else:
-            self.ADN = "".join([str(rd.randint(0,1)) for i in
+            self.ADN = "".join([str(rd.randint(0, 1)) for i in
                                 range(len_x * len_y * 365 * N_bit_espece)])
-    
+
     def __str__(self):
         return self.ADN
-    
+
     def __repr__(self):
         n = int(self.ADN, 2)
-        return "gene : {}".format(n)
-    
+        return "gene : {}".format(hex(n))
+
     def jardin(self) -> Jardin:
         """
-        Créer le jardin corespondant a ce géne
+        Créer le jardin corespondant à ce géne
 
         Returns
         -------
@@ -206,16 +264,17 @@ class Gene():
         for x in range(self.len_x):
             for y in range(self.len_y):
                 emplacement = jar.emplacement[y][x]
-                ebauche = [] 
+                ebauche = []
                 for jour in range(365):
                     allele = self.ADN[(x + (y * self.len_x)) * 365 + jour :
-                                 (x + (y * self.len_x)) * 365 + jour + N_bit_espece]
+                                      (x + (y * self.len_x)) * 365 + jour
+                                      + N_bit_espece]
                     ebauche += [Gene.decodeur_espece[allele]]
                 idx_exploration = 0
                 while idx_exploration < 365:
                     type_actuel = ebauche[idx_exploration]
                     if type_actuel == Jachere:
-                        idx_exploration +=1
+                        idx_exploration += 1
                     else:
                         idx_depart = idx_exploration
                         while (idx_exploration < 365) and ebauche[idx_exploration] == type_actuel:
@@ -227,7 +286,7 @@ class Gene():
                         except ValueError:
                             pass
         return jar
-            
+
 #%% Herbier
 # herbier = {}
 # def ajout_espece(nom, plantage, time_chunk, masse_produite):
@@ -240,4 +299,3 @@ class Gene():
 #     New_espece.__name__ = nom
 #     herbier[nom] = New_espece
 #     return 0
-
