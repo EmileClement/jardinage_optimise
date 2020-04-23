@@ -66,7 +66,10 @@ class Plante(Occupant):
         -------
         bool
         """
-        return self.plantage[jour]
+        try:
+            return self.plantage[jour]
+        except IndexError:
+            return False
 
     def recolte_masse(self, jour) -> float:
         """
@@ -141,7 +144,7 @@ class Tomate(Plante):
 
 class Poireau(Plante):
     def __init__(self):
-        self.plantage = [True] * 90 + [False] * 153 + [False] * (122)
+        self.plantage = [True] * 360 #[True] * 90 + [False] * 153 + [False] * (122)
         self.time_chunk = 30
         self.masse_produite = 0.150
         self.jour_semis = None
@@ -154,7 +157,7 @@ class Gene():
         "00" : Jachere,
         "01" : Patate,
         "11" : Tomate,
-        "10" : Poireaux
+        "10" : Poireau
         }
     def __init__(self, len_x, len_y, ADN=""):
         self.len_x = len_x
@@ -187,7 +190,6 @@ class Gene():
                     allele = self.ADN[(x * y) * 365 + jour :
                                   (x * y) * 365 + jour + N_bit_espece]
                     ebauche += [Gene.decodeur_espece[allele]]
-                plantes_a_planter = []
                 idx_exploration = 0
                 while idx_exploration < 365:
                     type_actuel = ebauche[idx_exploration]
