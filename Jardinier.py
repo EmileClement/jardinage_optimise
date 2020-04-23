@@ -23,11 +23,11 @@ class Emplacement():
         self.calendrier = [Jachere() for i in range(365)]
 
     def __repr__(self):
-        return "Emplacement: " + ", ".join([str(i) + ":" + elem.__repr__()
+        return "Emplacement: " + "\n ".join([str(i) + ": " + elem.__repr__()
                                             for i, elem in
                                             enumerate(self.calendrier)]) + ";"
 
-    def libre(self, debut, fin):
+    def libre(self, debut, fin) -> bool:
         libre = True
         for elem in self.calendrier[debut:fin]:
             libre &= isinstance(elem, Jachere)
@@ -53,7 +53,7 @@ class Plante(Occupant):
         self.jour_semis = None
         self.deja_recolte = False
 
-    def plantable(self, jour):
+    def plantable(self, jour) -> bool:
         """
         Peut on planter la plante pendant le jour cible
 
@@ -68,7 +68,7 @@ class Plante(Occupant):
         """
         return self.plantage[jour]
 
-    def recolte_masse(self, jour):
+    def recolte_masse(self, jour) -> float:
         """
         Quel quantité va ont recolter ce jour.
 
@@ -116,8 +116,8 @@ class Plante(Occupant):
 
         """
         if self.plantable(debut) and emplacement.libre(debut, fin):
-            for jour in emplacement.calendrier[debut:fin]:
-                jour = self
+            for i in range(debut, fin):
+                emplacement.calendrier[i] = self
             self.jour_semis = debut
             return 0
         raise ValueError
@@ -141,7 +141,7 @@ class Tomate(Plante):
 
 class Poireaux(Plante):
     def __init__(self):
-        self.plantage = [False] * 100 + [True] * 100 + [False] * (165)
+        self.plantage = [True] * 365
         self.time_chunk = 30
         self.masse_produite = 5
         self.jour_semis = None
@@ -168,15 +168,43 @@ class Gene():
     def __str__(self):
         return self.ADN
     
-    def jardin(self):
+    def jardin(self) -> Jardin:
+        """
+        Créer le jardin corespondant a ce géne
+
+        Returns
+        -------
+        Jardin
+            Jardin correspondant.
+
+        """
         jar = Jardin(self.len_x, self.len_y)
         for x in range(self.len_x):
             for y in range(self.len_y):
+                emplacement = jar.emplacement[y][x]
+                ebauche = [] 
                 for jour in range(365):
-                    allele = self.ADN[(x+y)*365 + jour : 
-                                      (x+y)*365 + jour + N_bit_espece]
-                    jar.emplacement[y][x].calendrier[jour] = Gene.decodeur_espece[allele]()
-        return jar
+                    allele = self.ADN[(x * y) * 365 + jour :
+                                  (x * y) * 365 + jour + N_bit_espece]
+                    ebauche += [Gene.decodeur_espece[allele]]
+                plantes_a_planter = []
+                idx_exploration = 0
+                while idx_exploration < 365:
+                    type_actuel = ebauche[idx_exploration]
+                    if type_actuel == Jachere:
+                        idx_exploration +=1
+                    else:
+                        idx_depart = idx_exploration
+                        while (idx_exploration < 365) and ebauche[idx_exploration] == type_actuel:
+                            idx_exploration += 1
+                        idx_fin = idx_exploration
+                        plante = type_actuel()
+                        try:
+                            plante.planter(emplacement, idx_depart, idx_fin)
+                        except ValueError:
+                            print("Erreur de plantation")
+                 
+        return jar, ebauche
             
 #%% Herbier
 # herbier = {}
