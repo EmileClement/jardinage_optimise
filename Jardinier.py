@@ -18,7 +18,7 @@ class Jardin():
 
     def rendement(self, biais=False) -> float:
         """
-        Renvoie le rendement du jardin, permet l'evaluation de la qualité de l'arangement
+        Renvoie le rendement du jardin, permet l'évaluation de la qualité de l'arrangement
 
         Parameters
         ----------
@@ -28,7 +28,7 @@ class Jardin():
         Returns
         -------
         float
-            Masse produite par le jardin. La biomasse permet de prendre en compte les plantes qui ne sont pas arrivé a maturité
+            Masse produite par le jardin. La biomasse permet de prendre en compte les plantes qui ne sont pas arrivées a maturité
 
         """
         masse = 0
@@ -49,7 +49,7 @@ class Emplacement():
 
     def libre(self, debut, fin) -> bool:
         """
-        Es ce que On peut placer une plante sur cette plague de temps
+        Peut-on placer une plante sur cette plage de temps
 
         Parameters
         ----------
@@ -61,7 +61,7 @@ class Emplacement():
         Returns
         -------
         bool
-            Ce lapse de temps est il libre.
+            Ce laps de temps est il-libre.
 
         """
         libre = True
@@ -71,7 +71,7 @@ class Emplacement():
 
     def rendement(self, biais=False) -> float:
         """
-        Renvoie la masse produite par cette emplacement
+        Renvoie la masse produite par cet emplacement
 
         Parameters
         ----------
@@ -81,7 +81,7 @@ class Emplacement():
         Returns
         -------
         float
-            Masse produite, la biomasse permet de prendre en compte les plantes qui ne sont pas arrivées à maturation.
+            Masse produite, la biomasse permet de prendre en compte les plantes qui ne sont pas arrivées à maturité.
 
         """
         plantes = set()
@@ -189,7 +189,7 @@ class Plante(Occupant):
         Returns
         -------
         int
-            0 si tentative de planter echou.
+            0 si la tentative de planter echoue.
 
         """
         if self.plantable(debut) and emplacement.libre(debut, fin):
