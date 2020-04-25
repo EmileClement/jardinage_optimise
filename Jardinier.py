@@ -99,7 +99,7 @@ class Occupant():
 
 class Jachere(Occupant):
     def __init__(self):
-        pass
+        self.time_chunk = 0
 
     def __repr__(self):
         return "Jachère"
@@ -245,6 +245,7 @@ class Gene():
                 for y in range(len_y):
                     self.ADN = self.ADN + generateur_aleatoire_mais_pas_trop()
                     print(self.ADN)
+
                     
 
     def __str__(self):
@@ -303,20 +304,24 @@ def generateur_aleatoire_mais_pas_trop():
     while iterateur <365:
         identificateur = str(rd.randint(0,1)) + str(rd.randint(0,1))
         plante_aléatoire = decodeur_espece[str(rd.randint(0,1)) + str(rd.randint(0,1))]
-        time_chunk = plante_aléatoire().time_chunk
+
         
-        
-        if iterateur + time_chunk < 363:
-            calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
-            ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
-            calendrier[iterateur + time_chunk] = Jachere()
-            ADN[iterateur + time_chunk] = "00"
-            iterateur += time_chunk + 1
-            
+        if identificateur == "00":
+            ADN[iterateur] = "00"
+            iterateur += 1
         else:
-            calendrier[iterateur:365] = [plante_aléatoire()]*(364-iterateur +1)
-            ADN[iterateur:365] = [identificateur]*(364-iterateur +1)
-            iterateur = 365
+            time_chunk = plante_aléatoire().time_chunk
+            if iterateur + time_chunk < 363:
+                calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
+                ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
+                calendrier[iterateur + time_chunk] = Jachere()
+                ADN[iterateur + time_chunk] = "00"
+                iterateur += time_chunk + 1
+                
+            else:
+                calendrier[iterateur:365] = [plante_aléatoire()]*(364-iterateur +1)
+                ADN[iterateur:365] = [identificateur]*(364-iterateur +1)
+                iterateur = 365
     
     return "".join(ADN)
 
