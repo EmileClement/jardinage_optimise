@@ -240,8 +240,12 @@ class Gene():
         if ADN:
             self.ADN = ADN
         else:
-            self.ADN = "".join([str(rd.randint(0, 1)) for i in
-                                range(len_x * len_y * 365 * N_bit_espece)])
+            self.ADN = ""
+            for x in range(len_x):
+                for y in range(len_y):
+                    self.ADN = self.ADN + generateur_aleatoire_mais_pas_trop()
+                    print(self.ADN)
+                    
 
     def __str__(self):
         return self.ADN
@@ -253,12 +257,10 @@ class Gene():
     def jardin(self) -> Jardin:
         """
         Créer le jardin corespondant à ce géne
-
         Returns
         -------
         Jardin
             Jardin correspondant.
-
         """
         jar = Jardin(self.len_x, self.len_y)
         for x in range(self.len_x):
@@ -286,6 +288,39 @@ class Gene():
                         except ValueError:
                             pass
         return jar
+    
+def generateur_aleatoire_mais_pas_trop():
+    decodeur_espece = {
+    "00" : Jachere,
+    "01" : Patate,
+    "11" : Tomate,
+    "10" : Poireau
+    }
+    calendrier = [0]*365
+    ADN = [0]*365
+    iterateur = 0
+    
+    while iterateur <365:
+        identificateur = str(rd.randint(0,1)) + str(rd.randint(0,1))
+        plante_aléatoire = decodeur_espece[str(rd.randint(0,1)) + str(rd.randint(0,1))]
+        time_chunk = plante_aléatoire().time_chunk
+        
+        
+        if iterateur + time_chunk < 363:
+            calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
+            ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
+            calendrier[iterateur + time_chunk] = Jachere()
+            ADN[iterateur + time_chunk] = "00"
+            iterateur += time_chunk + 1
+            
+        else:
+            calendrier[iterateur:365] = [plante_aléatoire()]*(364-iterateur +1)
+            ADN[iterateur:365] = [identificateur]*(364-iterateur +1)
+            iterateur = 365
+    
+    return "".join(ADN)
+
+
 
 #%% Herbier
 # herbier = {}
