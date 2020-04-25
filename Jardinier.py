@@ -130,20 +130,6 @@ class Plante(Occupant):
             return self.plantage[jour]
         except IndexError:
             return False
-        """
-        Peut on planter la plante pendant le jour cible
-        Parameters
-        ----------
-        jour : int
-            jour cible
-        Returns
-        -------
-        bool
-        """
-        try:
-            return self.plantage[jour]
-        except IndexError:
-            return False
 
     def recolte_masse(self, jour, biais=False) -> float:
         """
@@ -164,7 +150,6 @@ class Plante(Occupant):
         if (jour - self.jour_semis >= self.time_chunk) and (self.deja_recolte == False):
             self.deja_recolte = True
             return self.masse_produite
-
         return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
 
     def planter(self, emplacement, debut, fin):
@@ -243,10 +228,10 @@ class Gene():
             self.ADN = ""
             for x in range(len_x):
                 for y in range(len_y):
-                    self.ADN = self.ADN + generateur_aleatoire_mais_pas_trop()
+                    self.ADN += generateur_aleatoire_mais_pas_trop()
                     print(self.ADN)
 
-                    
+
 
     def __str__(self):
         return self.ADN
@@ -289,23 +274,27 @@ class Gene():
                         except ValueError:
                             pass
         return jar
-    
+
 def generateur_aleatoire_mais_pas_trop():
-    decodeur_espece = {
-    "00" : Jachere,
-    "01" : Patate,
-    "11" : Tomate,
-    "10" : Poireau
-    }
+    """
+
+
+    Returns
+    -------
+    TYPE
+        DESCRIPTION.
+
+    """
+    decodeur_espece = Gene.decodeur_espece
     calendrier = [0]*365
     ADN = [0]*365
     iterateur = 0
-    
-    while iterateur <365:
-        identificateur = str(rd.randint(0,1)) + str(rd.randint(0,1))
-        plante_aléatoire = decodeur_espece[str(rd.randint(0,1)) + str(rd.randint(0,1))]
 
-        
+    while iterateur < 365:
+        identificateur = str(rd.randint(0, 1)) + str(rd.randint(0, 1))
+        plante_aléatoire = decodeur_espece[str(rd.randint(0, 1)) + str(rd.randint(0, 1))]
+
+
         if identificateur == "00":
             ADN[iterateur] = "00"
             iterateur += 1
@@ -317,12 +306,12 @@ def generateur_aleatoire_mais_pas_trop():
                 calendrier[iterateur + time_chunk] = Jachere()
                 ADN[iterateur + time_chunk] = "00"
                 iterateur += time_chunk + 1
-                
+
             else:
                 calendrier[iterateur:365] = [plante_aléatoire()]*(364-iterateur +1)
                 ADN[iterateur:365] = [identificateur]*(364-iterateur +1)
                 iterateur = 365
-    
+
     return "".join(ADN)
 
 
