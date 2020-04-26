@@ -193,6 +193,9 @@ class Patate(Plante):
         self.masse_produite = 1.
         self.jour_semis = None
         self.deja_recolte = False
+    
+    def __repr__(self):
+        return "Patate"
 
 class Tomate(Plante):
     def __init__(self):
@@ -201,6 +204,9 @@ class Tomate(Plante):
         self.masse_produite = 2.5
         self.jour_semis = None
         self.deja_recolte = False
+    
+    def __repr__(self):
+        return "Tomate"
 
 class Poireau(Plante):
     def __init__(self):
@@ -209,6 +215,8 @@ class Poireau(Plante):
         self.masse_produite = 0.150
         self.jour_semis = None
         self.deja_recolte = False
+    def __repr__(self):
+        return "Poireau"
 
 #%% Gene:
 
@@ -254,8 +262,8 @@ class Gene():
                 emplacement = jar.emplacement[y][x]
                 ebauche = []
                 for jour in range(365):
-                    allele = self.ADN[(x + (y * self.len_x)) * 365 + jour :
-                                      (x + (y * self.len_x)) * 365 + jour
+                    allele = self.ADN[(x + (y * self.len_x)) * 365 + 2*jour :
+                                      (x + (y * self.len_x)) * 365 + 2*jour
                                       + N_bit_espece]
                     ebauche += [Gene.decodeur_espece[allele]]
                 idx_exploration = 0
