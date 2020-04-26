@@ -24,7 +24,7 @@ class Jardin():
         ----------
         biais : bool, optional
             Mettre True pour prendre en compte la biomasse. The default is False.
-
+ 
         Returns
         -------
         float
