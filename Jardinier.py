@@ -238,9 +238,10 @@ class Gene():
                 for y in range(len_y):
                     self.ADN += generateur_aleatoire_mais_pas_trop()
                     print(self.ADN)
+        self.fit = None
 
     def __str__(self):
-        return self.ADN
+        return "{};{}".format(self.fit, hex(int(self.ADN, 2)))
 
     def __repr__(self):
         n = int(self.ADN, 2)
@@ -280,31 +281,100 @@ class Gene():
                         except ValueError:
                             pass
         return jar
-    
+
     def fitness(self):
-        return self.jardin().rendement(True)
+        fit = self.jardin().rendement(True)
+        self.fit = fit
+        return fit
 
 class Generation():
+    
+    @classmethod
+    def from_file(cls, path):
+        file = open(path+".txt", "r")
+        data = file.read()
+        file.close()
+        # import sp
+        # def parser():
+        #     """Renvoie le Parser complilé"""
+        #     nom_sommet = sp.R(r'[a-zA-Z]+')
+        #     nom_graph = sp.R(r'[a-zA-Z]\w*')
+        #     longueur = sp.R(r'[0-9]+') / int
+        #     blancs = sp.R(r'\s+')
+        #     commentaire = sp.R(r'#.*')
+    
+        #     with sp.Separator(blancs | commentaire):
+        #         declaration_de_graph = sp.Rule()
+        #         declaration_des_sommets = sp.Rule()
+        #         declaration_des_fleches = sp.Rule()
+        #         declaration_de_sommet = sp.Rule()
+        #         declaration_de_fleche = sp.Rule()
+    
+        #         declaration_de_graph |= '<GRAPHE Name="' & nom_graph & '" >' & declaration_des_sommets & declaration_des_fleches & "</GRAPHE>"
+        #         declaration_des_sommets |= "<SOMMETS>" & declaration_de_sommet[1:] & "</SOMMETS>"
+        #         declaration_des_fleches |= "<ARCS>" & declaration_de_fleche[:] & "</ARCS>"
+        #         declaration_de_sommet |= nom_sommet & ";"
+        #         declaration_de_fleche |= nom_sommet & ":" & nom_sommet & ":" & longueur & ";"
+    
+        #     return declaration_de_graph
+        # try:
+        #     decodeur = parser()
+        # except SyntaxError as erreur:
+        #     print(erreur)
+        # return decodeur(chaine)
+        return data
+        
     def __init__(self, genes):
         self.genes = []
         for elem in genes:
+            if not isinstance(elem, Gene):
+                raise TypeError("Ce n'est pas un gene")
             self.genes.append(elem)
         self.evaluee = False
-    
+
     def generation_suivante(self):
-        return Generation(self.croisement())
+        """
+        calcule la génération suivante
+
+        Returns
+        -------
+        Generation
+            La generation suivante
+
+        """
+        return Generation(self._croisement())
 
     def evaluation(self):
-        self.genes.sort(key = Gene.fitness)
+        """
+        Permet de trier la list des genes dans l'odre décroisant de qualite
+
+        Returns
+        -------
+        None.
+
+        """
+        self.genes.sort(key=Gene.fitness, reverse= True)
         self.evaluee = True
-        
-    def selection(self) -> list:
+
+    def _selection(self) -> list:
         if self.evaluee == False:
             self.evaluation()
         return self.genes[9*len(self.genes)//10:]
+    
+    def __str__(self):
+        chaine = "{}:\n".format(self.evaluee)
+        for gene in self.genes:
+            chaine += str(gene)+"\n"
+        return chaine
+    
+    def save(self, emplacement, nom):
+        file = open(emplacement + "/" + nom + '.txt', 'w')
+        file.write(str(self))
+        file.close()
+        
 
-    def croisement(self) -> list:
-        population_depart = self.selection()
+    def _croisement(self) -> list:
+        population_depart = self._selection()
         len_x, len_y = population_depart[0].len_x, population_depart[0].len_y
         liste_gene = []
         for pop_index in range(5):
@@ -316,28 +386,21 @@ class Generation():
                         ADN += population[rd.randint(0, len(population)-1)].ADN[int(len(population[0].ADN)/5)*i:(i+1)*int(len(population[0].ADN)/5)]
                     liste_gene.append(Gene(len_x, len_y, ADN))
         return liste_gene
-            
+
 class Essai():
     def __init__(self, len_x, len_y, taille_pop):
         liste_gene = [Gene(len_x, len_y,
-                               "".join([generateur_aleatoire_mais_pas_trop()
+                           "".join([generateur_aleatoire_mais_pas_trop()
                                         for j in range(len_x * len_y)]))
                       for i in range(taille_pop)]
         self.generations = [Generation(liste_gene)]
-    
+
     def generation_suivante(self):
         self.generations.append(self.generations[-1].generation_suivante())
     
+    
+
 def generateur_aleatoire_mais_pas_trop():
-    """
-
-
-    Returns
-    -------
-    TYPE
-        DESCRIPTION.
-
-    """
     decodeur_espece = Gene.decodeur_espece
     calendrier = [0]*365
     ADN = [0]*365
@@ -362,11 +425,11 @@ def generateur_aleatoire_mais_pas_trop():
                 iterateur = 365
     return "".join(ADN)
 
-def mutation(population:list) -> list:
+def mutation(population: list) -> list:
     len_x, len_y = population[0].len_x, population[0].len_y
     rendu = []
     for gene in population:
-        aleatoire1 = rd.randint(1,50)
+        aleatoire1 = rd.randint(1, 50)
         if aleatoire1 > 30:
             aleatoire2 = rd.randint(1, int(0.3*len(gene.ADN)))
             aleatoire3 = rd.randint(0, int(len(gene.ADN)-aleatoire2)-1)
