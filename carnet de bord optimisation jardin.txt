@@ -7,12 +7,20 @@ premiere implémentation:
 				production par chunk de temps fixée
 				saisonalité
 			nombre de plantes:
-				2: patate; tomates; jachère; poireaux;
+				2: patate; tomates; fraise; poireaux;
 	fonction cout:
 		masse produite
 
-	to do list:
-		coder objet jardin
-		 
 
-	
+essais implementation gene réel:
+	caractéristiques:
+		case:
+		plantes:
+			aspect spatial:
+			aspect temporel:
+				production par chunk de temps fixée
+				saisonalité
+			nombre de plantes:
+				2: patate; tomates; fraise; poireaux;
+	fonction cout:
+		masse produite
