@@ -227,6 +227,7 @@ class Gene():
         "11" : Tomate,
         "10" : Poireau
         }
+    
     def __init__(self, len_x, len_y, ADN=""):
         self.len_x = len_x
         self.len_y = len_y
@@ -237,9 +238,15 @@ class Gene():
             for x in range(len_x):
                 for y in range(len_y):
                     self.ADN += generateur_aleatoire_mais_pas_trop()
-                    print(self.ADN)
+                    #print(self.ADN)
         self.fit = None
-
+    
+    @classmethod
+    def from_file(cls, adn, fit, len_x, len_y):
+        gene = cls(len_x, len_y, adn)
+        gene.fit = fit
+        return gene
+        
     def __str__(self):
         return "{};{}".format(self.fit, hex(int(self.ADN, 2)))
 
@@ -288,42 +295,73 @@ class Gene():
         return fit
 
 class Generation():
-    
+
     @classmethod
     def from_file(cls, path):
-        file = open(path+".txt", "r")
-        data = file.read()
-        file.close()
+        try:
+            file = open(path+".txt", "r")
+            lines = file.readlines()
+            file.close()
+        except Exception:
+            raise IOError("""le fichier ne s'ouvre pas""")
+        try:
+            en_tete = lines.pop(0)
+            en_tete = en_tete.split(";")
+            len_x = int(en_tete[0])
+            len_y = int(en_tete[1])
+            evaluee = bool(int(en_tete[2]))
+        except Exception:
+            raise Exception("""Entete invalide""")
+        try:
+            genes = []
+            for n, ligne in enumerate(lines):
+                ligne = ligne.split(';')
+                fit = ligne[0]
+                adn = ligne[1][:-1]
+                adn = bin(int(adn, 16))[2:]
+                if evaluee:
+                    fit = float(fit)
+                else:
+                    fit = None
+                genes.append(Gene.from_file(adn, fit, len_x, len_y))
+        except Exception:
+            Exception("""Contenu invalide ligne {}""".format(n))
+        
+        generation = cls(genes)
+        generation.evaluee = evaluee
+        return generation
         # import sp
         # def parser():
         #     """Renvoie le Parser complilé"""
-        #     nom_sommet = sp.R(r'[a-zA-Z]+')
-        #     nom_graph = sp.R(r'[a-zA-Z]\w*')
-        #     longueur = sp.R(r'[0-9]+') / int
         #     blancs = sp.R(r'\s+')
-        #     commentaire = sp.R(r'#.*')
-    
-        #     with sp.Separator(blancs | commentaire):
-        #         declaration_de_graph = sp.Rule()
-        #         declaration_des_sommets = sp.Rule()
-        #         declaration_des_fleches = sp.Rule()
-        #         declaration_de_sommet = sp.Rule()
-        #         declaration_de_fleche = sp.Rule()
-    
-        #         declaration_de_graph |= '<GRAPHE Name="' & nom_graph & '" >' & declaration_des_sommets & declaration_des_fleches & "</GRAPHE>"
-        #         declaration_des_sommets |= "<SOMMETS>" & declaration_de_sommet[1:] & "</SOMMETS>"
-        #         declaration_des_fleches |= "<ARCS>" & declaration_de_fleche[:] & "</ARCS>"
-        #         declaration_de_sommet |= nom_sommet & ";"
-        #         declaration_de_fleche |= nom_sommet & ":" & nom_sommet & ":" & longueur & ";"
-    
-        #     return declaration_de_graph
+
+        #     adn = sp.R(r'[0-9a-fx]+') / (lambda x: int(x, 16))
+        #     vide = sp.R('None') / (lambda x: None)
+        #     nombre = sp.R(r'[0-9]+ . [0-9]+') / (lambda x: int(x))
+        #     vrai = sp.R('True') / (lambda x: True)
+        #     faux = sp.R('False') / (lambda x: False)
+            
+        #     with sp.Separator(blancs):
+        #         valeur = sp.Rule()
+        #         gene = sp.Rule()
+        #         entete = sp.Rule()
+        #         generation = sp.Rule()
+        #         boolean = sp.Rule()
+
+        #         boolean |= vrai | faux
+        #         entete |= boolean & ":\n"
+        #         valeur |= vide | nombre
+        #         gene |= valeur & ";" & adn 
+        #         generation |= entete[1:1] & gene[1::"\n"] & "\n"
+                
+        #     return generation
         # try:
         #     decodeur = parser()
         # except SyntaxError as erreur:
         #     print(erreur)
-        # return decodeur(chaine)
-        return data
+        # return decodeur(data)
         
+
     def __init__(self, genes):
         self.genes = []
         for elem in genes:
@@ -353,25 +391,24 @@ class Generation():
         None.
 
         """
-        self.genes.sort(key=Gene.fitness, reverse= True)
+        self.genes.sort(key=Gene.fitness, reverse=True)
         self.evaluee = True
 
     def _selection(self) -> list:
         if self.evaluee == False:
             self.evaluation()
         return self.genes[9*len(self.genes)//10:]
-    
+
     def __str__(self):
-        chaine = "{}:\n".format(self.evaluee)
+        chaine = "{1};{2};{0}\n".format(int(self.evaluee), self.genes[0].len_x,  self.genes[0].len_y)
         for gene in self.genes:
             chaine += str(gene)+"\n"
         return chaine
-    
+
     def save(self, emplacement, nom):
         file = open(emplacement + "/" + nom + '.txt', 'w')
         file.write(str(self))
         file.close()
-        
 
     def _croisement(self) -> list:
         population_depart = self._selection()
@@ -391,14 +428,14 @@ class Essai():
     def __init__(self, len_x, len_y, taille_pop):
         liste_gene = [Gene(len_x, len_y,
                            "".join([generateur_aleatoire_mais_pas_trop()
-                                        for j in range(len_x * len_y)]))
+                                    for j in range(len_x * len_y)]))
                       for i in range(taille_pop)]
         self.generations = [Generation(liste_gene)]
 
     def generation_suivante(self):
         self.generations.append(self.generations[-1].generation_suivante())
-    
-    
+
+
 
 def generateur_aleatoire_mais_pas_trop():
     decodeur_espece = Gene.decodeur_espece
