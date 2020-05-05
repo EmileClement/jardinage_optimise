@@ -243,6 +243,28 @@ class Gene():
     
     @classmethod
     def from_file(cls, adn, fit, len_x, len_y):
+        """
+        reconstruit le gene a partir des informations contenut dans le fichier de sauvgarde
+
+        Parameters
+        ----------
+        cls : type
+            DESCRIPTION.
+        adn : str
+            chaine binaire du gene
+        fit : float or None
+            fitness du gene
+        len_x : int
+            DESCRIPTION.
+        len_y : int
+            DESCRIPTION.
+
+        Returns
+        -------
+        gene : Gene
+            gene reconstruit
+
+        """
         gene = cls(len_x, len_y, adn)
         gene.fit = fit
         return gene
@@ -290,6 +312,15 @@ class Gene():
         return jar
 
     def fitness(self):
+        """
+        met a jour la caractéristique fit du gene
+
+        Returns
+        -------
+        fit : float
+            le rendement du gene.
+
+        """
         fit = self.jardin().rendement(True)
         self.fit = fit
         return fit
@@ -298,6 +329,29 @@ class Generation():
 
     @classmethod
     def from_file(cls, path):
+        """
+        reconstruit la generation a partir d'un fichier
+
+        Parameters
+        ----------
+        cls : type
+            DESCRIPTION.
+        path : str
+            chemin du fichier contenant la sauvegarde
+
+        Raises
+        ------
+        IOError
+            DESCRIPTION.
+        Exception
+            DESCRIPTION.
+
+        Returns
+        -------
+        generation : Generation
+            generation corespondant au fichier
+
+        """
         try:
             file = open(path+".txt", "r")
             lines = file.readlines()
@@ -405,12 +459,36 @@ class Generation():
             chaine += str(gene)+"\n"
         return chaine
 
-    def save(self, emplacement, nom):
+    def save(self, nom, emplacement = "save"):
+        """
+        enregistre la generation dans un fichier
+
+        Parameters
+        ----------
+        nom : str
+            nom de la sauvegarde
+        emplacement : str, optional
+            emplacement de la sauvegarde. The default is "save".
+
+        Returns
+        -------
+        None.
+
+        """
         file = open(emplacement + "/" + nom + '.txt', 'w')
         file.write(str(self))
         file.close()
     
     def get_fitness(self):
+        """
+        renvoit la liste des fitness de la generation
+
+        Returns
+        -------
+        fitness : list[int]
+            liste des fitness de la generation
+
+        """
         if not self.evaluee:
             self.evaluation()
         fitness = []
@@ -434,6 +512,25 @@ class Generation():
 
 class Essai():
     def __init__(self, len_x, len_y, taille_pop, overright = False):
+        """
+        crée un nouvel essai.
+
+        Parameters
+        ----------
+        len_x : int
+            longueure du jadrin celon X.
+        len_y : int
+            longueure du jadrin celon Y.
+        taille_pop : int
+            nombre de membre de la pop, mettre au moins 100
+        overright : bool, optional
+            mettre a True pour controlé la pop de départ. The default is False.
+
+        Returns
+        -------
+        None.
+
+        """
         self.generations = []
         if not overright:
             liste_gene = [Gene(len_x, len_y,
@@ -443,23 +540,46 @@ class Essai():
             self.generations.append(Generation(liste_gene))
 
     def generation_suivante(self):
+        """
+        Rajoute la generation suivante dans la liste des generations
+
+        Returns
+        -------
+        None.
+
+        """
         self.generations.append(self.generations[-1].generation_suivante())
     
-    def save(self, emplacement, nom):
+    def save(self, nom, emplacement = "save"):
+        """
+        sauvegarde l'essai dans le emplacement voulu, avec le nom voulu.
+
+        Parameters
+        ----------
+        nom : str
+            nom de la save, "foo" pour obtenir "foo_0.txt"..."foo_n.txt"
+        emplacement : str, optional
+            emplecement des sauvegardes. The default is "save".
+
+        Returns
+        -------
+        None.
+
+        """
         for n, generation in enumerate(self.generations):
-            generation.save(emplacement, "{0}_{1}".format(nom, n))
+            generation.save("{0}_{1}".format(nom, n), emplacement)
     
     @classmethod
-    def load_save(cls, chemin, nom):
+    def load_save(cls, nom, emplacement = "save"):
         essai = cls(0, 0, 0, True)
         idx = 0
         essai.generations.append(Generation.from_file(
-            "{}/{}_0".format(chemin, nom)))
+            "{}/{}_0".format(emplacement, nom)))
         while True:
             idx +=1
             try:
                 essai.generations.append(Generation.from_file(
-                    "{}/{}_{}".format(chemin, nom, idx)))
+                    "{}/{}_{}".format(emplacement, nom, idx)))
             except Exception:
                 break
         return essai
