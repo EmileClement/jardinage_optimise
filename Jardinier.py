@@ -303,7 +303,7 @@ class Generation():
             lines = file.readlines()
             file.close()
         except Exception:
-            raise IOError("""le fichier ne s'ouvre pas""")
+            raise IOError("""le fichier "{}" ne s'ouvre pas""".format(path+".txt"))
         try:
             en_tete = lines.pop(0)
             en_tete = en_tete.split(";")
@@ -409,6 +409,14 @@ class Generation():
         file = open(emplacement + "/" + nom + '.txt', 'w')
         file.write(str(self))
         file.close()
+    
+    def get_fitness(self):
+        if not self.evaluee:
+            self.evaluation()
+        fitness = []
+        for gene in self.genes:
+            fitness.append(gene.fit)
+        return fitness
 
     def _croisement(self) -> list:
         population_depart = self._selection()
@@ -425,16 +433,49 @@ class Generation():
         return liste_gene
 
 class Essai():
-    def __init__(self, len_x, len_y, taille_pop):
-        liste_gene = [Gene(len_x, len_y,
-                           "".join([generateur_aleatoire_mais_pas_trop()
-                                    for j in range(len_x * len_y)]))
-                      for i in range(taille_pop)]
-        self.generations = [Generation(liste_gene)]
+    def __init__(self, len_x, len_y, taille_pop, overright = False):
+        self.generations = []
+        if not overright:
+            liste_gene = [Gene(len_x, len_y,
+                               "".join([generateur_aleatoire_mais_pas_trop()
+                                        for j in range(len_x * len_y)]))
+                          for i in range(taille_pop)]
+            self.generations.append(Generation(liste_gene))
 
     def generation_suivante(self):
         self.generations.append(self.generations[-1].generation_suivante())
-
+    
+    def save(self, emplacement, nom):
+        for n, generation in enumerate(self.generations):
+            generation.save(emplacement, "{0}_{1}".format(nom, n))
+    
+    @classmethod
+    def load_save(cls, chemin, nom):
+        essai = cls(0, 0, 0, True)
+        idx = 0
+        essai.generations.append(Generation.from_file(
+            "{}/{}_0".format(chemin, nom)))
+        while True:
+            idx +=1
+            try:
+                essai.generations.append(Generation.from_file(
+                    "{}/{}_{}".format(chemin, nom, idx)))
+            except Exception:
+                break
+        return essai
+    
+    def evolution_statistique(self):
+        from matplotlib import pyplot as plt
+        distribution = []
+        X = []
+        for n, generation in enumerate(self.generations):
+            distribution.append(generation.get_fitness())
+            X.append(n)
+        plt.violinplot(distribution, X)
+        plt.title("Evolution de la repartition statistique du rendement en fonction des generations")
+        plt.xlabel("generation")
+        plt.ylabel("rendement")
+        return plt
 
 
 def generateur_aleatoire_mais_pas_trop():
