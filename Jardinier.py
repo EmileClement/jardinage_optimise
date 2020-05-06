@@ -133,7 +133,7 @@ class Plante(Occupant):
 
     def recolte_masse(self, jour, biais=False) -> float:
         """
-        Quel quantité va ont recolter ce jour.
+        Quel quantité va on récolter ce jour.
 
 
         Parameters
@@ -244,7 +244,7 @@ class Gene():
     @classmethod
     def from_file(cls, adn, fit, len_x, len_y):
         """
-        reconstruit le gene a partir des informations contenut dans le fichier de sauvgarde
+        reconstruit le gene à partir des informations contenues dans le fichier de sauvgarde
 
         Parameters
         ----------
@@ -278,7 +278,7 @@ class Gene():
 
     def jardin(self) -> Jardin:
         """
-        Créer le jardin corespondant à ce géne
+        Créer le jardin corespondant à ce gene
         Returns
         -------
         Jardin
@@ -438,7 +438,7 @@ class Generation():
 
     def evaluation(self):
         """
-        Permet de trier la list des genes dans l'odre décroisant de qualite
+        Permet de trier la liste des genes dans l'odre décroissant de qualité
 
         Returns
         -------
@@ -461,7 +461,7 @@ class Generation():
 
     def save(self, nom, emplacement = "save"):
         """
-        enregistre la generation dans un fichier
+        enregistre la géneration dans un fichier
 
         Parameters
         ----------
@@ -513,18 +513,18 @@ class Generation():
 class Essai():
     def __init__(self, len_x, len_y, taille_pop, overright = False):
         """
-        crée un nouvel essai.
+        créé un nouvel essai.
 
         Parameters
         ----------
         len_x : int
-            longueure du jadrin celon X.
+            longueur du jardin selon X.
         len_y : int
-            longueure du jadrin celon Y.
+            longueur du jardin selon Y.
         taille_pop : int
             nombre de membre de la pop, mettre au moins 100
         overright : bool, optional
-            mettre a True pour controlé la pop de départ. The default is False.
+            mettre à True pour controler la pop de départ. The default is False.
 
         Returns
         -------
@@ -541,7 +541,7 @@ class Essai():
 
     def generation_suivante(self):
         """
-        Rajoute la generation suivante dans la liste des generations
+        Rajoute la géneration suivante dans la liste des génerations
 
         Returns
         -------
@@ -552,14 +552,14 @@ class Essai():
     
     def save(self, nom, emplacement = "save"):
         """
-        sauvegarde l'essai dans le emplacement voulu, avec le nom voulu.
+        sauvegarde l'essai dans l'emplacement voulu, avec le nom voulu.
 
         Parameters
         ----------
         nom : str
             nom de la save, "foo" pour obtenir "foo_0.txt"..."foo_n.txt"
         emplacement : str, optional
-            emplecement des sauvegardes. The default is "save".
+            emplacement des sauvegardes. The default is "save".
 
         Returns
         -------
