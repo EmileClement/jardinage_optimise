@@ -11,7 +11,7 @@ N_bit_espece = 2
 #%% Def des classes
 class Jardin():
     def __init__(self, len_x: int, len_y: int):
-        self.emplacement = [[Emplacement(self) for i in range(len_x)] for i in range(len_y)]
+        self.emplacement = [[Emplacement(self) for i in range(len_x)] for j in range(len_y)]
 
     def __repr__(self):
         return "Jardin({},{})".format(len(self.emplacement[0]), len(self.emplacement))
@@ -36,11 +36,64 @@ class Jardin():
             for case in ligne:
                 masse += case.rendement(biais)
         return masse
+    
+    def representation_interactive(self):
+        """
+        Enregistre un fichier html avec la représentation graphique du jardin et l'ouvre dans le navigateur
+        
+
+        Returns
+        -------
+        None.
+
+        """
+        
+        import plotly.graph_objects as go
+        from plotly.offline import plot
+        jard = self
+        fig = go.Figure()
+        for jour in range(365):
+            for yy in range(len(jard.emplacement)):
+                for xx in range(len(jard.emplacement[yy])):
+                    fig.add_trace(
+                        go.Scatter(
+                            visible=False,
+                            mode = 'markers',
+                            marker = dict(color=jard.emplacement[yy][xx].calendrier[jour].color,size = 100),
+                            name = jour,
+                            hovertemplate = str(jard.emplacement[yy][xx].calendrier[jour]),
+                            x=[xx],
+                            y=[yy]))
+        steps = []
+        for jour in range(365):
+            step = dict(
+                method="update",
+                args=[{"visible": [False] * len(fig.data)},
+                      {"title": "Jour " + str(jour)}],  # layout attribute
+            )
+            for i in range(len(fig.data)):
+                if int(fig.data[i]['name']) == jour:
+                    step["args"][0]["visible"][i] = True  # Toggle i'th trace to "visible"
+                    
+            steps.append(step)
+        
+        sliders = [dict(
+            active=0,
+            pad={"t": 50},
+            steps=steps
+        )]
+        
+        fig.update_layout(
+            sliders=sliders
+        )
+        
+        plot(fig)
 
 class Emplacement():
     def __init__(self, jardin):
         self.jardin = jardin
         self.calendrier = [Jachere() for i in range(365)]
+
 
     def __repr__(self):
         return "Emplacement: " + "\n ".join([str(i) + ": " + elem.__repr__()
@@ -100,8 +153,11 @@ class Occupant():
 class Jachere(Occupant):
     def __init__(self):
         self.time_chunk = 0
+        self.color = "#000000"
 
     def __repr__(self):
+        return "Jachère"
+    def __str__(self):
         return "Jachère"
 
 class Plante(Occupant):
@@ -193,8 +249,11 @@ class Patate(Plante):
         self.masse_produite = 1.
         self.jour_semis = None
         self.deja_recolte = False
+        self.color = "#b28310"
 
     def __repr__(self):
+        return "Patate"
+    def __str__(self):
         return "Patate"
 
 class Tomate(Plante):
@@ -204,9 +263,13 @@ class Tomate(Plante):
         self.masse_produite = 2.5
         self.jour_semis = None
         self.deja_recolte = False
+        self.color = "#eb4b3d"
 
     def __repr__(self):
         return "Tomate"
+    def __str__(self):
+        return "Tomate"
+
 
 class Poireau(Plante):
     def __init__(self):
@@ -215,8 +278,12 @@ class Poireau(Plante):
         self.masse_produite = 0.150
         self.jour_semis = None
         self.deja_recolte = False
+        self.color = "#80c44a"
     def __repr__(self):
         return "Poireau"
+    def __str__(self):
+        return "Poireau"
+    
 
 #%% Gene:
 
