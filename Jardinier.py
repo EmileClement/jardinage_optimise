@@ -325,6 +325,7 @@ class Gene():
         self.fit = fit
         return fit
 
+
 class Generation():
 
     @classmethod
@@ -384,37 +385,6 @@ class Generation():
         generation = cls(genes)
         generation.evaluee = evaluee
         return generation
-        # import sp
-        # def parser():
-        #     """Renvoie le Parser complilé"""
-        #     blancs = sp.R(r'\s+')
-
-        #     adn = sp.R(r'[0-9a-fx]+') / (lambda x: int(x, 16))
-        #     vide = sp.R('None') / (lambda x: None)
-        #     nombre = sp.R(r'[0-9]+ . [0-9]+') / (lambda x: int(x))
-        #     vrai = sp.R('True') / (lambda x: True)
-        #     faux = sp.R('False') / (lambda x: False)
-            
-        #     with sp.Separator(blancs):
-        #         valeur = sp.Rule()
-        #         gene = sp.Rule()
-        #         entete = sp.Rule()
-        #         generation = sp.Rule()
-        #         boolean = sp.Rule()
-
-        #         boolean |= vrai | faux
-        #         entete |= boolean & ":\n"
-        #         valeur |= vide | nombre
-        #         gene |= valeur & ";" & adn 
-        #         generation |= entete[1:1] & gene[1::"\n"] & "\n"
-                
-        #     return generation
-        # try:
-        #     decodeur = parser()
-        # except SyntaxError as erreur:
-        #     print(erreur)
-        # return decodeur(data)
-        
 
     def __init__(self, genes):
         self.genes = []
