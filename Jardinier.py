@@ -434,7 +434,12 @@ class Generation():
             La generation suivante
 
         """
-        return Generation(self._croisement())
+        gene_de_base = self.genes
+        self._selection()
+        self._croisement()
+        gen_suivante = Generation(self._mutation())
+        self.genes = gene_de_base
+        return gen_suivante
 
     def evaluation(self):
         """
@@ -449,10 +454,74 @@ class Generation():
         self.evaluee = True
 
     def _selection(self) -> list:
+        """
+        Permet de selectionner les 10% meilleurs élements de la liste de genes, Cette dernière doit être triée du meilleur [0] au moins bon [-1].
+
+        Returns
+        -------
+        None.
+
+        """
+        
         if self.evaluee == False:
             self.evaluation()
-        return self.genes[9*len(self.genes)//10:]
+        self.genes = self.genes[:(len(self.genes)//10)]
+    
+    def _mutation(self) -> list:
+        """
+        Permet de faire muter la liste des genes. Chaque gene a 2/5 chances de muter
 
+        Returns
+        -------
+        List.
+        
+        """
+        population = self.genes
+        len_x, len_y = population[0].len_x, population[0].len_y
+        rendu = []
+        for gene in population:
+            aleatoire1 = rd.randint(1, 50)
+            if aleatoire1 > 30:
+                nbr_caractere_a_muter_aleatoire = rd.randint(1, int(0.3*len(gene.ADN)))
+                place_caractere_aleatoire = rd.randint(0, int(len(gene.ADN)-nbr_caractere_a_muter_aleatoire)-1)
+                inverse = ""
+                for bit in gene.ADN[place_caractere_aleatoire:place_caractere_aleatoire+nbr_caractere_a_muter_aleatoire]:
+                    if bit == "0":
+                        inverse += "1"
+                    else:
+                        inverse += "0"
+                if (len(gene.ADN[0:place_caractere_aleatoire] + inverse + gene.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire  : len(gene.ADN)])) != len(gene.ADN):
+                    gene2 = gene
+                else:
+                    gene2 =Gene(len_x, len_y , gene.ADN[0:place_caractere_aleatoire] + inverse + gene.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire: len(gene.ADN)] )
+            else:
+                gene2 =gene
+            rendu.append(gene2)
+        return rendu
+
+    def _croisement(self) -> list:
+        """
+        Permet de croiser les genes.
+
+        Returns
+        -------
+        None.
+        
+        """
+        
+        population_depart = self.genes
+        len_x, len_y = population_depart[0].len_x, population_depart[0].len_y
+        liste_gene = []
+        for pop_index in range(5):
+            population = population_depart[pop_index*(len(population_depart)//5) :(pop_index+1)*(len(population_depart)//5)]
+            for index in population:
+                for multi in range(10):
+                    ADN = ""
+                    for i in range(5):
+                        ADN += population[rd.randint(0, len(population)-1)].ADN[int(len(population[0].ADN)/5)*i:(i+1)*int(len(population[0].ADN)/5)]
+                    liste_gene.append(Gene(len_x, len_y, ADN))
+        self.genes = liste_gene
+    
     def __str__(self):
         chaine = "{1};{2};{0}\n".format(int(self.evaluee), self.genes[0].len_x,  self.genes[0].len_y)
         for gene in self.genes:
@@ -496,19 +565,6 @@ class Generation():
             fitness.append(gene.fit)
         return fitness
 
-    def _croisement(self) -> list:
-        population_depart = self._selection()
-        len_x, len_y = population_depart[0].len_x, population_depart[0].len_y
-        liste_gene = []
-        for pop_index in range(5):
-            population = population_depart[pop_index*(len(population_depart)//5) :(pop_index+1)*(len(population_depart)//5)]
-            for index in population:
-                for multi in range(10):
-                    ADN = ""
-                    for i in range(5):
-                        ADN += population[rd.randint(0, len(population)-1)].ADN[int(len(population[0].ADN)/5)*i:(i+1)*int(len(population[0].ADN)/5)]
-                    liste_gene.append(Gene(len_x, len_y, ADN))
-        return liste_gene
 
 class Essai():
     def __init__(self, len_x, len_y, taille_pop, overright = False):
@@ -623,48 +679,27 @@ def generateur_aleatoire_mais_pas_trop():
                 iterateur = 365
     return "".join(ADN)
 
-def mutation(population: list) -> list:
-    len_x, len_y = population[0].len_x, population[0].len_y
-    rendu = []
-    for gene in population:
-        aleatoire1 = rd.randint(1, 50)
-        if aleatoire1 > 30:
-            aleatoire2 = rd.randint(1, int(0.3*len(gene.ADN)))
-            aleatoire3 = rd.randint(0, int(len(gene.ADN)-aleatoire2)-1)
-            inverse = ""
-            for bit in gene.ADN[aleatoire3:aleatoire3+aleatoire2]:
-                if bit == "0":
-                    inverse += "1"
-                else:
-                    inverse += "0"
-            if (len(gene.ADN[0:aleatoire3] + inverse + gene.ADN[aleatoire3 + aleatoire2  : len(gene.ADN)])) != len(gene.ADN):
-                gene2 = gene
-            else:
-                gene2 =Gene(len_x, len_y , gene.ADN[0:aleatoire3] + inverse + gene.ADN[aleatoire3 + aleatoire2: len(gene.ADN)] )
-        else:
-            gene2 =gene
-        rendu.append(gene2)
-    return rendu
 
-def test_optimisation_1(nombre_population, nombre_iteration, x_len, y_len) -> list:
-    population = []
-    res = []
-    for i in range(nombre_population):
-        population.append(Gene(x_len, y_len))
-#        if ((100*i)//nombre_population)%10 == 0 and (10*i)//nombre_population>= 1:
-#            print((100*i)//nombre_population)
-    check = selection(population)
-    res.append((selection(population)[-1].jardin().rendement()))
-    print(check[-1].jardin().rendement())
-    for i in range(nombre_iteration):
-        population = selection(population)
-        population = croisement(population)
-        population = mutation(population)
-#        if (100*i//nombre_iteration)%10 == 0 and (10*i)//nombre_iteration>= 1:
-#            print((100*i)//nombre_iteration)
-        res.append((selection(population)[-1].jardin().rendement()))
 
-    return population,res
+#def test_optimisation_1(nombre_population, nombre_iteration, x_len, y_len) -> list:
+#    population = []
+#    res = []
+#    for i in range(nombre_population):
+#        population.append(Gene(x_len, y_len))
+##        if ((100*i)//nombre_population)%10 == 0 and (10*i)//nombre_population>= 1:
+##            print((100*i)//nombre_population)
+#    check = selection(population)
+#    res.append((selection(population)[-1].jardin().rendement()))
+#    print(check[-1].jardin().rendement())
+#    for i in range(nombre_iteration):
+#        population = selection(population)
+#        population = croisement(population)
+#        population = mutation(population)
+##        if (100*i//nombre_iteration)%10 == 0 and (10*i)//nombre_iteration>= 1:
+##            print((100*i)//nombre_iteration)
+#        res.append((selection(population)[-1].jardin().rendement()))
+#
+#    return population,res
 
 #%% Herbier
 # herbier = {}
