@@ -1,0 +1,1474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>genetique API documentation</title>
+<meta name="description" content="Created on Fri May
+8 11:31:42 2020 …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>genetique</code></h1>
+</header>
+<section id="section-intro">
+<p>Created on Fri May
+8 11:31:42 2020</p>
+<p>@author: Leopold</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Created on Fri May  8 11:31:42 2020
+
+@author: Leopold
+&#34;&#34;&#34;
+import random as rd
+
+from simulateur import *
+from herbier import *
+
+class Gene():
+    decodeur_espece = dict_herbier
+    
+    def __init__(self, len_x, len_y, ADN=&#34;&#34;):
+        self.len_x = len_x
+        self.len_y = len_y
+        if ADN:
+            self.ADN = ADN
+        else:
+            self.ADN = &#34;&#34;
+            for x in range(len_x):
+                for y in range(len_y):
+                    self.ADN += generateur_aleatoire_mais_pas_trop()
+                    #print(self.ADN)
+        self.fit = None
+    
+    @classmethod
+    def from_file(cls, adn, fit, len_x, len_y):
+        &#34;&#34;&#34;
+        reconstruit le gene à partir des informations contenues dans le fichier de sauvgarde
+
+        Parameters
+        ----------
+        cls : type
+            DESCRIPTION.
+        adn : str
+            chaine binaire du gene
+        fit : float or None
+            fitness du gene
+        len_x : int
+            DESCRIPTION.
+        len_y : int
+            DESCRIPTION.
+
+        Returns
+        -------
+        gene : Gene
+            gene reconstruit
+
+        &#34;&#34;&#34;
+        gene = cls(len_x, len_y, adn)
+        gene.fit = fit
+        return gene
+        
+    def __str__(self):
+        return &#34;{};{}&#34;.format(self.fit, hex(int(self.ADN, 2)))
+
+    def __repr__(self):
+        n = int(self.ADN, 2)
+        return &#34;gene : {}&#34;.format(hex(n))
+
+    def jardin(self) -&gt; Jardin:
+        &#34;&#34;&#34;
+        Créer le jardin corespondant à ce gene
+        Returns
+        -------
+        Jardin
+            Jardin correspondant.
+        &#34;&#34;&#34;
+        jar = Jardin(self.len_x, self.len_y)
+        for x in range(self.len_x):
+            for y in range(self.len_y):
+                emplacement = jar.emplacement[y][x]
+                ebauche = []
+                for jour in range(365):
+                    allele = self.ADN[(x + (y * self.len_x)) * 365 + 2*jour :
+                                      (x + (y * self.len_x)) * 365 + 2*jour
+                                      + N_bit_espece]
+                    ebauche += [Gene.decodeur_espece[allele]]
+                idx_exploration = 0
+                while idx_exploration &lt; 365:
+                    type_actuel = ebauche[idx_exploration]
+                    if type_actuel == Jachere:
+                        idx_exploration += 1
+                    else:
+                        idx_depart = idx_exploration
+                        while (idx_exploration &lt; 365) and ebauche[idx_exploration] == type_actuel:
+                            idx_exploration += 1
+                        idx_fin = idx_exploration
+                        plante = type_actuel()
+                        try:
+                            plante.planter(emplacement, idx_depart, idx_fin)
+                        except ValueError:
+                            pass
+        return jar
+
+    def fitness(self):
+        &#34;&#34;&#34;
+        met a jour la caractéristique fit du gene
+
+        Returns
+        -------
+        fit : float
+            le rendement du gene.
+
+        &#34;&#34;&#34;
+        fit = self.jardin().rendement(True)
+        self.fit = fit
+        return fit
+
+
+class Generation():
+
+    @classmethod
+    def from_file(cls, path):
+        &#34;&#34;&#34;
+        reconstruit la generation a partir d&#39;un fichier
+
+        Parameters
+        ----------
+        cls : type
+            DESCRIPTION.
+        path : str
+            chemin du fichier contenant la sauvegarde
+
+        Raises
+        ------
+        IOError
+            DESCRIPTION.
+        Exception
+            DESCRIPTION.
+
+        Returns
+        -------
+        generation : Generation
+            generation corespondant au fichier
+
+        &#34;&#34;&#34;
+        try:
+            file = open(path+&#34;.txt&#34;, &#34;r&#34;)
+            lines = file.readlines()
+            file.close()
+        except Exception:
+            raise IOError(&#34;&#34;&#34;le fichier &#34;{}&#34; ne s&#39;ouvre pas&#34;&#34;&#34;.format(path+&#34;.txt&#34;))
+        try:
+            en_tete = lines.pop(0)
+            en_tete = en_tete.split(&#34;;&#34;)
+            len_x = int(en_tete[0])
+            len_y = int(en_tete[1])
+            evaluee = bool(int(en_tete[2]))
+        except Exception:
+            raise Exception(&#34;&#34;&#34;Entete invalide&#34;&#34;&#34;)
+        try:
+            genes = []
+            for n, ligne in enumerate(lines):
+                ligne = ligne.split(&#39;;&#39;)
+                fit = ligne[0]
+                adn = ligne[1][:-1]
+                adn = bin(int(adn, 16))[2:]
+                if evaluee:
+                    fit = float(fit)
+                else:
+                    fit = None
+                genes.append(Gene.from_file(adn, fit, len_x, len_y))
+        except Exception:
+            Exception(&#34;&#34;&#34;Contenu invalide ligne {}&#34;&#34;&#34;.format(n))
+        
+        generation = cls(genes)
+        generation.evaluee = evaluee
+        return generation
+
+    def __init__(self, genes):
+        self.genes = []
+        for elem in genes:
+            if not isinstance(elem, Gene):
+                raise TypeError(&#34;Ce n&#39;est pas un gene&#34;)
+            self.genes.append(elem)
+        self.evaluee = False
+
+    def generation_suivante(self):
+        &#34;&#34;&#34;
+        calcule la génération suivante
+
+        Returns
+        -------
+        Generation
+            La generation suivante
+
+        &#34;&#34;&#34;
+        gene_de_base = self.genes
+        self._selection()
+        self._croisement()
+        gen_suivante = Generation(self._mutation())
+        self.genes = gene_de_base
+        return gen_suivante
+
+    def evaluation(self):
+        &#34;&#34;&#34;
+        Permet de trier la liste des genes dans l&#39;odre décroissant de qualité
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        self.genes.sort(key=Gene.fitness, reverse=True)
+        self.evaluee = True
+
+    def _selection(self) -&gt; list:
+        &#34;&#34;&#34;
+        Permet de selectionner les 10% meilleurs élements de la liste de genes, Cette dernière doit être triée du meilleur [0] au moins bon [-1].
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        
+        if self.evaluee == False:
+            self.evaluation()
+        self.genes = self.genes[:(len(self.genes)//10)]
+    
+    def _mutation(self) -&gt; list:
+        &#34;&#34;&#34;
+        Permet de faire muter la liste des genes. Chaque gene a 2/5 chances de muter
+
+        Returns
+        -------
+        List.
+        
+        &#34;&#34;&#34;
+        population = self.genes
+        len_x, len_y = population[0].len_x, population[0].len_y
+        rendu = []
+        for gene in population:
+            aleatoire1 = rd.randint(1, 50)
+            if aleatoire1 &gt; 30:
+                nbr_caractere_a_muter_aleatoire = rd.randint(1, int(0.3*len(gene.ADN)))
+                place_caractere_aleatoire = rd.randint(0, int(len(gene.ADN)-nbr_caractere_a_muter_aleatoire)-1)
+                inverse = &#34;&#34;
+                for bit in gene.ADN[place_caractere_aleatoire:place_caractere_aleatoire+nbr_caractere_a_muter_aleatoire]:
+                    if bit == &#34;0&#34;:
+                        inverse += &#34;1&#34;
+                    else:
+                        inverse += &#34;0&#34;
+                if (len(gene.ADN[0:place_caractere_aleatoire] + inverse + gene.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire  : len(gene.ADN)])) != len(gene.ADN):
+                    gene2 = gene
+                else:
+                    gene2 =Gene(len_x, len_y , gene.ADN[0:place_caractere_aleatoire] + inverse + gene.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire: len(gene.ADN)] )
+            else:
+                gene2 =gene
+            rendu.append(gene2)
+        return rendu
+
+    def _croisement(self) -&gt; list:
+        &#34;&#34;&#34;
+        Permet de croiser les genes.
+
+        Returns
+        -------
+        None.
+        
+        &#34;&#34;&#34;
+        
+        population_depart = self.genes
+        len_x, len_y = population_depart[0].len_x, population_depart[0].len_y
+        liste_gene = []
+        for pop_index in range(5):
+            population = population_depart[pop_index*(len(population_depart)//5) :(pop_index+1)*(len(population_depart)//5)]
+            for index in population:
+                for multi in range(10):
+                    ADN = &#34;&#34;
+                    for i in range(5):
+                        ADN += population[rd.randint(0, len(population)-1)].ADN[int(len(population[0].ADN)/5)*i:(i+1)*int(len(population[0].ADN)/5)]
+                    liste_gene.append(Gene(len_x, len_y, ADN))
+        self.genes = liste_gene
+    
+    def __str__(self):
+        chaine = &#34;{1};{2};{0}\n&#34;.format(int(self.evaluee), self.genes[0].len_x,  self.genes[0].len_y)
+        for gene in self.genes:
+            chaine += str(gene)+&#34;\n&#34;
+        return chaine
+
+    def save(self, nom, emplacement = &#34;save&#34;):
+        &#34;&#34;&#34;
+        enregistre la géneration dans un fichier
+
+        Parameters
+        ----------
+        nom : str
+            nom de la sauvegarde
+        emplacement : str, optional
+            emplacement de la sauvegarde. The default is &#34;save&#34;.
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        file = open(emplacement + &#34;/&#34; + nom + &#39;.txt&#39;, &#39;w&#39;)
+        file.write(str(self))
+        file.close()
+    
+    def get_fitness(self):
+        &#34;&#34;&#34;
+        renvoit la liste des fitness de la generation
+
+        Returns
+        -------
+        fitness : list[int]
+            liste des fitness de la generation
+
+        &#34;&#34;&#34;
+        if not self.evaluee:
+            self.evaluation()
+        fitness = []
+        for gene in self.genes:
+            fitness.append(gene.fit)
+        return fitness
+
+
+class Essai():
+    def __init__(self, len_x, len_y, taille_pop, overright = False):
+        &#34;&#34;&#34;
+        créé un nouvel essai.
+
+        Parameters
+        ----------
+        len_x : int
+            longueur du jardin selon X.
+        len_y : int
+            longueur du jardin selon Y.
+        taille_pop : int
+            nombre de membre de la pop, mettre au moins 100
+        overright : bool, optional
+            mettre à True pour controler la pop de départ. The default is False.
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        def generateur_aleatoire_mais_pas_trop():
+            decodeur_espece = Gene.decodeur_espece
+            calendrier = [0]*365
+            ADN = [0]*365
+            iterateur = 0
+            while iterateur &lt; 365:
+                identificateur = str(rd.randint(0, 1)) + str(rd.randint(0, 1))
+                plante_aléatoire = decodeur_espece[str(rd.randint(0, 1)) + str(rd.randint(0, 1))]
+                if identificateur == &#34;00&#34;:
+                    ADN[iterateur] = &#34;00&#34;
+                    iterateur += 1
+                else:
+                    time_chunk = plante_aléatoire().time_chunk
+                    if iterateur + time_chunk &lt; 363:
+                        calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
+                        ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
+                        calendrier[iterateur + time_chunk] = Jachere()
+                        ADN[iterateur + time_chunk] = &#34;00&#34;
+                        iterateur += time_chunk + 1
+                    else:
+                        calendrier[iterateur:365] = [plante_aléatoire()]*(364-iterateur +1)
+                        ADN[iterateur:365] = [identificateur]*(364-iterateur +1)
+                        iterateur = 365
+            return &#34;&#34;.join(ADN)
+        self.generations = []
+        if not overright:
+            liste_gene = [Gene(len_x, len_y,
+                               &#34;&#34;.join([generateur_aleatoire_mais_pas_trop()
+                                        for j in range(len_x * len_y)]))
+                          for i in range(taille_pop)]
+            self.generations.append(Generation(liste_gene))
+
+    def generation_suivante(self):
+        &#34;&#34;&#34;
+        Rajoute la géneration suivante dans la liste des génerations
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        self.generations.append(self.generations[-1].generation_suivante())
+    
+    def save(self, nom, emplacement = &#34;save&#34;):
+        &#34;&#34;&#34;
+        sauvegarde l&#39;essai dans l&#39;emplacement voulu, avec le nom voulu.
+
+        Parameters
+        ----------
+        nom : str
+            nom de la save, &#34;foo&#34; pour obtenir &#34;foo_0.txt&#34;...&#34;foo_n.txt&#34;
+        emplacement : str, optional
+            emplacement des sauvegardes. The default is &#34;save&#34;.
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        for n, generation in enumerate(self.generations):
+            generation.save(&#34;{0}_{1}&#34;.format(nom, n), emplacement)
+    
+    @classmethod
+    def load_save(cls, nom, emplacement = &#34;save&#34;):
+        essai = cls(0, 0, 0, True)
+        idx = 0
+        essai.generations.append(Generation.from_file(
+            &#34;{}/{}_0&#34;.format(emplacement, nom)))
+        while True:
+            idx +=1
+            try:
+                essai.generations.append(Generation.from_file(
+                    &#34;{}/{}_{}&#34;.format(emplacement, nom, idx)))
+            except Exception:
+                break
+        return essai
+    
+    def evolution_statistique(self):
+        from matplotlib import pyplot as plt
+        distribution = []
+        X = []
+        for n, generation in enumerate(self.generations):
+            distribution.append(generation.get_fitness())
+            X.append(n)
+        plt.violinplot(distribution, X)
+        plt.title(&#34;Evolution de la repartition statistique du rendement en fonction des generations&#34;)
+        plt.xlabel(&#34;generation&#34;)
+        plt.ylabel(&#34;rendement&#34;)
+        return plt</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="genetique.Essai"><code class="flex name class">
+<span>class <span class="ident">Essai</span></span>
+<span>(</span><span>len_x, len_y, taille_pop, overright=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>créé un nouvel essai.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>len_x</code></strong> :&ensp;<code>int</code></dt>
+<dd>longueur du jardin selon X.</dd>
+<dt><strong><code>len_y</code></strong> :&ensp;<code>int</code></dt>
+<dd>longueur du jardin selon Y.</dd>
+<dt><strong><code>taille_pop</code></strong> :&ensp;<code>int</code></dt>
+<dd>nombre de membre de la pop, mettre au moins 100</dd>
+<dt><strong><code>overright</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>mettre à True pour controler la pop de départ. The default is False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Essai():
+    def __init__(self, len_x, len_y, taille_pop, overright = False):
+        &#34;&#34;&#34;
+        créé un nouvel essai.
+
+        Parameters
+        ----------
+        len_x : int
+            longueur du jardin selon X.
+        len_y : int
+            longueur du jardin selon Y.
+        taille_pop : int
+            nombre de membre de la pop, mettre au moins 100
+        overright : bool, optional
+            mettre à True pour controler la pop de départ. The default is False.
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        def generateur_aleatoire_mais_pas_trop():
+            decodeur_espece = Gene.decodeur_espece
+            calendrier = [0]*365
+            ADN = [0]*365
+            iterateur = 0
+            while iterateur &lt; 365:
+                identificateur = str(rd.randint(0, 1)) + str(rd.randint(0, 1))
+                plante_aléatoire = decodeur_espece[str(rd.randint(0, 1)) + str(rd.randint(0, 1))]
+                if identificateur == &#34;00&#34;:
+                    ADN[iterateur] = &#34;00&#34;
+                    iterateur += 1
+                else:
+                    time_chunk = plante_aléatoire().time_chunk
+                    if iterateur + time_chunk &lt; 363:
+                        calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
+                        ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
+                        calendrier[iterateur + time_chunk] = Jachere()
+                        ADN[iterateur + time_chunk] = &#34;00&#34;
+                        iterateur += time_chunk + 1
+                    else:
+                        calendrier[iterateur:365] = [plante_aléatoire()]*(364-iterateur +1)
+                        ADN[iterateur:365] = [identificateur]*(364-iterateur +1)
+                        iterateur = 365
+            return &#34;&#34;.join(ADN)
+        self.generations = []
+        if not overright:
+            liste_gene = [Gene(len_x, len_y,
+                               &#34;&#34;.join([generateur_aleatoire_mais_pas_trop()
+                                        for j in range(len_x * len_y)]))
+                          for i in range(taille_pop)]
+            self.generations.append(Generation(liste_gene))
+
+    def generation_suivante(self):
+        &#34;&#34;&#34;
+        Rajoute la géneration suivante dans la liste des génerations
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        self.generations.append(self.generations[-1].generation_suivante())
+    
+    def save(self, nom, emplacement = &#34;save&#34;):
+        &#34;&#34;&#34;
+        sauvegarde l&#39;essai dans l&#39;emplacement voulu, avec le nom voulu.
+
+        Parameters
+        ----------
+        nom : str
+            nom de la save, &#34;foo&#34; pour obtenir &#34;foo_0.txt&#34;...&#34;foo_n.txt&#34;
+        emplacement : str, optional
+            emplacement des sauvegardes. The default is &#34;save&#34;.
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        for n, generation in enumerate(self.generations):
+            generation.save(&#34;{0}_{1}&#34;.format(nom, n), emplacement)
+    
+    @classmethod
+    def load_save(cls, nom, emplacement = &#34;save&#34;):
+        essai = cls(0, 0, 0, True)
+        idx = 0
+        essai.generations.append(Generation.from_file(
+            &#34;{}/{}_0&#34;.format(emplacement, nom)))
+        while True:
+            idx +=1
+            try:
+                essai.generations.append(Generation.from_file(
+                    &#34;{}/{}_{}&#34;.format(emplacement, nom, idx)))
+            except Exception:
+                break
+        return essai
+    
+    def evolution_statistique(self):
+        from matplotlib import pyplot as plt
+        distribution = []
+        X = []
+        for n, generation in enumerate(self.generations):
+            distribution.append(generation.get_fitness())
+            X.append(n)
+        plt.violinplot(distribution, X)
+        plt.title(&#34;Evolution de la repartition statistique du rendement en fonction des generations&#34;)
+        plt.xlabel(&#34;generation&#34;)
+        plt.ylabel(&#34;rendement&#34;)
+        return plt</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="genetique.Essai.load_save"><code class="name flex">
+<span>def <span class="ident">load_save</span></span>(<span>nom, emplacement='save')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def load_save(cls, nom, emplacement = &#34;save&#34;):
+    essai = cls(0, 0, 0, True)
+    idx = 0
+    essai.generations.append(Generation.from_file(
+        &#34;{}/{}_0&#34;.format(emplacement, nom)))
+    while True:
+        idx +=1
+        try:
+            essai.generations.append(Generation.from_file(
+                &#34;{}/{}_{}&#34;.format(emplacement, nom, idx)))
+        except Exception:
+            break
+    return essai</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="genetique.Essai.evolution_statistique"><code class="name flex">
+<span>def <span class="ident">evolution_statistique</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evolution_statistique(self):
+    from matplotlib import pyplot as plt
+    distribution = []
+    X = []
+    for n, generation in enumerate(self.generations):
+        distribution.append(generation.get_fitness())
+        X.append(n)
+    plt.violinplot(distribution, X)
+    plt.title(&#34;Evolution de la repartition statistique du rendement en fonction des generations&#34;)
+    plt.xlabel(&#34;generation&#34;)
+    plt.ylabel(&#34;rendement&#34;)
+    return plt</code></pre>
+</details>
+</dd>
+<dt id="genetique.Essai.generation_suivante"><code class="name flex">
+<span>def <span class="ident">generation_suivante</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Rajoute la géneration suivante dans la liste des génerations</p>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generation_suivante(self):
+    &#34;&#34;&#34;
+    Rajoute la géneration suivante dans la liste des génerations
+
+    Returns
+    -------
+    None.
+
+    &#34;&#34;&#34;
+    self.generations.append(self.generations[-1].generation_suivante())</code></pre>
+</details>
+</dd>
+<dt id="genetique.Essai.save"><code class="name flex">
+<span>def <span class="ident">save</span></span>(<span>self, nom, emplacement='save')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>sauvegarde l'essai dans l'emplacement voulu, avec le nom voulu.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>nom</code></strong> :&ensp;<code>str</code></dt>
+<dd>nom de la save, "foo" pour obtenir "foo_0.txt"&hellip;"foo_n.txt"</dd>
+<dt><strong><code>emplacement</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>emplacement des sauvegardes. The default is "save".</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save(self, nom, emplacement = &#34;save&#34;):
+    &#34;&#34;&#34;
+    sauvegarde l&#39;essai dans l&#39;emplacement voulu, avec le nom voulu.
+
+    Parameters
+    ----------
+    nom : str
+        nom de la save, &#34;foo&#34; pour obtenir &#34;foo_0.txt&#34;...&#34;foo_n.txt&#34;
+    emplacement : str, optional
+        emplacement des sauvegardes. The default is &#34;save&#34;.
+
+    Returns
+    -------
+    None.
+
+    &#34;&#34;&#34;
+    for n, generation in enumerate(self.generations):
+        generation.save(&#34;{0}_{1}&#34;.format(nom, n), emplacement)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="genetique.Gene"><code class="flex name class">
+<span>class <span class="ident">Gene</span></span>
+<span>(</span><span>len_x, len_y, ADN='')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Gene():
+    decodeur_espece = dict_herbier
+    
+    def __init__(self, len_x, len_y, ADN=&#34;&#34;):
+        self.len_x = len_x
+        self.len_y = len_y
+        if ADN:
+            self.ADN = ADN
+        else:
+            self.ADN = &#34;&#34;
+            for x in range(len_x):
+                for y in range(len_y):
+                    self.ADN += generateur_aleatoire_mais_pas_trop()
+                    #print(self.ADN)
+        self.fit = None
+    
+    @classmethod
+    def from_file(cls, adn, fit, len_x, len_y):
+        &#34;&#34;&#34;
+        reconstruit le gene à partir des informations contenues dans le fichier de sauvgarde
+
+        Parameters
+        ----------
+        cls : type
+            DESCRIPTION.
+        adn : str
+            chaine binaire du gene
+        fit : float or None
+            fitness du gene
+        len_x : int
+            DESCRIPTION.
+        len_y : int
+            DESCRIPTION.
+
+        Returns
+        -------
+        gene : Gene
+            gene reconstruit
+
+        &#34;&#34;&#34;
+        gene = cls(len_x, len_y, adn)
+        gene.fit = fit
+        return gene
+        
+    def __str__(self):
+        return &#34;{};{}&#34;.format(self.fit, hex(int(self.ADN, 2)))
+
+    def __repr__(self):
+        n = int(self.ADN, 2)
+        return &#34;gene : {}&#34;.format(hex(n))
+
+    def jardin(self) -&gt; Jardin:
+        &#34;&#34;&#34;
+        Créer le jardin corespondant à ce gene
+        Returns
+        -------
+        Jardin
+            Jardin correspondant.
+        &#34;&#34;&#34;
+        jar = Jardin(self.len_x, self.len_y)
+        for x in range(self.len_x):
+            for y in range(self.len_y):
+                emplacement = jar.emplacement[y][x]
+                ebauche = []
+                for jour in range(365):
+                    allele = self.ADN[(x + (y * self.len_x)) * 365 + 2*jour :
+                                      (x + (y * self.len_x)) * 365 + 2*jour
+                                      + N_bit_espece]
+                    ebauche += [Gene.decodeur_espece[allele]]
+                idx_exploration = 0
+                while idx_exploration &lt; 365:
+                    type_actuel = ebauche[idx_exploration]
+                    if type_actuel == Jachere:
+                        idx_exploration += 1
+                    else:
+                        idx_depart = idx_exploration
+                        while (idx_exploration &lt; 365) and ebauche[idx_exploration] == type_actuel:
+                            idx_exploration += 1
+                        idx_fin = idx_exploration
+                        plante = type_actuel()
+                        try:
+                            plante.planter(emplacement, idx_depart, idx_fin)
+                        except ValueError:
+                            pass
+        return jar
+
+    def fitness(self):
+        &#34;&#34;&#34;
+        met a jour la caractéristique fit du gene
+
+        Returns
+        -------
+        fit : float
+            le rendement du gene.
+
+        &#34;&#34;&#34;
+        fit = self.jardin().rendement(True)
+        self.fit = fit
+        return fit</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="genetique.Gene.decodeur_espece"><code class="name">var <span class="ident">decodeur_espece</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="genetique.Gene.from_file"><code class="name flex">
+<span>def <span class="ident">from_file</span></span>(<span>adn, fit, len_x, len_y)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>reconstruit le gene à partir des informations contenues dans le fichier de sauvgarde</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>cls</code></strong> :&ensp;<code>type</code></dt>
+<dd>DESCRIPTION.</dd>
+<dt><strong><code>adn</code></strong> :&ensp;<code>str</code></dt>
+<dd>chaine binaire du gene</dd>
+<dt><strong><code>fit</code></strong> :&ensp;<code>float</code> or <code>None</code></dt>
+<dd>fitness du gene</dd>
+<dt><strong><code>len_x</code></strong> :&ensp;<code>int</code></dt>
+<dd>DESCRIPTION.</dd>
+<dt><strong><code>len_y</code></strong> :&ensp;<code>int</code></dt>
+<dd>DESCRIPTION.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>gene</code></strong> :&ensp;<code><a title="genetique.Gene" href="#genetique.Gene">Gene</a></code></dt>
+<dd>gene reconstruit</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_file(cls, adn, fit, len_x, len_y):
+    &#34;&#34;&#34;
+    reconstruit le gene à partir des informations contenues dans le fichier de sauvgarde
+
+    Parameters
+    ----------
+    cls : type
+        DESCRIPTION.
+    adn : str
+        chaine binaire du gene
+    fit : float or None
+        fitness du gene
+    len_x : int
+        DESCRIPTION.
+    len_y : int
+        DESCRIPTION.
+
+    Returns
+    -------
+    gene : Gene
+        gene reconstruit
+
+    &#34;&#34;&#34;
+    gene = cls(len_x, len_y, adn)
+    gene.fit = fit
+    return gene</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="genetique.Gene.fitness"><code class="name flex">
+<span>def <span class="ident">fitness</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>met a jour la caractéristique fit du gene</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fit</code></strong> :&ensp;<code>float</code></dt>
+<dd>le rendement du gene.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fitness(self):
+    &#34;&#34;&#34;
+    met a jour la caractéristique fit du gene
+
+    Returns
+    -------
+    fit : float
+        le rendement du gene.
+
+    &#34;&#34;&#34;
+    fit = self.jardin().rendement(True)
+    self.fit = fit
+    return fit</code></pre>
+</details>
+</dd>
+<dt id="genetique.Gene.jardin"><code class="name flex">
+<span>def <span class="ident">jardin</span></span>(<span>self) -> <a title="simulateur.Jardin" href="simulateur.html#simulateur.Jardin">Jardin</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Créer le jardin corespondant à ce gene
+Returns</p>
+<hr>
+<dl>
+<dt><code>Jardin</code></dt>
+<dd>Jardin correspondant.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def jardin(self) -&gt; Jardin:
+    &#34;&#34;&#34;
+    Créer le jardin corespondant à ce gene
+    Returns
+    -------
+    Jardin
+        Jardin correspondant.
+    &#34;&#34;&#34;
+    jar = Jardin(self.len_x, self.len_y)
+    for x in range(self.len_x):
+        for y in range(self.len_y):
+            emplacement = jar.emplacement[y][x]
+            ebauche = []
+            for jour in range(365):
+                allele = self.ADN[(x + (y * self.len_x)) * 365 + 2*jour :
+                                  (x + (y * self.len_x)) * 365 + 2*jour
+                                  + N_bit_espece]
+                ebauche += [Gene.decodeur_espece[allele]]
+            idx_exploration = 0
+            while idx_exploration &lt; 365:
+                type_actuel = ebauche[idx_exploration]
+                if type_actuel == Jachere:
+                    idx_exploration += 1
+                else:
+                    idx_depart = idx_exploration
+                    while (idx_exploration &lt; 365) and ebauche[idx_exploration] == type_actuel:
+                        idx_exploration += 1
+                    idx_fin = idx_exploration
+                    plante = type_actuel()
+                    try:
+                        plante.planter(emplacement, idx_depart, idx_fin)
+                    except ValueError:
+                        pass
+    return jar</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="genetique.Generation"><code class="flex name class">
+<span>class <span class="ident">Generation</span></span>
+<span>(</span><span>genes)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Generation():
+
+    @classmethod
+    def from_file(cls, path):
+        &#34;&#34;&#34;
+        reconstruit la generation a partir d&#39;un fichier
+
+        Parameters
+        ----------
+        cls : type
+            DESCRIPTION.
+        path : str
+            chemin du fichier contenant la sauvegarde
+
+        Raises
+        ------
+        IOError
+            DESCRIPTION.
+        Exception
+            DESCRIPTION.
+
+        Returns
+        -------
+        generation : Generation
+            generation corespondant au fichier
+
+        &#34;&#34;&#34;
+        try:
+            file = open(path+&#34;.txt&#34;, &#34;r&#34;)
+            lines = file.readlines()
+            file.close()
+        except Exception:
+            raise IOError(&#34;&#34;&#34;le fichier &#34;{}&#34; ne s&#39;ouvre pas&#34;&#34;&#34;.format(path+&#34;.txt&#34;))
+        try:
+            en_tete = lines.pop(0)
+            en_tete = en_tete.split(&#34;;&#34;)
+            len_x = int(en_tete[0])
+            len_y = int(en_tete[1])
+            evaluee = bool(int(en_tete[2]))
+        except Exception:
+            raise Exception(&#34;&#34;&#34;Entete invalide&#34;&#34;&#34;)
+        try:
+            genes = []
+            for n, ligne in enumerate(lines):
+                ligne = ligne.split(&#39;;&#39;)
+                fit = ligne[0]
+                adn = ligne[1][:-1]
+                adn = bin(int(adn, 16))[2:]
+                if evaluee:
+                    fit = float(fit)
+                else:
+                    fit = None
+                genes.append(Gene.from_file(adn, fit, len_x, len_y))
+        except Exception:
+            Exception(&#34;&#34;&#34;Contenu invalide ligne {}&#34;&#34;&#34;.format(n))
+        
+        generation = cls(genes)
+        generation.evaluee = evaluee
+        return generation
+
+    def __init__(self, genes):
+        self.genes = []
+        for elem in genes:
+            if not isinstance(elem, Gene):
+                raise TypeError(&#34;Ce n&#39;est pas un gene&#34;)
+            self.genes.append(elem)
+        self.evaluee = False
+
+    def generation_suivante(self):
+        &#34;&#34;&#34;
+        calcule la génération suivante
+
+        Returns
+        -------
+        Generation
+            La generation suivante
+
+        &#34;&#34;&#34;
+        gene_de_base = self.genes
+        self._selection()
+        self._croisement()
+        gen_suivante = Generation(self._mutation())
+        self.genes = gene_de_base
+        return gen_suivante
+
+    def evaluation(self):
+        &#34;&#34;&#34;
+        Permet de trier la liste des genes dans l&#39;odre décroissant de qualité
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        self.genes.sort(key=Gene.fitness, reverse=True)
+        self.evaluee = True
+
+    def _selection(self) -&gt; list:
+        &#34;&#34;&#34;
+        Permet de selectionner les 10% meilleurs élements de la liste de genes, Cette dernière doit être triée du meilleur [0] au moins bon [-1].
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        
+        if self.evaluee == False:
+            self.evaluation()
+        self.genes = self.genes[:(len(self.genes)//10)]
+    
+    def _mutation(self) -&gt; list:
+        &#34;&#34;&#34;
+        Permet de faire muter la liste des genes. Chaque gene a 2/5 chances de muter
+
+        Returns
+        -------
+        List.
+        
+        &#34;&#34;&#34;
+        population = self.genes
+        len_x, len_y = population[0].len_x, population[0].len_y
+        rendu = []
+        for gene in population:
+            aleatoire1 = rd.randint(1, 50)
+            if aleatoire1 &gt; 30:
+                nbr_caractere_a_muter_aleatoire = rd.randint(1, int(0.3*len(gene.ADN)))
+                place_caractere_aleatoire = rd.randint(0, int(len(gene.ADN)-nbr_caractere_a_muter_aleatoire)-1)
+                inverse = &#34;&#34;
+                for bit in gene.ADN[place_caractere_aleatoire:place_caractere_aleatoire+nbr_caractere_a_muter_aleatoire]:
+                    if bit == &#34;0&#34;:
+                        inverse += &#34;1&#34;
+                    else:
+                        inverse += &#34;0&#34;
+                if (len(gene.ADN[0:place_caractere_aleatoire] + inverse + gene.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire  : len(gene.ADN)])) != len(gene.ADN):
+                    gene2 = gene
+                else:
+                    gene2 =Gene(len_x, len_y , gene.ADN[0:place_caractere_aleatoire] + inverse + gene.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire: len(gene.ADN)] )
+            else:
+                gene2 =gene
+            rendu.append(gene2)
+        return rendu
+
+    def _croisement(self) -&gt; list:
+        &#34;&#34;&#34;
+        Permet de croiser les genes.
+
+        Returns
+        -------
+        None.
+        
+        &#34;&#34;&#34;
+        
+        population_depart = self.genes
+        len_x, len_y = population_depart[0].len_x, population_depart[0].len_y
+        liste_gene = []
+        for pop_index in range(5):
+            population = population_depart[pop_index*(len(population_depart)//5) :(pop_index+1)*(len(population_depart)//5)]
+            for index in population:
+                for multi in range(10):
+                    ADN = &#34;&#34;
+                    for i in range(5):
+                        ADN += population[rd.randint(0, len(population)-1)].ADN[int(len(population[0].ADN)/5)*i:(i+1)*int(len(population[0].ADN)/5)]
+                    liste_gene.append(Gene(len_x, len_y, ADN))
+        self.genes = liste_gene
+    
+    def __str__(self):
+        chaine = &#34;{1};{2};{0}\n&#34;.format(int(self.evaluee), self.genes[0].len_x,  self.genes[0].len_y)
+        for gene in self.genes:
+            chaine += str(gene)+&#34;\n&#34;
+        return chaine
+
+    def save(self, nom, emplacement = &#34;save&#34;):
+        &#34;&#34;&#34;
+        enregistre la géneration dans un fichier
+
+        Parameters
+        ----------
+        nom : str
+            nom de la sauvegarde
+        emplacement : str, optional
+            emplacement de la sauvegarde. The default is &#34;save&#34;.
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        file = open(emplacement + &#34;/&#34; + nom + &#39;.txt&#39;, &#39;w&#39;)
+        file.write(str(self))
+        file.close()
+    
+    def get_fitness(self):
+        &#34;&#34;&#34;
+        renvoit la liste des fitness de la generation
+
+        Returns
+        -------
+        fitness : list[int]
+            liste des fitness de la generation
+
+        &#34;&#34;&#34;
+        if not self.evaluee:
+            self.evaluation()
+        fitness = []
+        for gene in self.genes:
+            fitness.append(gene.fit)
+        return fitness</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="genetique.Generation.from_file"><code class="name flex">
+<span>def <span class="ident">from_file</span></span>(<span>path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>reconstruit la generation a partir d'un fichier</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>cls</code></strong> :&ensp;<code>type</code></dt>
+<dd>DESCRIPTION.</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>chemin du fichier contenant la sauvegarde</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>IOError</code></dt>
+<dd>DESCRIPTION.</dd>
+<dt><code>Exception</code></dt>
+<dd>DESCRIPTION.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>generation</code></strong> :&ensp;<code><a title="genetique.Generation" href="#genetique.Generation">Generation</a></code></dt>
+<dd>generation corespondant au fichier</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def from_file(cls, path):
+    &#34;&#34;&#34;
+    reconstruit la generation a partir d&#39;un fichier
+
+    Parameters
+    ----------
+    cls : type
+        DESCRIPTION.
+    path : str
+        chemin du fichier contenant la sauvegarde
+
+    Raises
+    ------
+    IOError
+        DESCRIPTION.
+    Exception
+        DESCRIPTION.
+
+    Returns
+    -------
+    generation : Generation
+        generation corespondant au fichier
+
+    &#34;&#34;&#34;
+    try:
+        file = open(path+&#34;.txt&#34;, &#34;r&#34;)
+        lines = file.readlines()
+        file.close()
+    except Exception:
+        raise IOError(&#34;&#34;&#34;le fichier &#34;{}&#34; ne s&#39;ouvre pas&#34;&#34;&#34;.format(path+&#34;.txt&#34;))
+    try:
+        en_tete = lines.pop(0)
+        en_tete = en_tete.split(&#34;;&#34;)
+        len_x = int(en_tete[0])
+        len_y = int(en_tete[1])
+        evaluee = bool(int(en_tete[2]))
+    except Exception:
+        raise Exception(&#34;&#34;&#34;Entete invalide&#34;&#34;&#34;)
+    try:
+        genes = []
+        for n, ligne in enumerate(lines):
+            ligne = ligne.split(&#39;;&#39;)
+            fit = ligne[0]
+            adn = ligne[1][:-1]
+            adn = bin(int(adn, 16))[2:]
+            if evaluee:
+                fit = float(fit)
+            else:
+                fit = None
+            genes.append(Gene.from_file(adn, fit, len_x, len_y))
+    except Exception:
+        Exception(&#34;&#34;&#34;Contenu invalide ligne {}&#34;&#34;&#34;.format(n))
+    
+    generation = cls(genes)
+    generation.evaluee = evaluee
+    return generation</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="genetique.Generation.evaluation"><code class="name flex">
+<span>def <span class="ident">evaluation</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Permet de trier la liste des genes dans l'odre décroissant de qualité</p>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def evaluation(self):
+    &#34;&#34;&#34;
+    Permet de trier la liste des genes dans l&#39;odre décroissant de qualité
+
+    Returns
+    -------
+    None.
+
+    &#34;&#34;&#34;
+    self.genes.sort(key=Gene.fitness, reverse=True)
+    self.evaluee = True</code></pre>
+</details>
+</dd>
+<dt id="genetique.Generation.generation_suivante"><code class="name flex">
+<span>def <span class="ident">generation_suivante</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>calcule la génération suivante</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="genetique.Generation" href="#genetique.Generation">Generation</a></code></dt>
+<dd>La generation suivante</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generation_suivante(self):
+    &#34;&#34;&#34;
+    calcule la génération suivante
+
+    Returns
+    -------
+    Generation
+        La generation suivante
+
+    &#34;&#34;&#34;
+    gene_de_base = self.genes
+    self._selection()
+    self._croisement()
+    gen_suivante = Generation(self._mutation())
+    self.genes = gene_de_base
+    return gen_suivante</code></pre>
+</details>
+</dd>
+<dt id="genetique.Generation.get_fitness"><code class="name flex">
+<span>def <span class="ident">get_fitness</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>renvoit la liste des fitness de la generation</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fitness</code></strong> :&ensp;<code>list[int]</code></dt>
+<dd>liste des fitness de la generation</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_fitness(self):
+    &#34;&#34;&#34;
+    renvoit la liste des fitness de la generation
+
+    Returns
+    -------
+    fitness : list[int]
+        liste des fitness de la generation
+
+    &#34;&#34;&#34;
+    if not self.evaluee:
+        self.evaluation()
+    fitness = []
+    for gene in self.genes:
+        fitness.append(gene.fit)
+    return fitness</code></pre>
+</details>
+</dd>
+<dt id="genetique.Generation.save"><code class="name flex">
+<span>def <span class="ident">save</span></span>(<span>self, nom, emplacement='save')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>enregistre la géneration dans un fichier</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>nom</code></strong> :&ensp;<code>str</code></dt>
+<dd>nom de la sauvegarde</dd>
+<dt><strong><code>emplacement</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>emplacement de la sauvegarde. The default is "save".</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save(self, nom, emplacement = &#34;save&#34;):
+    &#34;&#34;&#34;
+    enregistre la géneration dans un fichier
+
+    Parameters
+    ----------
+    nom : str
+        nom de la sauvegarde
+    emplacement : str, optional
+        emplacement de la sauvegarde. The default is &#34;save&#34;.
+
+    Returns
+    -------
+    None.
+
+    &#34;&#34;&#34;
+    file = open(emplacement + &#34;/&#34; + nom + &#39;.txt&#39;, &#39;w&#39;)
+    file.write(str(self))
+    file.close()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="genetique.Essai" href="#genetique.Essai">Essai</a></code></h4>
+<ul class="">
+<li><code><a title="genetique.Essai.evolution_statistique" href="#genetique.Essai.evolution_statistique">evolution_statistique</a></code></li>
+<li><code><a title="genetique.Essai.generation_suivante" href="#genetique.Essai.generation_suivante">generation_suivante</a></code></li>
+<li><code><a title="genetique.Essai.load_save" href="#genetique.Essai.load_save">load_save</a></code></li>
+<li><code><a title="genetique.Essai.save" href="#genetique.Essai.save">save</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="genetique.Gene" href="#genetique.Gene">Gene</a></code></h4>
+<ul class="">
+<li><code><a title="genetique.Gene.decodeur_espece" href="#genetique.Gene.decodeur_espece">decodeur_espece</a></code></li>
+<li><code><a title="genetique.Gene.fitness" href="#genetique.Gene.fitness">fitness</a></code></li>
+<li><code><a title="genetique.Gene.from_file" href="#genetique.Gene.from_file">from_file</a></code></li>
+<li><code><a title="genetique.Gene.jardin" href="#genetique.Gene.jardin">jardin</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="genetique.Generation" href="#genetique.Generation">Generation</a></code></h4>
+<ul class="">
+<li><code><a title="genetique.Generation.evaluation" href="#genetique.Generation.evaluation">evaluation</a></code></li>
+<li><code><a title="genetique.Generation.from_file" href="#genetique.Generation.from_file">from_file</a></code></li>
+<li><code><a title="genetique.Generation.generation_suivante" href="#genetique.Generation.generation_suivante">generation_suivante</a></code></li>
+<li><code><a title="genetique.Generation.get_fitness" href="#genetique.Generation.get_fitness">get_fitness</a></code></li>
+<li><code><a title="genetique.Generation.save" href="#genetique.Generation.save">save</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

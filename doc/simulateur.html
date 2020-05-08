@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>simulateur API documentation</title>
+<meta name="description" content="Created on Fri May
+8 11:30:45 2020 …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>simulateur</code></h1>
+</header>
+<section id="section-intro">
+<p>Created on Fri May
+8 11:30:45 2020</p>
+<p>@author: Leopold</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Created on Fri May  8 11:30:45 2020
+
+@author: Leopold
+&#34;&#34;&#34;
+import random as rd
+
+class Jardin():
+    def __init__(self, len_x: int, len_y: int):
+        self.emplacement = [[Emplacement(self) for i in range(len_x)] for j in range(len_y)]
+
+    def __repr__(self):
+        return &#34;Jardin({},{})&#34;.format(len(self.emplacement[0]), len(self.emplacement))
+
+    def rendement(self, biais=False) -&gt; float:
+        &#34;&#34;&#34;
+        Renvoie le rendement du jardin, permet l&#39;évaluation de la qualité de l&#39;arrangement
+
+        Parameters
+        ----------
+        biais : bool, optional
+            Mettre True pour prendre en compte la biomasse. The default is False.
+
+        Returns
+        -------
+        float
+            Masse produite par le jardin. La biomasse permet de prendre en compte les plantes qui ne sont pas arrivées a maturité
+
+        &#34;&#34;&#34;
+        masse = 0
+        for ligne in self.emplacement:
+            for case in ligne:
+                masse += case.rendement(biais)
+        return masse
+    
+    def representation_interactive(self):
+        &#34;&#34;&#34;
+        Enregistre un fichier html avec la représentation graphique du jardin et l&#39;ouvre dans le navigateur
+        
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        
+        import plotly.graph_objects as go
+        from plotly.offline import plot
+        jard = self
+        fig = go.Figure()
+        for jour in range(365):
+            for yy in range(len(jard.emplacement)):
+                for xx in range(len(jard.emplacement[yy])):
+                    fig.add_trace(
+                        go.Scatter(
+                            visible=False,
+                            mode = &#39;markers&#39;,
+                            marker = dict(color=jard.emplacement[yy][xx].calendrier[jour].color,size = 100),
+                            name = jour,
+                            hovertemplate = str(jard.emplacement[yy][xx].calendrier[jour]),
+                            x=[xx],
+                            y=[yy]))
+        steps = []
+        for jour in range(365):
+            step = dict(
+                method=&#34;update&#34;,
+                args=[{&#34;visible&#34;: [False] * len(fig.data)},
+                      {&#34;title&#34;: &#34;Jour &#34; + str(jour)}],  # layout attribute
+            )
+            for i in range(len(fig.data)):
+                if int(fig.data[i][&#39;name&#39;]) == jour:
+                    step[&#34;args&#34;][0][&#34;visible&#34;][i] = True  # Toggle i&#39;th trace to &#34;visible&#34;
+                    
+            steps.append(step)
+        
+        sliders = [dict(
+            active=0,
+            pad={&#34;t&#34;: 50},
+            steps=steps
+        )]
+        
+        fig.update_layout(
+            sliders=sliders
+        )
+        
+        plot(fig)
+
+class Emplacement():
+    def __init__(self, jardin):
+        self.jardin = jardin
+        self.calendrier = [Jachere() for i in range(365)]
+
+
+    def __repr__(self):
+        return &#34;Emplacement: &#34; + &#34;\n &#34;.join([str(i) + &#34;: &#34; + elem.__repr__()
+                                             for i, elem in
+                                             enumerate(self.calendrier)]) + &#34;;&#34;
+
+    def libre(self, debut, fin) -&gt; bool:
+        &#34;&#34;&#34;
+        Peut-on placer une plante sur cette plage de temps
+
+        Parameters
+        ----------
+        debut : int
+            Jour de la plantation.
+        fin : int
+            Jour de la récolte.
+
+        Returns
+        -------
+        bool
+            Ce laps de temps est il-libre.
+
+        &#34;&#34;&#34;
+        libre = True
+        for elem in self.calendrier[debut:fin]:
+            libre &amp;= isinstance(elem, Jachere)
+        return libre
+
+    def rendement(self, biais=False) -&gt; float:
+        &#34;&#34;&#34;
+        Renvoie la masse produite par cet emplacement
+
+        Parameters
+        ----------
+        biais : bool, optional
+            Mettre True pour prendre en compte la biomasse. The default is False.
+
+        Returns
+        -------
+        float
+            Masse produite, la biomasse permet de prendre en compte les plantes qui ne sont pas arrivées à maturité.
+
+        &#34;&#34;&#34;
+        plantes = set()
+        for jour in self.calendrier:
+            if isinstance(jour, Plante):
+                plantes.add(jour)
+        masse = 0
+        for elem in plantes:
+            masse += elem.recolte_masse(elem.jour_recolte, biais)
+        return masse
+
+class Occupant():
+    def __init__(self):
+        assert 0, &#34;Not implemeted&#34;
+
+class Jachere(Occupant):
+    def __init__(self):
+        self.time_chunk = 0
+        self.color = &#34;#000000&#34;
+
+    def __repr__(self):
+        return &#34;Jachère&#34;
+    def __str__(self):
+        return &#34;Jachère&#34;
+
+class Plante(Occupant):
+    def __init__(self):
+        self.plantage = [False]*365
+        self.time_chunk = 0
+        self.masse_produite = 0
+        self.jour_semis = None
+        self.jour_recolte = None
+        self.deja_recolte = False
+
+    def plantable(self, jour) -&gt; bool:
+        &#34;&#34;&#34;
+        Peut on planter la plante pendant le jour cible
+
+        Parameters
+        ----------
+        jour : int
+            jour cible
+
+        Returns
+        -------
+        bool
+        &#34;&#34;&#34;
+        try:
+            return self.plantage[jour]
+        except IndexError:
+            return False
+
+    def recolte_masse(self, jour, biais=False) -&gt; float:
+        &#34;&#34;&#34;
+        Quel quantité va on récolter ce jour.
+
+
+        Parameters
+        ----------
+        jour : int
+            Jour de la récolte
+
+        Returns
+        -------
+        float
+            Masse de produit
+
+        &#34;&#34;&#34;
+        if (jour - self.jour_semis &gt;= self.time_chunk) and (self.deja_recolte == False):
+            self.deja_recolte = True
+            return self.masse_produite
+        return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
+
+    def planter(self, emplacement, debut, fin):
+        &#34;&#34;&#34;
+        Permet de planter l&#39;objet dans l&#39;emplacement désigné entre les deux
+        semaines données.
+
+        Parameters
+        ----------
+        emplacement : Emplacement
+            Emplacement où l&#39;on veux placer la plante.
+        debut : int
+            Numéro du jour de plantation.
+        fin : int
+            Numéro du jour de récolte.
+
+        Raises
+        ------
+        ValueError
+            Si on ne peut pas planter.
+
+        Returns
+        -------
+        int
+            0 si la tentative de planter echoue.
+
+        &#34;&#34;&#34;
+        if self.plantable(debut) and emplacement.libre(debut, fin):
+            for i in range(debut, fin):
+                emplacement.calendrier[i] = self
+            self.jour_semis = debut
+            self.jour_recolte = fin
+            return 0
+        raise ValueError</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="simulateur.Emplacement"><code class="flex name class">
+<span>class <span class="ident">Emplacement</span></span>
+<span>(</span><span>jardin)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Emplacement():
+    def __init__(self, jardin):
+        self.jardin = jardin
+        self.calendrier = [Jachere() for i in range(365)]
+
+
+    def __repr__(self):
+        return &#34;Emplacement: &#34; + &#34;\n &#34;.join([str(i) + &#34;: &#34; + elem.__repr__()
+                                             for i, elem in
+                                             enumerate(self.calendrier)]) + &#34;;&#34;
+
+    def libre(self, debut, fin) -&gt; bool:
+        &#34;&#34;&#34;
+        Peut-on placer une plante sur cette plage de temps
+
+        Parameters
+        ----------
+        debut : int
+            Jour de la plantation.
+        fin : int
+            Jour de la récolte.
+
+        Returns
+        -------
+        bool
+            Ce laps de temps est il-libre.
+
+        &#34;&#34;&#34;
+        libre = True
+        for elem in self.calendrier[debut:fin]:
+            libre &amp;= isinstance(elem, Jachere)
+        return libre
+
+    def rendement(self, biais=False) -&gt; float:
+        &#34;&#34;&#34;
+        Renvoie la masse produite par cet emplacement
+
+        Parameters
+        ----------
+        biais : bool, optional
+            Mettre True pour prendre en compte la biomasse. The default is False.
+
+        Returns
+        -------
+        float
+            Masse produite, la biomasse permet de prendre en compte les plantes qui ne sont pas arrivées à maturité.
+
+        &#34;&#34;&#34;
+        plantes = set()
+        for jour in self.calendrier:
+            if isinstance(jour, Plante):
+                plantes.add(jour)
+        masse = 0
+        for elem in plantes:
+            masse += elem.recolte_masse(elem.jour_recolte, biais)
+        return masse</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="simulateur.Emplacement.libre"><code class="name flex">
+<span>def <span class="ident">libre</span></span>(<span>self, debut, fin) -> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Peut-on placer une plante sur cette plage de temps</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>debut</code></strong> :&ensp;<code>int</code></dt>
+<dd>Jour de la plantation.</dd>
+<dt><strong><code>fin</code></strong> :&ensp;<code>int</code></dt>
+<dd>Jour de la récolte.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>Ce laps de temps est il-libre.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def libre(self, debut, fin) -&gt; bool:
+    &#34;&#34;&#34;
+    Peut-on placer une plante sur cette plage de temps
+
+    Parameters
+    ----------
+    debut : int
+        Jour de la plantation.
+    fin : int
+        Jour de la récolte.
+
+    Returns
+    -------
+    bool
+        Ce laps de temps est il-libre.
+
+    &#34;&#34;&#34;
+    libre = True
+    for elem in self.calendrier[debut:fin]:
+        libre &amp;= isinstance(elem, Jachere)
+    return libre</code></pre>
+</details>
+</dd>
+<dt id="simulateur.Emplacement.rendement"><code class="name flex">
+<span>def <span class="ident">rendement</span></span>(<span>self, biais=False) -> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie la masse produite par cet emplacement</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>biais</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Mettre True pour prendre en compte la biomasse. The default is False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse produite, la biomasse permet de prendre en compte les plantes qui ne sont pas arrivées à maturité.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rendement(self, biais=False) -&gt; float:
+    &#34;&#34;&#34;
+    Renvoie la masse produite par cet emplacement
+
+    Parameters
+    ----------
+    biais : bool, optional
+        Mettre True pour prendre en compte la biomasse. The default is False.
+
+    Returns
+    -------
+    float
+        Masse produite, la biomasse permet de prendre en compte les plantes qui ne sont pas arrivées à maturité.
+
+    &#34;&#34;&#34;
+    plantes = set()
+    for jour in self.calendrier:
+        if isinstance(jour, Plante):
+            plantes.add(jour)
+    masse = 0
+    for elem in plantes:
+        masse += elem.recolte_masse(elem.jour_recolte, biais)
+    return masse</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="simulateur.Jachere"><code class="flex name class">
+<span>class <span class="ident">Jachere</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Jachere(Occupant):
+    def __init__(self):
+        self.time_chunk = 0
+        self.color = &#34;#000000&#34;
+
+    def __repr__(self):
+        return &#34;Jachère&#34;
+    def __str__(self):
+        return &#34;Jachère&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="simulateur.Occupant" href="#simulateur.Occupant">Occupant</a></li>
+</ul>
+</dd>
+<dt id="simulateur.Jardin"><code class="flex name class">
+<span>class <span class="ident">Jardin</span></span>
+<span>(</span><span>len_x: int, len_y: int)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Jardin():
+    def __init__(self, len_x: int, len_y: int):
+        self.emplacement = [[Emplacement(self) for i in range(len_x)] for j in range(len_y)]
+
+    def __repr__(self):
+        return &#34;Jardin({},{})&#34;.format(len(self.emplacement[0]), len(self.emplacement))
+
+    def rendement(self, biais=False) -&gt; float:
+        &#34;&#34;&#34;
+        Renvoie le rendement du jardin, permet l&#39;évaluation de la qualité de l&#39;arrangement
+
+        Parameters
+        ----------
+        biais : bool, optional
+            Mettre True pour prendre en compte la biomasse. The default is False.
+
+        Returns
+        -------
+        float
+            Masse produite par le jardin. La biomasse permet de prendre en compte les plantes qui ne sont pas arrivées a maturité
+
+        &#34;&#34;&#34;
+        masse = 0
+        for ligne in self.emplacement:
+            for case in ligne:
+                masse += case.rendement(biais)
+        return masse
+    
+    def representation_interactive(self):
+        &#34;&#34;&#34;
+        Enregistre un fichier html avec la représentation graphique du jardin et l&#39;ouvre dans le navigateur
+        
+
+        Returns
+        -------
+        None.
+
+        &#34;&#34;&#34;
+        
+        import plotly.graph_objects as go
+        from plotly.offline import plot
+        jard = self
+        fig = go.Figure()
+        for jour in range(365):
+            for yy in range(len(jard.emplacement)):
+                for xx in range(len(jard.emplacement[yy])):
+                    fig.add_trace(
+                        go.Scatter(
+                            visible=False,
+                            mode = &#39;markers&#39;,
+                            marker = dict(color=jard.emplacement[yy][xx].calendrier[jour].color,size = 100),
+                            name = jour,
+                            hovertemplate = str(jard.emplacement[yy][xx].calendrier[jour]),
+                            x=[xx],
+                            y=[yy]))
+        steps = []
+        for jour in range(365):
+            step = dict(
+                method=&#34;update&#34;,
+                args=[{&#34;visible&#34;: [False] * len(fig.data)},
+                      {&#34;title&#34;: &#34;Jour &#34; + str(jour)}],  # layout attribute
+            )
+            for i in range(len(fig.data)):
+                if int(fig.data[i][&#39;name&#39;]) == jour:
+                    step[&#34;args&#34;][0][&#34;visible&#34;][i] = True  # Toggle i&#39;th trace to &#34;visible&#34;
+                    
+            steps.append(step)
+        
+        sliders = [dict(
+            active=0,
+            pad={&#34;t&#34;: 50},
+            steps=steps
+        )]
+        
+        fig.update_layout(
+            sliders=sliders
+        )
+        
+        plot(fig)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="simulateur.Jardin.rendement"><code class="name flex">
+<span>def <span class="ident">rendement</span></span>(<span>self, biais=False) -> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie le rendement du jardin, permet l'évaluation de la qualité de l'arrangement</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>biais</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Mettre True pour prendre en compte la biomasse. The default is False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse produite par le jardin. La biomasse permet de prendre en compte les plantes qui ne sont pas arrivées a maturité</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rendement(self, biais=False) -&gt; float:
+    &#34;&#34;&#34;
+    Renvoie le rendement du jardin, permet l&#39;évaluation de la qualité de l&#39;arrangement
+
+    Parameters
+    ----------
+    biais : bool, optional
+        Mettre True pour prendre en compte la biomasse. The default is False.
+
+    Returns
+    -------
+    float
+        Masse produite par le jardin. La biomasse permet de prendre en compte les plantes qui ne sont pas arrivées a maturité
+
+    &#34;&#34;&#34;
+    masse = 0
+    for ligne in self.emplacement:
+        for case in ligne:
+            masse += case.rendement(biais)
+    return masse</code></pre>
+</details>
+</dd>
+<dt id="simulateur.Jardin.representation_interactive"><code class="name flex">
+<span>def <span class="ident">representation_interactive</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enregistre un fichier html avec la représentation graphique du jardin et l'ouvre dans le navigateur</p>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def representation_interactive(self):
+    &#34;&#34;&#34;
+    Enregistre un fichier html avec la représentation graphique du jardin et l&#39;ouvre dans le navigateur
+    
+
+    Returns
+    -------
+    None.
+
+    &#34;&#34;&#34;
+    
+    import plotly.graph_objects as go
+    from plotly.offline import plot
+    jard = self
+    fig = go.Figure()
+    for jour in range(365):
+        for yy in range(len(jard.emplacement)):
+            for xx in range(len(jard.emplacement[yy])):
+                fig.add_trace(
+                    go.Scatter(
+                        visible=False,
+                        mode = &#39;markers&#39;,
+                        marker = dict(color=jard.emplacement[yy][xx].calendrier[jour].color,size = 100),
+                        name = jour,
+                        hovertemplate = str(jard.emplacement[yy][xx].calendrier[jour]),
+                        x=[xx],
+                        y=[yy]))
+    steps = []
+    for jour in range(365):
+        step = dict(
+            method=&#34;update&#34;,
+            args=[{&#34;visible&#34;: [False] * len(fig.data)},
+                  {&#34;title&#34;: &#34;Jour &#34; + str(jour)}],  # layout attribute
+        )
+        for i in range(len(fig.data)):
+            if int(fig.data[i][&#39;name&#39;]) == jour:
+                step[&#34;args&#34;][0][&#34;visible&#34;][i] = True  # Toggle i&#39;th trace to &#34;visible&#34;
+                
+        steps.append(step)
+    
+    sliders = [dict(
+        active=0,
+        pad={&#34;t&#34;: 50},
+        steps=steps
+    )]
+    
+    fig.update_layout(
+        sliders=sliders
+    )
+    
+    plot(fig)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="simulateur.Occupant"><code class="flex name class">
+<span>class <span class="ident">Occupant</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Occupant():
+    def __init__(self):
+        assert 0, &#34;Not implemeted&#34;</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="simulateur.Jachere" href="#simulateur.Jachere">Jachere</a></li>
+<li><a title="simulateur.Plante" href="#simulateur.Plante">Plante</a></li>
+</ul>
+</dd>
+<dt id="simulateur.Plante"><code class="flex name class">
+<span>class <span class="ident">Plante</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Plante(Occupant):
+    def __init__(self):
+        self.plantage = [False]*365
+        self.time_chunk = 0
+        self.masse_produite = 0
+        self.jour_semis = None
+        self.jour_recolte = None
+        self.deja_recolte = False
+
+    def plantable(self, jour) -&gt; bool:
+        &#34;&#34;&#34;
+        Peut on planter la plante pendant le jour cible
+
+        Parameters
+        ----------
+        jour : int
+            jour cible
+
+        Returns
+        -------
+        bool
+        &#34;&#34;&#34;
+        try:
+            return self.plantage[jour]
+        except IndexError:
+            return False
+
+    def recolte_masse(self, jour, biais=False) -&gt; float:
+        &#34;&#34;&#34;
+        Quel quantité va on récolter ce jour.
+
+
+        Parameters
+        ----------
+        jour : int
+            Jour de la récolte
+
+        Returns
+        -------
+        float
+            Masse de produit
+
+        &#34;&#34;&#34;
+        if (jour - self.jour_semis &gt;= self.time_chunk) and (self.deja_recolte == False):
+            self.deja_recolte = True
+            return self.masse_produite
+        return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
+
+    def planter(self, emplacement, debut, fin):
+        &#34;&#34;&#34;
+        Permet de planter l&#39;objet dans l&#39;emplacement désigné entre les deux
+        semaines données.
+
+        Parameters
+        ----------
+        emplacement : Emplacement
+            Emplacement où l&#39;on veux placer la plante.
+        debut : int
+            Numéro du jour de plantation.
+        fin : int
+            Numéro du jour de récolte.
+
+        Raises
+        ------
+        ValueError
+            Si on ne peut pas planter.
+
+        Returns
+        -------
+        int
+            0 si la tentative de planter echoue.
+
+        &#34;&#34;&#34;
+        if self.plantable(debut) and emplacement.libre(debut, fin):
+            for i in range(debut, fin):
+                emplacement.calendrier[i] = self
+            self.jour_semis = debut
+            self.jour_recolte = fin
+            return 0
+        raise ValueError</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="simulateur.Occupant" href="#simulateur.Occupant">Occupant</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="herbier.Patate" href="herbier.html#herbier.Patate">Patate</a></li>
+<li><a title="herbier.Poireau" href="herbier.html#herbier.Poireau">Poireau</a></li>
+<li><a title="herbier.Tomate" href="herbier.html#herbier.Tomate">Tomate</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="simulateur.Plante.plantable"><code class="name flex">
+<span>def <span class="ident">plantable</span></span>(<span>self, jour) -> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Peut on planter la plante pendant le jour cible</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>jour</code></strong> :&ensp;<code>int</code></dt>
+<dd>jour cible</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plantable(self, jour) -&gt; bool:
+    &#34;&#34;&#34;
+    Peut on planter la plante pendant le jour cible
+
+    Parameters
+    ----------
+    jour : int
+        jour cible
+
+    Returns
+    -------
+    bool
+    &#34;&#34;&#34;
+    try:
+        return self.plantage[jour]
+    except IndexError:
+        return False</code></pre>
+</details>
+</dd>
+<dt id="simulateur.Plante.planter"><code class="name flex">
+<span>def <span class="ident">planter</span></span>(<span>self, emplacement, debut, fin)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Permet de planter l'objet dans l'emplacement désigné entre les deux
+semaines données.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>emplacement</code></strong> :&ensp;<code><a title="simulateur.Emplacement" href="#simulateur.Emplacement">Emplacement</a></code></dt>
+<dd>Emplacement où l'on veux placer la plante.</dd>
+<dt><strong><code>debut</code></strong> :&ensp;<code>int</code></dt>
+<dd>Numéro du jour de plantation.</dd>
+<dt><strong><code>fin</code></strong> :&ensp;<code>int</code></dt>
+<dd>Numéro du jour de récolte.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>Si on ne peut pas planter.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>0 si la tentative de planter echoue.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def planter(self, emplacement, debut, fin):
+    &#34;&#34;&#34;
+    Permet de planter l&#39;objet dans l&#39;emplacement désigné entre les deux
+    semaines données.
+
+    Parameters
+    ----------
+    emplacement : Emplacement
+        Emplacement où l&#39;on veux placer la plante.
+    debut : int
+        Numéro du jour de plantation.
+    fin : int
+        Numéro du jour de récolte.
+
+    Raises
+    ------
+    ValueError
+        Si on ne peut pas planter.
+
+    Returns
+    -------
+    int
+        0 si la tentative de planter echoue.
+
+    &#34;&#34;&#34;
+    if self.plantable(debut) and emplacement.libre(debut, fin):
+        for i in range(debut, fin):
+            emplacement.calendrier[i] = self
+        self.jour_semis = debut
+        self.jour_recolte = fin
+        return 0
+    raise ValueError</code></pre>
+</details>
+</dd>
+<dt id="simulateur.Plante.recolte_masse"><code class="name flex">
+<span>def <span class="ident">recolte_masse</span></span>(<span>self, jour, biais=False) -> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Quel quantité va on récolter ce jour.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>jour</code></strong> :&ensp;<code>int</code></dt>
+<dd>Jour de la récolte</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse de produit</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def recolte_masse(self, jour, biais=False) -&gt; float:
+    &#34;&#34;&#34;
+    Quel quantité va on récolter ce jour.
+
+
+    Parameters
+    ----------
+    jour : int
+        Jour de la récolte
+
+    Returns
+    -------
+    float
+        Masse de produit
+
+    &#34;&#34;&#34;
+    if (jour - self.jour_semis &gt;= self.time_chunk) and (self.deja_recolte == False):
+        self.deja_recolte = True
+        return self.masse_produite
+    return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="simulateur.Emplacement" href="#simulateur.Emplacement">Emplacement</a></code></h4>
+<ul class="">
+<li><code><a title="simulateur.Emplacement.libre" href="#simulateur.Emplacement.libre">libre</a></code></li>
+<li><code><a title="simulateur.Emplacement.rendement" href="#simulateur.Emplacement.rendement">rendement</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="simulateur.Jachere" href="#simulateur.Jachere">Jachere</a></code></h4>
+</li>
+<li>
+<h4><code><a title="simulateur.Jardin" href="#simulateur.Jardin">Jardin</a></code></h4>
+<ul class="">
+<li><code><a title="simulateur.Jardin.rendement" href="#simulateur.Jardin.rendement">rendement</a></code></li>
+<li><code><a title="simulateur.Jardin.representation_interactive" href="#simulateur.Jardin.representation_interactive">representation_interactive</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="simulateur.Occupant" href="#simulateur.Occupant">Occupant</a></code></h4>
+</li>
+<li>
+<h4><code><a title="simulateur.Plante" href="#simulateur.Plante">Plante</a></code></h4>
+<ul class="">
+<li><code><a title="simulateur.Plante.plantable" href="#simulateur.Plante.plantable">plantable</a></code></li>
+<li><code><a title="simulateur.Plante.planter" href="#simulateur.Plante.planter">planter</a></code></li>
+<li><code><a title="simulateur.Plante.recolte_masse" href="#simulateur.Plante.recolte_masse">recolte_masse</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
