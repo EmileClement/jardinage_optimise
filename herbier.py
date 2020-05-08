@@ -48,11 +48,11 @@ class Poireau(Plante):
     def __str__(self):
         return "Poireau"
 
-N_bit_espece = 2
+N_bit_espece = 3
 
 dict_herbier = {
-        "00" : Jachere,
-        "01" : Patate,
-        "11" : Tomate,
-        "10" : Poireau
+        "000" : Jachere,
+        "001" : Patate,
+        "011" : Tomate,
+        "010" : Poireau
         }
