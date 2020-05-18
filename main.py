@@ -8,10 +8,11 @@ from simulateur import *
 from herbier import *
 from genetique import *
 
-def demo(nom):
-    E = Essai(2, 3, 200)
+def demo(nom, n_gen = 15, n_pop = 200):
+    E = Essai(2, 3, n_pop)
     try:
-        for i in range(15):
+        for i in range(n_gen):
+            print("generation {}".format(i))
             E.generation_suivante()
     except KeyboardInterrupt:
         pass
