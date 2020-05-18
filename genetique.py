@@ -13,6 +13,33 @@ class Gene():
     decodeur_espece = dict_herbier
     
     def __init__(self, len_x, len_y, ADN=""):
+        def generateur_aleatoire_mais_pas_trop():
+            decodeur_espece = Gene.decodeur_espece
+            calendrier = [0]*365
+            ADN = [0]*365
+            iterateur = 0
+            while iterateur < 365:
+                identificateur = ""
+                for i in range(N_bit_espece):
+                    identificateur += str(rd.randint(0,1))
+                plante_aléatoire = decodeur_espece[identificateur]
+                if identificateur == N_bit_espece*"0":
+                    
+                    ADN[iterateur] =  N_bit_espece*"0"
+                    iterateur += 1
+                else:
+                    time_chunk = plante_aléatoire().time_chunk
+                    if iterateur + time_chunk < 363:
+                        calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
+                        ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
+                        calendrier[iterateur + time_chunk] = Jachere()
+                        ADN[iterateur + time_chunk] = N_bit_espece*"0"
+                        iterateur += time_chunk + 1
+                    else:
+                        calendrier[iterateur:365] = [plante_aléatoire()]*(364-iterateur +1)
+                        ADN[iterateur:365] = [identificateur]*(364-iterateur +1)
+                        iterateur = 365
+            return "".join(ADN)
         self.len_x = len_x
         self.len_y = len_y
         if ADN:
@@ -74,8 +101,8 @@ class Gene():
                 emplacement = jar.emplacement[y][x]
                 ebauche = []
                 for jour in range(365):
-                    allele = self.ADN[(x + (y * self.len_x)) * 365 + 2*jour :
-                                      (x + (y * self.len_x)) * 365 + 2*jour
+                    allele = self.ADN[(x + (y * self.len_x)) * 365 + N_bit_espece*jour :
+                                      (x + (y * self.len_x)) * 365 + N_bit_espece*jour
                                       + N_bit_espece]
                     ebauche += [Gene.decodeur_espece[allele]]
                 idx_exploration = 0
@@ -90,7 +117,7 @@ class Gene():
                         idx_fin = idx_exploration
                         plante = type_actuel()
                         try:
-                            plante.planter(emplacement, idx_depart, idx_fin)
+                            plante.planter(emplacement, idx_depart, idx_fin,x,y,jar)
                         except ValueError:
                             pass
         return jar
@@ -347,10 +374,12 @@ class Essai():
             ADN = [0]*365
             iterateur = 0
             while iterateur < 365:
-                identificateur = str(rd.randint(0, 1)) + str(rd.randint(0, 1))
-                plante_aléatoire = decodeur_espece[str(rd.randint(0, 1)) + str(rd.randint(0, 1))]
-                if identificateur == "00":
-                    ADN[iterateur] = "00"
+                identificateur = ""
+                for i in range(N_bit_espece):
+                    identificateur += str(rd.randint(0,1))
+                plante_aléatoire = decodeur_espece[identificateur]
+                if identificateur == N_bit_espece*"0":
+                    ADN[iterateur] =  N_bit_espece*"0"
                     iterateur += 1
                 else:
                     time_chunk = plante_aléatoire().time_chunk
@@ -358,7 +387,7 @@ class Essai():
                         calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
                         ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
                         calendrier[iterateur + time_chunk] = Jachere()
-                        ADN[iterateur + time_chunk] = "00"
+                        ADN[iterateur + time_chunk] = N_bit_espece*"0"
                         iterateur += time_chunk + 1
                     else:
                         calendrier[iterateur:365] = [plante_aléatoire()]*(364-iterateur +1)
@@ -367,9 +396,7 @@ class Essai():
             return "".join(ADN)
         self.generations = []
         if not overright:
-            liste_gene = [Gene(len_x, len_y,
-                               "".join([generateur_aleatoire_mais_pas_trop()
-                                        for j in range(len_x * len_y)]))
+            liste_gene = [Gene(len_x, len_y)
                           for i in range(taille_pop)]
             self.generations.append(Generation(liste_gene))
 
