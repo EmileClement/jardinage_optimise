@@ -95,6 +95,7 @@ class Emplacement():
     def __init__(self, jardin):
         self.jardin = jardin
         self.calendrier = [Jachere() for i in range(365)]
+        self.luminosité = 1 
 
 
     def __repr__(self):
@@ -170,6 +171,7 @@ class Plante(Occupant):
         self.jour_semis = None
         self.jour_recolte = None
         self.deja_recolte = False
+        self.multiplicateur = 1
 
     def plantable(self, jour) -> bool:
         """
@@ -236,6 +238,7 @@ class Plante(Occupant):
 
         """
         if self.plantable(debut) and emplacement.libre(debut, fin):
+            self.multiplicateur = 1
             for i in range(debut, fin):
                 emplacement.calendrier[i] = self
             self.jour_semis = debut

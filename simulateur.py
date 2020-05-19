@@ -5,10 +5,11 @@ Created on Fri May  8 11:30:45 2020
 @author: Leopold
 """
 import random as rd
+from herbier import *
 
 class Jardin():
     def __init__(self, len_x: int, len_y: int):
-        self.emplacement = [[Emplacement(self) for i in range(len_x)] for j in range(len_y)]
+        self.emplacement = [[Emplacement(self,i,j) for i in range(len_x)] for j in range(len_y)]
 
     def __repr__(self):
         return "Jardin({},{})".format(len(self.emplacement[0]), len(self.emplacement))
@@ -87,15 +88,46 @@ class Jardin():
         plot(fig)
 
 class Emplacement():
-    def __init__(self, jardin):
+    def __init__(self,jardin,x,y):
+        print(jardin)
         self.jardin = jardin
         self.calendrier = [Jachere() for i in range(365)]
+        self.voisin = self.voisin(jardin,x,y)
+        self.x = x
+        self.y = y
 
 
     def __repr__(self):
         return "Emplacement: " + "\n ".join([str(i) + ": " + elem.__repr__()
                                              for i, elem in
                                              enumerate(self.calendrier)]) + ";"
+    def voisin(jardin,x,y) -> list:
+        """
+        donne les coordonées [x,y] des voisins existants 
+
+        Parameters
+        ----------
+        jardin : Jardin
+
+        Returns
+        -------
+        list
+            [[x1,y1],[x2,y2]...]
+
+        """
+        voisins = []
+        if x > 0:
+            if y > 0:
+                voisins.append[x-1,y-1]
+            if y < len(jardin.emplacement)-1:
+                voisins.append[x-1,y+1]
+        if x < len(jardin.emplacement[0])-1:
+            if y > 0:
+                voisins.append[x+1,y-1]
+            if y < len(jardin.emplacement)-1:
+                voisins.append[x+1,y+1]
+        return voisins
+            
 
     def libre(self, debut, fin) -> bool:
         """
@@ -151,6 +183,7 @@ class Jachere(Occupant):
     def __init__(self):
         self.time_chunk = 0
         self.color = "#000000"
+        self.id = 0
 
     def __repr__(self):
         return "Jachère"
@@ -165,6 +198,7 @@ class Plante(Occupant):
         self.jour_semis = None
         self.jour_recolte = None
         self.deja_recolte = False
+        self.multiplicateur = 1
 
     def plantable(self, jour) -> bool:
         """
@@ -202,10 +236,10 @@ class Plante(Occupant):
         """
         if (jour - self.jour_semis >= self.time_chunk) and (self.deja_recolte == False):
             self.deja_recolte = True
-            return self.masse_produite
+            return self.masse_produite*self.multiplicateur
         return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
 
-    def planter(self, emplacement, debut, fin):
+    def planter(self, emplacement, debut, fin,x,y,jard):
         """
         Permet de planter l'objet dans l'emplacement désigné entre les deux
         semaines données.
@@ -231,6 +265,11 @@ class Plante(Occupant):
 
         """
         if self.plantable(debut) and emplacement.libre(debut, fin):
+            for coordonee in emplacement.voisin:
+                plante_id_reel = int(jar.emplacement[coordonee[1]][coordonee[0]].calendrier[debut].id)
+                multiplicateur *= table_associations[self.id][plante_id_reel]
+                
+            
             for i in range(debut, fin):
                 emplacement.calendrier[i] = self
             self.jour_semis = debut
