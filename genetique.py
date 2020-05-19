@@ -40,6 +40,8 @@ class Gene():
         assert 0, "not implemented"
     
 class Gene_naif(Gene):
+    taux_mutation_carra = 0.05
+    pourcentage_max_mutation = 0.3
     
     def __init__(self, len_x, len_y, ADN=""):
         def generateur_aleatoire_mais_pas_trop():
@@ -150,7 +152,29 @@ class Gene_naif(Gene):
                         except ValueError:
                             pass
         return jar
+    
+    def __mul__(self, other):
+        idx_coupe = rd.randint(0, len(self.ADN))
+        return Gene_naif(self.len_x, self.len_y, self.ADN[:idx_coupe] + other.ADN[idx_coupe:])
 
+    def mutate(self):
+            if rd.random() < Gene_naif.taux_mutation_carra:
+                nbr_caractere_a_muter = rd.randint(1, round(Gene_naif.pourcentage_max_mutation*len(self.ADN)))
+                place_caractere_aleatoire = rd.randint(0, int(len(self.ADN)-nbr_caractere_a_muter_aleatoire)-1)
+                for bit in self.ADN[place_caractere_aleatoire:place_caractere_aleatoire+nbr_caractere_a_muter_aleatoire]:
+                    if bit == "0":
+                        inverse += "1"
+                    else:
+                        inverse += "0"
+                if (len(gene.ADN[:place_caractere_aleatoire] 
+                        + inverse 
+                        + gene.ADN[place_caractere_aleatoire 
+                                   + nbr_caractere_a_muter_aleatoire:])) 
+                        != len(gene.ADN):
+                    raise ValueError
+                else:
+                    self.ADN = self.ADN[place_caractere_aleatoire] + inverse + self.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire:]
+        
 class Composant():
     next_id = 0
     
@@ -347,11 +371,16 @@ class Generation():
             La generation suivante
 
         """
-        gene_de_base = self.genes
-        self._selection()
-        self._croisement()
-        gen_suivante = Generation(self._mutation())
-        self.genes = gene_de_base
+        N = len(self.genes)
+        self.evaluation()
+        gene = self._selection()
+        
+        new_gene = []
+        while len(new_gene) <= N:
+            g1 = rd.choice(gene)
+            g2 = rd.choice(gene)
+            new_gene.append(g1 * g2)
+        gen_suivante = Generation(new_gene)
         return gen_suivante
 
     def evaluation(self):
@@ -378,62 +407,34 @@ class Generation():
         
         if self.evaluee == False:
             self.evaluation()
-        self.genes = self.genes[:(len(self.genes)//10)]
-    
-    def _mutation(self) -> list:
-        """
-        Permet de faire muter la liste des genes. Chaque gene a 2/5 chances de muter
+        selection = []
+        selection += self.genes[:(len(self.genes)//10)]
+        weight = [gene.fitness() for self.genes[(len(self.genes)//10):]]
+        selection += choices(self.genes[(len(self.genes)//10):], weight, k = len(selection))
+        return selection
 
-        Returns
-        -------
-        List.
-        
-        """
-        population = self.genes
-        len_x, len_y = population[0].len_x, population[0].len_y
-        rendu = []
-        for gene in population:
-            aleatoire1 = rd.randint(1, 50)
-            if aleatoire1 > 30:
-                nbr_caractere_a_muter_aleatoire = rd.randint(1, int(0.3*len(gene.ADN)))
-                place_caractere_aleatoire = rd.randint(0, int(len(gene.ADN)-nbr_caractere_a_muter_aleatoire)-1)
-                inverse = ""
-                for bit in gene.ADN[place_caractere_aleatoire:place_caractere_aleatoire+nbr_caractere_a_muter_aleatoire]:
-                    if bit == "0":
-                        inverse += "1"
-                    else:
-                        inverse += "0"
-                if (len(gene.ADN[0:place_caractere_aleatoire] + inverse + gene.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire  : len(gene.ADN)])) != len(gene.ADN):
-                    gene2 = gene
-                else:
-                    gene2 =Gene(len_x, len_y , gene.ADN[0:place_caractere_aleatoire] + inverse + gene.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire: len(gene.ADN)] )
-            else:
-                gene2 =gene
-            rendu.append(gene2)
-        return rendu
+    # def _croisement(self) -> list:
+    #     """
+    #     Permet de croiser les genes.
 
-    def _croisement(self) -> list:
-        """
-        Permet de croiser les genes.
-
-        Returns
-        -------
-        None.
+    #     Returns
+    #     -------
+    #     None.
         
-        """
+    #     """
         
-        population_depart = self.genes
-        len_x, len_y = population_depart[0].len_x, population_depart[0].len_y
-        liste_gene = []
-        for pop_index in range(5):
-            population = population_depart[pop_index*(len(population_depart)//5) :(pop_index+1)*(len(population_depart)//5)]
-            for index in population:
-                for multi in range(10):
-                    ADN = ""
-                    for i in range(5):
-                        ADN += population[rd.randint(0, len(population)-1)].ADN[int(len(population[0].ADN)/5)*i:(i+1)*int(len(population[0].ADN)/5)]
-                    liste_gene.append(Gene(len_x, len_y, ADN))
-        self.genes = liste_gene
+    #     population_depart = self.genes
+    #     len_x, len_y = population_depart[0].len_x, population_depart[0].len_y
+    #     liste_gene = []
+    #     for pop_index in range(5):
+    #         population = population_depart[pop_index*(len(population_depart)//5) :(pop_index+1)*(len(population_depart)//5)]
+    #         for index in population:
+    #             for multi in range(10):
+    #                 ADN = ""
+    #                 for i in range(5):
+    #                     ADN += population[rd.randint(0, len(population)-1)].ADN[int(len(population[0].ADN)/5)*i:(i+1)*int(len(population[0].ADN)/5)]
+    #                 liste_gene.append(Gene(len_x, len_y, ADN))
+    #     self.genes = liste_gene
     
     def __str__(self):
         chaine = "{1};{2};{0}\n".format(int(self.evaluee), self.genes[0].len_x,  self.genes[0].len_y)
