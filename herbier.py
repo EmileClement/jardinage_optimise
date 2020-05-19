@@ -109,7 +109,7 @@ class Navets(Plante):
 
 N_bit_espece = 3
 
-list_espece = [Patate, Tomate, Poireau]
+list_espece = [Patate, Tomate, Poireau, Epinards, Radis, Choux, Navets]
 dict_herbier = {
         "000" : Jachere,
         "001" : Patate,

@@ -5,7 +5,6 @@ Created on Fri May  8 11:30:45 2020
 @author: Leopold
 """
 import random as rd
-from herbier import *
 
 class Jardin():
     def __init__(self, len_x: int, len_y: int):
@@ -89,10 +88,9 @@ class Jardin():
 
 class Emplacement():
     def __init__(self,jardin,x,y):
-        print(jardin)
         self.jardin = jardin
         self.calendrier = [Jachere() for i in range(365)]
-        self.voisin = self.voisin(jardin,x,y)
+        #self.voisin = self.voisin(jardin,x,y)
         self.x = x
         self.y = y
 
@@ -147,8 +145,14 @@ class Emplacement():
 
         """
         libre = True
-        for elem in self.calendrier[debut:fin]:
-            libre &= isinstance(elem, Jachere)
+        if debut<=fin:
+            for elem in self.calendrier[debut:fin]:
+                libre &= isinstance(elem, Jachere)
+        else:
+            for elem in self.calendrier[:fin]:
+                libre &= isinstance(elem, Jachere)
+            for elem in self.calendrier[debut:]:
+                libre &= isinstance(elem, Jachere)
         return libre
 
     def rendement(self, biais=False) -> float:
@@ -234,12 +238,13 @@ class Plante(Occupant):
             Masse de produit
 
         """
+        assert 0, "deprecated"
         if (jour - self.jour_semis >= self.time_chunk) and (self.deja_recolte == False):
             self.deja_recolte = True
             return self.masse_produite*self.multiplicateur
         return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
 
-    def planter(self, emplacement, debut, fin,x,y,jard):
+    def planter(self, emplacement, debut, fin): #,x,y,jard):
         """
         Permet de planter l'objet dans l'emplacement désigné entre les deux
         semaines données.
@@ -261,18 +266,25 @@ class Plante(Occupant):
         Returns
         -------
         int
-            0 si la tentative de planter echoue.
-
+            0 si la tentative de planter reussi.
         """
         if self.plantable(debut) and emplacement.libre(debut, fin):
-            for coordonee in emplacement.voisin:
-                plante_id_reel = int(jar.emplacement[coordonee[1]][coordonee[0]].calendrier[debut].id)
-                multiplicateur *= table_associations[self.id][plante_id_reel]
+            # for coordonee in emplacement.voisin:
+            #     plante_id_reel = int(jar.emplacement[coordonee[1]][coordonee[0]].calendrier[debut].id)
+            #     multiplicateur *= table_associations[self.id][plante_id_reel]
                 
-            
-            for i in range(debut, fin):
-                emplacement.calendrier[i] = self
+            if debut<= fin:
+                for i in range(debut-1, fin+1):
+                    emplacement.calendrier[i] = self
+            else:
+                for i in list(range(debut-1, 365)) + list(range(0, fin + 1)):
+                    emplacement.calendrier[i] = self
             self.jour_semis = debut
             self.jour_recolte = fin
             return 0
         raise ValueError
+        
+        
+        
+J = Jardin(1,1)
+empl = J.emplacement[0][0]

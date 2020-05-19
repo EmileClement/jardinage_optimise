@@ -13,7 +13,7 @@ class Gene():
     
     decodeur_espece = dict_herbier
     
-    def __init(self, *kwarg):
+    def __init__(self, *args):
         assert 0, "not implemented"
     
     def jardin(self) -> Jardin:
@@ -518,7 +518,7 @@ class Essai():
             return "".join(ADN)
         self.generations = []
         if not overright:
-            liste_gene = [Gene(len_x, len_y)
+            liste_gene = [Gene_naif(len_x, len_y)
                           for i in range(taille_pop)]
             self.generations.append(Generation(liste_gene))
 
