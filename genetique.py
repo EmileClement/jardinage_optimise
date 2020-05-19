@@ -10,7 +10,36 @@ from simulateur import *
 from herbier import *
 
 class Gene():
+    
     decodeur_espece = dict_herbier
+    
+    def __init(self, *kwarg):
+        assert 0, "not implemented"
+    
+    def jardin(self) -> Jardin:
+        assert 0, "not implemented"
+    
+    def fitness(self) -> float:
+        """
+        met a jour la caractéristique fit du gene
+
+        Returns
+        -------
+        fit : float
+            le rendement du gene.
+
+        """
+        fit = self.jardin().rendement(True)
+        self.fit = fit
+        return fit
+    
+    def __mul__(self, other):
+        assert 0, "not implemented"
+    
+    def mutation(self):
+        assert 0, "not implemented"
+    
+class Gene_naif(Gene):
     
     def __init__(self, len_x, len_y, ADN=""):
         self.len_x = len_x
@@ -95,19 +124,112 @@ class Gene():
                             pass
         return jar
 
-    def fitness(self):
-        """
-        met a jour la caractéristique fit du gene
+class Composant():
+    next_id = 0
+    
+    taux_mutation_date = 0.05
+    ecart_type_mutation_date = 5
+    taux_mutation_position = 0.05
+    taux_mutation_activite = 0.05
+    
+    def __init__(self, espece, date_plantaison, date_recolte, position, actif = True, idx = None):
+        if idx == None:
+            self.id = Composant.next_id
+            Composant.next_id += 1
+        else:
+            self.id = idx
+        
+        self.position = position
+        self.actif = actif
+        self.espece = espece
+        self.plantage = date_plantaison
+        self.recolte = date_recolte
+    
+    def __repr__(self):
+        return "{0}:{1}@{2},{3}->{4},{5}".format(self.id, self.espece, self.position, 
+                                        self.plantage, self.recolte, self.actif)
+    def copy(self):
+        x, y = self.position
+        espece = self.espece
+        date_plantaison = self. plantage
+        date_recolte = self.recolte
+        actif = self.actif
+        id = self.id
+        return Composant(espece, date_plantaison, date_recolte, (x,y), actif, id)
+        
+    @classmethod
+    def random(cls, len_x, len_y):
+        return cls(rd.choice(list_espece),
+                   rd.randint(0, 364),
+                   rd.randint(0, 364),
+                   (rd.randint(0,len_x-1), rd.randint(0, len_y-1)))
+    
+    def __or__(self, other):
+        return rd.choice([self, other])
 
-        Returns
-        -------
-        fit : float
-            le rendement du gene.
+    def mutate(self):
+        if rd.random()<=Composant.taux_mutation_date:
+            self.plantage += round(rd.gauss(0, Composant.ecart_type_mutation_date))
+            self.plantage %= 365
+        if rd.random()<=Composant.taux_mutation_date:
+            self.recolte += round(rd.gauss(0, Composant.ecart_type_mutation_date))
+            self.recolte %= 365
+        if rd.random() <= Composant.taux_mutation_activite:
+            self.actif = not self.actif
+    
+class Gene_compose(Gene):
+    taux_mutation_new_componant = 0.1
+    
+    def __init__(self, len_x, len_y, composants = 10):
+        self.len_x = len_x
+        self.len_y = len_y
+        if isinstance(composants, int):
+            self.composants = [Composant.random(len_x, len_y) for _ in range(composants)]
+        else:
+            self.composants = composants
+            
+    def __repr__(self):
+        chaine = ""
+        for elem in self.composants:
+            chaine += "{}\n".format(elem.__repr__())
+        return "gene compose ({0},{1}) :\n{2}".format(self.len_x, self.len_y, chaine)
+    
+    def mutate(self):
+        for elem in self.composants:
+            elem.mutate()
+        
+        if rd.random() <= Gene_compose.taux_mutation_new_componant:
+            self.composants.append(Composant.random(self.len_x, self.len_y))   
 
-        """
-        fit = self.jardin().rendement(True)
-        self.fit = fit
-        return fit
+    def __mul__(self, other):
+        parent_A = [None for _ in range(Composant.next_id)]
+        parent_B = [None for _ in range(Composant.next_id)]
+        for composant in self.composants:
+            parent_A[composant.id] = composant
+        for composant in other.composants:
+            parent_B[composant.id] = composant
+        fils = [None for _ in range(Composant.next_id)]
+        for i in range(Composant.next_id):
+            comp_a = parent_A[i]
+            comp_b = parent_B[i]
+            if (comp_a == None) and (comp_b == None):
+                pass
+            elif isinstance(comp_a, Composant) and isinstance(comp_b, Composant):
+                fils[i] = (comp_a | comp_b).copy()
+            elif isinstance(comp_a, Composant) and (comp_b == None):
+                fils[i] = comp_a.copy()
+            elif isinstance(comp_b, Composant) and (comp_a == None):
+                fils[i] = comp_b.copy()
+            else:
+                raise ValueError
+        gene = Gene_compose(self.len_x, self.len_y, [elem for elem in fils if elem != None])
+        gene.mutate()
+        return gene
+
+A = Gene_compose(2, 3, 3)
+B = Gene_compose(2, 3, 5)
+C = Gene_compose(2, 3, 2)
+
 
 
 class Generation():
@@ -162,7 +284,7 @@ class Generation():
                     fit = float(fit)
                 else:
                     fit = None
-                genes.append(Gene.from_file(adn, fit, len_x, len_y))
+                genes.append(Gene_naif.from_file(adn, fit, len_x, len_y))
         except Exception:
             Exception("""Contenu invalide ligne {}""".format(n))
         
@@ -348,9 +470,9 @@ class Essai():
             iterateur = 0
             while iterateur < 365:
                 identificateur = str(rd.randint(0, 1)) + str(rd.randint(0, 1))
-                plante_aléatoire = decodeur_espece[str(rd.randint(0, 1)) + str(rd.randint(0, 1))]
-                if identificateur == "00":
-                    ADN[iterateur] = "00"
+                plante_aléatoire = decodeur_espece[str(rd.randint(0, 1)) + str(rd.randint(0, 1))+ str(rd.randint(0, 1))]
+                if identificateur == "000":
+                    ADN[iterateur] = "000"
                     iterateur += 1
                 else:
                     time_chunk = plante_aléatoire().time_chunk
@@ -367,7 +489,7 @@ class Essai():
             return "".join(ADN)
         self.generations = []
         if not overright:
-            liste_gene = [Gene(len_x, len_y,
+            liste_gene = [Gene_naif(len_x, len_y,
                                "".join([generateur_aleatoire_mais_pas_trop()
                                         for j in range(len_x * len_y)]))
                           for i in range(taille_pop)]

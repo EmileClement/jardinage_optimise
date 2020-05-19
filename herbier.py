@@ -50,6 +50,7 @@ class Poireau(Plante):
 
 N_bit_espece = 3
 
+list_espece = [Patate, Tomate, Poireau]
 dict_herbier = {
         "000" : Jachere,
         "001" : Patate,
