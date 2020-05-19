@@ -252,10 +252,20 @@ class Gene_compose(Gene):
         gene = Gene_compose(self.len_x, self.len_y, [elem for elem in fils if elem != None])
         gene.mutate()
         return gene
+    
+    def jardin(self):
+        jar = Jardin(self.len_x, self.len_y)
+        for comp in self.composants:
+            if comp.actif:
+                try:
+                    empl = jar.emplacement[comp.position[1]][comp.position[0]]
+                    plante = comp.espece()
+                    plante.planter(empl, comp.plantage, comp.recolte)
+                except ValueError:
+                    pass
+        return jar
 
-A = Gene_compose(2, 3, 3)
-B = Gene_compose(2, 3, 5)
-C = Gene_compose(2, 3, 2)
+A = Gene_compose(2, 3, 15)
 
 
 
