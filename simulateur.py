@@ -240,9 +240,9 @@ class Plante(Occupant):
 
         
 
-        if (((jour - self.jour_semis)%365) >= self.time_chunk):
-            return self.masse_produite(jour)*self.multiplicateur
-        return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
+
+        return self.masse_produite(jour)*self.multiplicateur
+
 
 
     def planter(self, emplacement, debut, fin): #,x,y,jard):

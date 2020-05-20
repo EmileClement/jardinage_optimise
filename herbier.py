@@ -21,13 +21,27 @@ class Patate(Plante):
     def __str__(self):
         return "Patate"
     def masse_produite(self,jour):
+        """
+        Renvoie la masse produite par le légume à un jour donné de l'année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        """
         if (self.deja_recolte == False):
             self.deja_recolte = True
-            return 10/(1 + 10**((- (jour - self.jour_semis - self.time_chunk))/20))
+            return 10/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20))
         else:
             return 0.
 
 class Tomate(Plante):
+    
     def __init__(self):
         self.plantage = [False] * 121 + [True] * 60 + [False] * (365 - 171)
         self.time_chunk = 119
@@ -42,9 +56,22 @@ class Tomate(Plante):
     def __str__(self):
         return "Tomate"
     def masse_produite(self,jour):
+        """
+        Renvoie la masse produite par le légume à un jour donné de l'année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        """
         if (self.deja_recolte == False):
             self.deja_recolte = True
-            return 10/(1 + 9**((15- (jour - self.jour_semis - self.time_chunk))/10))
+            return 10/(1 + 9**((15- ((jour - self.jour_semis)%365 - self.time_chunk))/10))
         else:
             return 0.
 
@@ -63,9 +90,22 @@ class Poireau(Plante):
     def __str__(self):
         return "Poireau"
     def masse_produite(self,jour):
+        """
+        Renvoie la masse produite par le légume à un jour donné de l'année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        """
         if (self.deja_recolte == False):
             self.deja_recolte = True
-            return 4/(1 + 10**((10- (jour - self.jour_semis - self.time_chunk))/5))
+            return 4/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/5))
         else:
             return 0.
 
@@ -85,9 +125,22 @@ class Epinards(Plante):
         return "Epinards"
 
     def masse_produite(self,jour):
+        """
+        Renvoie la masse produite par le légume à un jour donné de l'année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        """
         if (self.deja_recolte == False):
             self.deja_recolte = True
-            return 1.5/(1 + 10**((self.jour_semis-jour + self.time_chunk)/5))
+            return 1.5/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
         else:
             return 0.
     
@@ -106,9 +159,22 @@ class Radis(Plante):
     def __str__(self):
         return "Radis"
     def masse_produite(self,jour):
+        """
+        Renvoie la masse produite par le légume à un jour donné de l'année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        """
         if (self.deja_recolte == False):
             self.deja_recolte = True
-            return 2.1/(1 + 10**((self.jour_semis-jour + self.time_chunk)/5))
+            return 2.1/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
         else:
             return 0.
 
@@ -126,9 +192,22 @@ class Choux(Plante):
     def __str__(self):
         return "Choux"
     def masse_produite(self,jour):
+        """
+        Renvoie la masse produite par le légume à un jour donné de l'année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        """
         if (self.deja_recolte == False):
             self.deja_recolte = True
-            return 1.2/(1 + 10**((self.jour_semis-jour + self.time_chunk)/30))
+            return 1.2/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/30))
         else:
             return 0.
 
@@ -146,9 +225,22 @@ class Navets(Plante):
     def __str__(self):
         return "Navets"
     def masse_produite(self,jour):
+        """
+        Renvoie la masse produite par le légume à un jour donné de l'année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        """
         if (self.deja_recolte == False):
             self.deja_recolte = True
-            return 2./(1 + 10**((self.jour_semis-jour + self.time_chunk)/15))
+            return 2./(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/15))
         else:
             return 0.
 
