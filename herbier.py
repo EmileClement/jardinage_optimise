@@ -83,6 +83,7 @@ class Epinards(Plante):
         return "Epinards"
     def __str__(self):
         return "Epinards"
+
     def masse_produite(self,jour):
         if (self.deja_recolte == False):
             self.deja_recolte = True
@@ -90,6 +91,7 @@ class Epinards(Plante):
         else:
             return 0.
     
+
 class Radis(Plante):
     def __init__(self):
         self.plantage = [False] * 50 + [True] * 91 + [False] * (224)
