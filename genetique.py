@@ -29,9 +29,10 @@ class Gene():
             le rendement du gene.
 
         """
-        fit = self.jardin().rendement(True)
-        self.fit = fit
-        return fit
+        if self.fit == None:
+            fit = self.jardin().rendement(True)
+            self.fit = fit
+        return self.fit
     
     def __mul__(self, other):
         assert 0, "not implemented"
@@ -239,6 +240,7 @@ class Gene_compose(Gene):
             self.composants = [Composant.random(len_x, len_y) for _ in range(composants)]
         else:
             self.composants = composants
+        self.fit = None
             
     def __repr__(self):
         chaine = ""
