@@ -297,7 +297,8 @@ A = Gene_compose(2, 3, 15)
 
 
 class Generation():
-
+    multithreading_actif = False
+    
     @classmethod
     def from_file(cls, path):
         """
@@ -397,16 +398,17 @@ class Generation():
         None.
 
         """
-        liste_evaluateur = []
-        for gene in self.genes:
-            liste_evaluateur.append(Evaluateur(gene))
-        
-        for evaluateur in liste_evaluateur:
-            evaluateur.start()
-        
-        for evaluateur in liste_evaluateur:
-            evaluateur.join()
-        
+        if Generation.multithreading_actif :
+            liste_evaluateur = []
+            for gene in self.genes:
+                liste_evaluateur.append(Evaluateur(gene))
+            
+            for evaluateur in liste_evaluateur:
+                evaluateur.start()
+            
+            for evaluateur in liste_evaluateur:
+                evaluateur.join()
+            
         self.genes.sort(key=Gene.fitness, reverse=True)
         self.evaluee = True
 

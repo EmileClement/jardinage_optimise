@@ -22,4 +22,4 @@ def demo(nom, n_gen=15, n_pop=200):
     generation.evaluation()
     return generation.genes[0]
 
-E = demo('profiler')
+E = demo('profiler', 50, 150)
