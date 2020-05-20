@@ -5,6 +5,7 @@ Created on Fri May  8 11:31:42 2020
 @author: Leopold
 """
 import random as rd
+import threading
 
 from simulateur import *
 from herbier import *
@@ -396,6 +397,16 @@ class Generation():
         None.
 
         """
+        liste_evaluateur = []
+        for gene in self.genes:
+            liste_evaluateur.append(Evaluateur(gene))
+        
+        for evaluateur in liste_evaluateur:
+            evaluateur.start()
+        
+        for evaluateur in liste_evaluateur:
+            evaluateur.join()
+        
         self.genes.sort(key=Gene.fitness, reverse=True)
         self.evaluee = True
 
@@ -562,3 +573,14 @@ class Essai():
         plt.xlabel("generation")
         plt.ylabel("rendement")
         return plt
+
+class Evaluateur(threading.Thread):
+    def __init__(self, gene):
+        threading.Thread.__init__(self)
+        self.gene = gene
+    
+    def run(self):
+        self.gene.fitness()
+
+
+
