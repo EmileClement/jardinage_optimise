@@ -8,7 +8,7 @@ from simulateur import *
 from herbier import *
 from genetique import *
 
-def demo(nom, n_gen = 15, n_pop = 200):
+def demo(nom, n_gen=15, n_pop=200):
     E = Essai.composee_vide(2, 3, n_pop)
     try:
         for i in range(n_gen):
@@ -20,4 +20,6 @@ def demo(nom, n_gen = 15, n_pop = 200):
     E.evolution_statistique(5)
     generation = E.generations[-1]
     generation.evaluation()
-    return generation.genes[0]        
+    return generation.genes[0]
+
+E = demo('profiler')

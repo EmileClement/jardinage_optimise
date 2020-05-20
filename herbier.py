@@ -64,7 +64,7 @@ class Epinards(Plante):
         return "Epinards"
     def __str__(self):
         return "Epinards"
-    
+
 class Radis(Plante):
     def __init__(self):
         self.plantage = [False] * 50 + [True] * 91 + [False] * (224)
