@@ -158,7 +158,7 @@ class Gene_naif(Gene):
         idx_coupe = rd.randint(0, len(self.ADN))
         return Gene_naif(self.len_x, self.len_y, self.ADN[:idx_coupe] + other.ADN[idx_coupe:])
 
-    def mutate(self):
+    def mutation(self):
             if rd.random() < Gene_naif.taux_mutation_carra:
                 nbr_caractere_a_muter = rd.randint(1, round(Gene_naif.pourcentage_max_mutation*len(self.ADN)))
                 place_caractere_aleatoire = rd.randint(0, int(len(self.ADN)-nbr_caractere_a_muter)-1)
@@ -220,7 +220,7 @@ class Composant():
     def __or__(self, other):
         return rd.choice([self, other])
 
-    def mutate(self):
+    def mutation(self):
         if rd.random()<=Composant.taux_mutation_date:
             self.plantage += round(rd.gauss(0, Composant.ecart_type_mutation_date))
             self.plantage %= 365
@@ -248,9 +248,9 @@ class Gene_compose(Gene):
             chaine += "{}\n".format(elem.__repr__())
         return "gene compose ({0},{1}) :\n{2}".format(self.len_x, self.len_y, chaine)
     
-    def mutate(self):
+    def mutation(self):
         for elem in self.composants:
-            elem.mutate()
+            elem.mutation()
         
         if rd.random() <= Gene_compose.taux_mutation_new_componant:
             self.composants.append(Composant.random(self.len_x, self.len_y))   
@@ -277,7 +277,6 @@ class Gene_compose(Gene):
             else:
                 raise ValueError
         gene = Gene_compose(self.len_x, self.len_y, [elem for elem in fils if elem != None])
-        gene.mutate()
         return gene
     
     def jardin(self):
@@ -382,7 +381,9 @@ class Generation():
         while len(new_gene) <= N:
             g1 = rd.choice(gene)
             g2 = rd.choice(gene)
-            new_gene.append(g1 * g2)
+            g = (g1 * g2)
+            g.mutation()
+            new_gene.append(g)
         gen_suivante = Generation(new_gene)
         return gen_suivante
 
