@@ -17,7 +17,7 @@ def demo(nom, n_gen = 15, n_pop = 200):
     except KeyboardInterrupt:
         pass
     E.save(nom)
-    E.evolution_statistique()
+    E.evolution_statistique(5)
     generation = E.generations[-1]
     generation.evaluation()
     return generation.genes[0]        

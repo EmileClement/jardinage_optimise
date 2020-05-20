@@ -238,10 +238,9 @@ class Plante(Occupant):
             Masse de produit
 
         """
-        assert 0, "deprecated"
-        if (jour - self.jour_semis >= self.time_chunk) and (self.deja_recolte == False):
+        if (((jour - self.jour_semis)%365) >= self.time_chunk) and (self.deja_recolte == False):
             self.deja_recolte = True
-            return self.masse_produite*self.multiplicateur
+            return self.masse_produite#*self.multiplicateur
         return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
 
     def planter(self, emplacement, debut, fin): #,x,y,jard):
@@ -274,7 +273,7 @@ class Plante(Occupant):
             #     multiplicateur *= table_associations[self.id][plante_id_reel]
                 
             if debut<= fin:
-                for i in range(debut-1, fin+1):
+                for i in range(debut-1, fin):
                     emplacement.calendrier[i] = self
             else:
                 for i in list(range(debut-1, 365)) + list(range(0, fin + 1)):

@@ -148,7 +148,7 @@ class Gene_naif(Gene):
                         idx_fin = idx_exploration
                         plante = type_actuel()
                         try:
-                            plante.planter(emplacement, idx_depart, idx_fin,x,y,jar)
+                            plante.planter(emplacement, idx_depart, idx_fin) #,x,y,jar)
                         except ValueError:
                             pass
         return jar
@@ -166,11 +166,11 @@ class Gene_naif(Gene):
                         inverse += "1"
                     else:
                         inverse += "0"
-                if (len(gene.ADN[:place_caractere_aleatoire] 
+                if ((len(gene.ADN[:place_caractere_aleatoire] 
                         + inverse 
                         + gene.ADN[place_caractere_aleatoire 
-                                   + nbr_caractere_a_muter_aleatoire:])) 
-                        != len(gene.ADN):
+                                   + nbr_caractere_a_muter_aleatoire:])) != 
+                                                                len(gene.ADN)):
                     raise ValueError
                 else:
                     self.ADN = self.ADN[place_caractere_aleatoire] + inverse + self.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire:]
@@ -409,8 +409,8 @@ class Generation():
             self.evaluation()
         selection = []
         selection += self.genes[:(len(self.genes)//10)]
-        weight = [gene.fitness() for self.genes[(len(self.genes)//10):]]
-        selection += choices(self.genes[(len(self.genes)//10):], weight, k = len(selection))
+        weight = [gene.fitness() for gene in self.genes[(len(self.genes)//10):]]
+        selection += rd.choices(self.genes[(len(self.genes)//10):], weight, k = len(selection))
         return selection
 
     # def _croisement(self) -> list:
@@ -578,14 +578,17 @@ class Essai():
                 break
         return essai
     
-    def evolution_statistique(self):
+    def evolution_statistique(self, n_mesure=10):
+        import numpy as np
+        liste_indice = np.linspace(0, len(self.generations)-1, n_mesure, dtype=int)
         from matplotlib import pyplot as plt
         distribution = []
-        X = []
         for n, generation in enumerate(self.generations):
-            distribution.append(generation.get_fitness())
-            X.append(n)
-        plt.violinplot(distribution, X)
+            if n in liste_indice:
+                distribution.append(generation.get_fitness())
+        plt.violinplot(distribution, liste_indice,
+                       widths = len(self.generations)/(2*n_mesure),
+                       showmeans = True)
         plt.title("Evolution de la repartition statistique du rendement en fonction des generations")
         plt.xlabel("generation")
         plt.ylabel("rendement")
