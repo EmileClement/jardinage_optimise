@@ -198,7 +198,6 @@ class Plante(Occupant):
     def __init__(self):
         self.plantage = [False]*365
         self.time_chunk = 0
-        self.masse_produite = 0
         self.jour_semis = None
         self.jour_recolte = None
         self.deja_recolte = False
@@ -238,11 +237,11 @@ class Plante(Occupant):
             Masse de produit
 
         """
-        assert 0, "deprecated"
-        if (jour - self.jour_semis >= self.time_chunk) and (self.deja_recolte == False):
-            self.deja_recolte = True
-            return self.masse_produite*self.multiplicateur
-        return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
+        return self.masse_produite(jour)*self.multiplicateur
+#        if (jour - self.jour_semis >= self.time_chunk) and (self.deja_recolte == False):
+#            self.deja_recolte = True
+#            return self.masse_produite()*self.multiplicateur
+#        return biais * (self.jour_semis-self.jour_recolte)** 2 / 365 ** 2
 
     def planter(self, emplacement, debut, fin): #,x,y,jard):
         """
@@ -286,5 +285,3 @@ class Plante(Occupant):
         
         
         
-J = Jardin(1,1)
-empl = J.emplacement[0][0]
