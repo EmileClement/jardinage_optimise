@@ -33,18 +33,18 @@ class Jardin():
             for case in ligne:
                 masse += case.rendement(biais)
         return masse
-    
+
     def representation_interactive(self):
         """
         Enregistre un fichier html avec la représentation graphique du jardin et l'ouvre dans le navigateur
-        
+
 
         Returns
         -------
         None.
 
         """
-        
+
         import plotly.graph_objects as go
         from plotly.offline import plot
         jard = self
@@ -71,19 +71,19 @@ class Jardin():
             for i in range(len(fig.data)):
                 if int(fig.data[i]['name']) == jour:
                     step["args"][0]["visible"][i] = True  # Toggle i'th trace to "visible"
-                    
+
             steps.append(step)
-        
+
         sliders = [dict(
             active=0,
             pad={"t": 50},
             steps=steps
         )]
-        
+
         fig.update_layout(
             sliders=sliders
         )
-        
+
         plot(fig)
 
 class Emplacement():
@@ -101,7 +101,7 @@ class Emplacement():
                                              enumerate(self.calendrier)]) + ";"
     def voisin(jardin,x,y) -> list:
         """
-        donne les coordonées [x,y] des voisins existants 
+        donne les coordonées [x,y] des voisins existants
 
         Parameters
         ----------
@@ -125,7 +125,7 @@ class Emplacement():
             if y < len(jardin.emplacement)-1:
                 voisins.append[x+1,y+1]
         return voisins
-            
+
 
     def libre(self, debut, fin) -> bool:
         """
@@ -271,7 +271,7 @@ class Plante(Occupant):
             # for coordonee in emplacement.voisin:
             #     plante_id_reel = int(jar.emplacement[coordonee[1]][coordonee[0]].calendrier[debut].id)
             #     multiplicateur *= table_associations[self.id][plante_id_reel]
-                
+
             if debut<= fin:
                 for i in range(debut-1, fin):
                     emplacement.calendrier[i] = self
@@ -282,8 +282,8 @@ class Plante(Occupant):
             self.jour_recolte = fin
             return 0
         raise ValueError
-        
-        
-        
+
+
+
 J = Jardin(1,1)
 empl = J.emplacement[0][0]
