@@ -160,7 +160,8 @@ class Gene_naif(Gene):
     def mutate(self):
             if rd.random() < Gene_naif.taux_mutation_carra:
                 nbr_caractere_a_muter = rd.randint(1, round(Gene_naif.pourcentage_max_mutation*len(self.ADN)))
-                place_caractere_aleatoire = rd.randint(0, int(len(self.ADN)-nbr_caractere_a_muter_aleatoire)-1)
+                place_caractere_aleatoire = rd.randint(0, int(len(self.ADN)-nbr_caractere_a_muter)-1)
+                inverse = ""
                 for bit in self.ADN[place_caractere_aleatoire:place_caractere_aleatoire+nbr_caractere_a_muter_aleatoire]:
                     if bit == "0":
                         inverse += "1"
@@ -169,18 +170,18 @@ class Gene_naif(Gene):
                 if ((len(gene.ADN[:place_caractere_aleatoire] 
                         + inverse 
                         + gene.ADN[place_caractere_aleatoire 
-                                   + nbr_caractere_a_muter_aleatoire:])) != 
+                                   + nbr_caractere_a_muter:])) != 
                                                                 len(gene.ADN)):
                     raise ValueError
                 else:
-                    self.ADN = self.ADN[place_caractere_aleatoire] + inverse + self.ADN[place_caractere_aleatoire + nbr_caractere_a_muter_aleatoire:]
+                    self.ADN = self.ADN[place_caractere_aleatoire] + inverse + self.ADN[place_caractere_aleatoire + nbr_caractere_a_muter:]
         
 class Composant():
     next_id = 0
     
-    taux_mutation_date = 0.05
+    taux_mutation_date = 0.3
     ecart_type_mutation_date = 5
-    taux_mutation_position = 0.05
+    taux_mutation_position = 0.00
     taux_mutation_activite = 0.05
     
     def __init__(self, espece, date_plantaison, date_recolte, position, actif = True, idx = None):
@@ -229,7 +230,7 @@ class Composant():
             self.actif = not self.actif
     
 class Gene_compose(Gene):
-    taux_mutation_new_componant = 0.1
+    taux_mutation_new_componant = 0.3
     
     def __init__(self, len_x, len_y, composants = 10):
         self.len_x = len_x
@@ -481,58 +482,23 @@ class Generation():
 
 
 class Essai():
-    def __init__(self, len_x, len_y, taille_pop, overright = False):
-        """
-        créé un nouvel essai.
+    def __init__(self, generation_initial):
 
-        Parameters
-        ----------
-        len_x : int
-            longueur du jardin selon X.
-        len_y : int
-            longueur du jardin selon Y.
-        taille_pop : int
-            nombre de membre de la pop, mettre au moins 100
-        overright : bool, optional
-            mettre à True pour controler la pop de départ. The default is False.
-
-        Returns
-        -------
-        None.
-
-        """
-        def generateur_aleatoire_mais_pas_trop():
-            decodeur_espece = Gene.decodeur_espece
-            calendrier = [0]*365
-            ADN = [0]*365
-            iterateur = 0
-            while iterateur < 365:
-                identificateur = ""
-                for i in range(N_bit_espece):
-                    identificateur += str(rd.randint(0,1))
-                plante_aléatoire = decodeur_espece[identificateur]
-                if identificateur == N_bit_espece*"0":
-                    ADN[iterateur] =  N_bit_espece*"0"
-                    iterateur += 1
-                else:
-                    time_chunk = plante_aléatoire().time_chunk
-                    if iterateur + time_chunk < 363:
-                        calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
-                        ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
-                        calendrier[iterateur + time_chunk] = Jachere()
-                        ADN[iterateur + time_chunk] = N_bit_espece*"0"
-                        iterateur += time_chunk + 1
-                    else:
-                        calendrier[iterateur:365] = [plante_aléatoire()]*(364-iterateur +1)
-                        ADN[iterateur:365] = [identificateur]*(364-iterateur +1)
-                        iterateur = 365
-            return "".join(ADN)
         self.generations = []
-        if not overright:
-            liste_gene = [Gene_naif(len_x, len_y)
-                          for i in range(taille_pop)]
-            self.generations.append(Generation(liste_gene))
+        self.generations.append(generation_initial)
 
+    @classmethod
+    def naif_non_random(cls, len_x, len_y, taille):
+        genes = [Gene_naif(len_x, len_y) for _ in range(taille)]
+        generation = Generation(genes)
+        return cls(generation)
+    
+    @classmethod
+    def composee_vide(cls, len_x, len_y, taille):
+        genes = [Gene_compose(len_x, len_y, 0) for _ in range(taille)]
+        generation = Generation(genes)
+        return cls(generation)
+        
     def generation_suivante(self):
         """
         Rajoute la géneration suivante dans la liste des génerations

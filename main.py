@@ -9,7 +9,7 @@ from herbier import *
 from genetique import *
 
 def demo(nom, n_gen = 15, n_pop = 200):
-    E = Essai(2, 3, n_pop)
+    E = Essai.composee_vide(2, 3, n_pop)
     try:
         for i in range(n_gen):
             print("generation {}".format(i))
