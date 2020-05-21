@@ -8,7 +8,7 @@ from simulateur import *
 
 class Patate(Plante):
     def __init__(self):
-        self.plantage = [False] * 52 + [True] * 253 + [False] * (365 - 305)
+        self.plantage = [False] * 52 + [True] * 109 + [False] * 204
         self.time_chunk = 80
         self.jour_semis = None
         self.deja_recolte = False
@@ -34,17 +34,15 @@ class Patate(Plante):
             Masse produite par le légume
 
         """
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 10/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20))
-        else:
-            return 0.
+
+        return 5*(1/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 10**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/15)))
+
 
 class Tomate(Plante):
     
     def __init__(self):
-        self.plantage = [False] * 121 + [True] * 60 + [False] * (365 - 171)
-        self.time_chunk = 119
+        self.plantage = [False] * 92 + [True] * 90 + [False] * (183)
+        self.time_chunk = 80
         self.jour_semis = None
         self.deja_recolte = False
         self.color = "#eb4b3d"
@@ -69,16 +67,13 @@ class Tomate(Plante):
             Masse produite par le légume
 
         """
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 10/(1 + 9**((15- ((jour - self.jour_semis)%365 - self.time_chunk))/10))
-        else:
-            return 0.
+        return 10*(1/(1 + 9**(( -((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 9**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/20)))
+        
 
 
 class Poireau(Plante):
     def __init__(self):
-        self.plantage = [True] * 90 + [False] * 153 + [True] * (122)
+        self.plantage = [False] *245  + [True] * 90 + [False] * (30)
         self.time_chunk = 20
         self.jour_semis = None
         self.deja_recolte = False
@@ -103,11 +98,9 @@ class Poireau(Plante):
             Masse produite par le légume
 
         """
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 4/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/5))
-        else:
-            return 0.
+
+        return 4*(1/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/10)) -1/(1 + 10**((150 -((jour - self.jour_semis)%365 - self.time_chunk))/20)))
+
 
 class Epinards(Plante):
     def __init__(self):
@@ -116,7 +109,7 @@ class Epinards(Plante):
 
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = "#80c44a"
+        self.color = "#26661d"
         self.id = 4
         self.multiplicateur = 1.
     def __repr__(self):
@@ -138,11 +131,9 @@ class Epinards(Plante):
             Masse produite par le légume
 
         """
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 1.5/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
-        else:
-            return 0.
+
+        return 1.5/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/15))
+
     
 
 class Radis(Plante):
@@ -151,7 +142,7 @@ class Radis(Plante):
         self.time_chunk = 20
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = "#80c44a"
+        self.color = "#f07f77"
         self.id = 5
         self.multiplicateur = 1.
     def __repr__(self):
@@ -172,11 +163,9 @@ class Radis(Plante):
             Masse produite par le légume
 
         """
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 2.1/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
-        else:
-            return 0.
+
+        return 2.1*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/10)) - 1/(1 + 10**((130-((jour - self.jour_semis)%365) + self.time_chunk)/30)))
+
 
 class Choux(Plante):
     def __init__(self):
@@ -184,7 +173,7 @@ class Choux(Plante):
         self.time_chunk = 90
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = "#80c44a"
+        self.color = "#7e9e71"
         self.id = 6
         self.multiplicateur = 1.
     def __repr__(self):
@@ -205,19 +194,17 @@ class Choux(Plante):
             Masse produite par le légume
 
         """
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 1.2/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/30))
-        else:
-            return 0.
+
+        return 1.2/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/30))
+
 
 class Navets(Plante):
     def __init__(self):
         self.plantage = [False] * 182 + [True] * 90 + [False] * (93)
-        self.time_chunk = 75
+        self.time_chunk = 30
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = "#80c44a"
+        self.color = "#c8d4a9"
         self.id = 7
         self.multiplicateur = 1.
     def __repr__(self):
@@ -238,11 +225,9 @@ class Navets(Plante):
             Masse produite par le légume
 
         """
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 2./(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/15))
-        else:
-            return 0.
+
+        return 2.*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/25)) -1/(1 + 10**((100-((jour - self.jour_semis)%365) + self.time_chunk)/15)))
+
 
 N_bit_espece = 3
 
@@ -258,3 +243,11 @@ dict_herbier = {
         "111" : Navets
         }
 
+def graphe_production(plante,jour_semis):
+    import matplotlib.pyplot as plt
+    levert = plante()
+    levert.jour_semis = jour_semis
+    prod = []
+    for i in range(365):
+        prod.append(levert.masse_produite(i))
+    plt.plot(range(365),prod)

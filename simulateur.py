@@ -251,11 +251,13 @@ class Plante(Occupant):
 
         
 
+        if self.deja_recolte == False:
+            self.deja_recolte = True
+            return self.masse_produite(jour)*self.multiplicateur
+        else:
+            return 0.
 
-        return self.masse_produite(jour)*self.multiplicateur
-
-
-
+        
     def planter(self, emplacement, debut, fin,jard): #,x,y,jard):
         """
         Permet de planter l'objet dans l'emplacement désigné entre les deux
