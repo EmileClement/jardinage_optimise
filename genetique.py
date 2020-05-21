@@ -182,7 +182,7 @@ class Composant():
     next_id = 0
 
     taux_mutation_date = 0.3
-    ecart_type_mutation_date = 5
+    ecart_type_mutation_date = 10
     taux_mutation_position = 0.00
     taux_mutation_activite = 0.05
 

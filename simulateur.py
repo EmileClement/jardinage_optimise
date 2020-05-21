@@ -34,7 +34,7 @@ class Jardin():
         for ligne in self.emplacement:
             for case in ligne:
                 masse += case.rendement(biais)
-        return masse
+        return masse/(len(self.emplacement) * len(self.emplacement[0]))
 
     def representation_interactive(self):
         """
