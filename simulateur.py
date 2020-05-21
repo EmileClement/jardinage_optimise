@@ -198,14 +198,14 @@ class Jachere(Occupant):
         return "Jachère"
 
 class Plante(Occupant):
-    table_associations = [[1.1,1,1,1,1,1,1,1],
-                      [1,1.1,1,1,1,1,1,1],
-                      [1,1,1.1,1,1,1,1,1],
-                      [1,1,1,1.1,1,1,1,1],
-                      [1,1,1,1,1.1,1,1,1],
-                      [1,1,1,1,1,1.1,1,1],
-                      [1,1,1,1,1,1,1.1,1],
-                      [1,1,1,1,1,1,1,1.1]]
+    table_associations = [[1. ,1. ,1. ,1. ,1. ,1. ,1. ,1. ],
+                          [1. ,1.1,0.95,1. ,1. ,1.1,1.1,1. ],
+                          [1. ,0.95,1.1,1. ,1. ,1.1,0.95,1. ],
+                          [1. ,1. ,1. ,1.1,1. ,1. ,0.95,1. ],
+                          [1. ,1. ,1. ,1. ,1.1,1. ,1.1,1. ],
+                          [1. ,1. ,1.1,1. ,1. ,1.1,1.1,1. ],
+                          [1. ,1.1,0.95,1. ,1. ,1. ,1.1,1. ],
+                          [1. ,1. ,1.1,1. ,1. ,1. ,1. ,1.1]]
     def __init__(self):
         self.plantage = [False]*365
         self.time_chunk = 0
@@ -253,9 +253,10 @@ class Plante(Occupant):
 
         if self.deja_recolte == False:
             self.deja_recolte = True
-            return self.masse_produite(jour)*self.multiplicateur
+            return self.masse_produite(jour)*self.multiplicateur 
         else:
             return 0.
+    
 
     def planter(self, emplacement, debut, fin, jard):
 
