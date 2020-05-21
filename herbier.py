@@ -152,7 +152,7 @@ class Radis(Plante):
         self.jour_semis = None
         self.deja_recolte = False
         self.color = "#80c44a"
-        self.id = 3
+        self.id = 5
         self.multiplicateur = 1.
     def __repr__(self):
         return "Radis"
@@ -185,7 +185,7 @@ class Choux(Plante):
         self.jour_semis = None
         self.deja_recolte = False
         self.color = "#80c44a"
-        self.id = 3
+        self.id = 6
         self.multiplicateur = 1.
     def __repr__(self):
         return "Choux"
@@ -218,7 +218,7 @@ class Navets(Plante):
         self.jour_semis = None
         self.deja_recolte = False
         self.color = "#80c44a"
-        self.id = 3
+        self.id = 7
         self.multiplicateur = 1.
     def __repr__(self):
         return "Navets"
@@ -258,11 +258,3 @@ dict_herbier = {
         "111" : Navets
         }
 
-table_associations = [[1.1,1,1,1,1,1,1,1],
-                      [1,1.1,1,1,1,1,1,1],
-                      [1,1,1.1,1,1,1,1,1],
-                      [1,1,1,1.1,1,1,1,1],
-                      [1,1,1,1,1.1,1,1,1],
-                      [1,1,1,1,1,1.1,1,1],
-                      [1,1,1,1,1,1,1.1,1],
-                      [1,1,1,1,1,1,1,1.1]]

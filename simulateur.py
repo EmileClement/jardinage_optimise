@@ -9,7 +9,9 @@ import random as rd
 class Jardin():
     def __init__(self, len_x: int, len_y: int):
         self.emplacement = [[Emplacement(self,i,j) for i in range(len_x)] for j in range(len_y)]
-
+        for y in range(len(self.emplacement)):
+            for x in range(len(self.emplacement[0])):
+                self.emplacement[y][x].fctvoisin(len(self.emplacement[0]),len(self.emplacement),x,y)
     def __repr__(self):
         return "Jardin({},{})".format(len(self.emplacement[0]), len(self.emplacement))
 
@@ -90,41 +92,42 @@ class Emplacement():
     def __init__(self,jardin,x,y):
         self.jardin = jardin
         self.calendrier = [Jachere() for i in range(365)]
-        #self.voisin = self.voisin(jardin,x,y)
         self.x = x
         self.y = y
+        self.voisin = []
 
 
     def __repr__(self):
         return "Emplacement: " + "\n ".join([str(i) + ": " + elem.__repr__()
                                              for i, elem in
                                              enumerate(self.calendrier)]) + ";"
-    def voisin(jardin,x,y) -> list:
+    def fctvoisin(self,len_x,len_y,x,y):
         """
-        donne les coordonées [x,y] des voisins existants
+        Met à jours les coordonées des voisins existants
 
         Parameters
         ----------
-        jardin : Jardin
-
-        Returns
-        -------
-        list
-            [[x1,y1],[x2,y2]...]
+        len_x : int
+            Taille selon x du jardin
+        len_y : int
+            Taille selon y du jardin
+        x: int
+            position de l'emplacement
+        y: int
+            position de l'emplacement
+        
 
         """
-        voisins = []
+        voisin = []
         if x > 0:
-            if y > 0:
-                voisins.append[x-1,y-1]
-            if y < len(jardin.emplacement)-1:
-                voisins.append[x-1,y+1]
-        if x < len(jardin.emplacement[0])-1:
-            if y > 0:
-                voisins.append[x+1,y-1]
-            if y < len(jardin.emplacement)-1:
-                voisins.append[x+1,y+1]
-        return voisins
+            voisin.append([x-1,y])
+        if x < len_x-1:
+            voisin.append([x+1,y])
+        if y > 0:
+            voisin.append([x,y-1])
+        if y < len_y-1:
+            voisin.append([x,y+1])
+        self.voisin = voisin
 
 
     def libre(self, debut, fin) -> bool:
@@ -195,6 +198,14 @@ class Jachere(Occupant):
         return "Jachère"
 
 class Plante(Occupant):
+    table_associations = [[1.1,1,1,1,1,1,1,1],
+                      [1,1.1,1,1,1,1,1,1],
+                      [1,1,1.1,1,1,1,1,1],
+                      [1,1,1,1.1,1,1,1,1],
+                      [1,1,1,1,1.1,1,1,1],
+                      [1,1,1,1,1,1.1,1,1],
+                      [1,1,1,1,1,1,1.1,1],
+                      [1,1,1,1,1,1,1,1.1]]
     def __init__(self):
         self.plantage = [False]*365
         self.time_chunk = 0
@@ -245,7 +256,7 @@ class Plante(Occupant):
 
 
 
-    def planter(self, emplacement, debut, fin): #,x,y,jard):
+    def planter(self, emplacement, debut, fin,jard): #,x,y,jard):
         """
         Permet de planter l'objet dans l'emplacement désigné entre les deux
         semaines données.
@@ -270,9 +281,9 @@ class Plante(Occupant):
             0 si la tentative de planter reussi.
         """
         if self.plantable(debut) and emplacement.libre(debut, fin):
-            # for coordonee in emplacement.voisin:
-            #     plante_id_reel = int(jar.emplacement[coordonee[1]][coordonee[0]].calendrier[debut].id)
-            #     multiplicateur *= table_associations[self.id][plante_id_reel]
+            for coordonee in emplacement.voisin:
+                plante_id_reel = int(jard.emplacement[coordonee[1]][coordonee[0]].calendrier[debut].id)
+                self.multiplicateur *= Plante.table_associations[self.id][plante_id_reel]
 
             if debut<= fin:
                 for i in range(debut-1, fin):
