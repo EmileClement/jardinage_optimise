@@ -137,7 +137,10 @@ class Gene_naif(Gene):
                     allele = self.ADN[(x + (y * self.len_x)) * 365 + N_bit_espece*jour :
                                       (x + (y * self.len_x)) * 365 + N_bit_espece*jour
                                       + N_bit_espece]
-                    ebauche += [Gene.decodeur_espece[allele]]
+                    try:
+                        ebauche += [Gene.decodeur_espece[allele]]
+                    except KeyError:
+                        ebauche += [Jachere]
                 idx_exploration = 0
                 while idx_exploration < 365:
                     type_actuel = ebauche[idx_exploration]
@@ -150,7 +153,7 @@ class Gene_naif(Gene):
                         idx_fin = idx_exploration
                         plante = type_actuel()
                         try:
-                            plante.planter(emplacement, idx_depart, idx_fin) #,x,y,jar)
+                            plante.planter(emplacement, idx_depart, idx_fin, jar) #,x,y,jar)
                         except ValueError:
                             pass
         return jar
@@ -160,23 +163,23 @@ class Gene_naif(Gene):
         return Gene_naif(self.len_x, self.len_y, self.ADN[:idx_coupe] + other.ADN[idx_coupe:])
 
     def mutation(self):
-            if rd.random() < Gene_naif.taux_mutation_carra:
-                nbr_caractere_a_muter = rd.randint(1, round(Gene_naif.pourcentage_max_mutation*len(self.ADN)))
-                place_caractere_aleatoire = rd.randint(0, int(len(self.ADN)-nbr_caractere_a_muter)-1)
-                inverse = ""
-                for bit in self.ADN[place_caractere_aleatoire:place_caractere_aleatoire+nbr_caractere_a_muter_aleatoire]:
-                    if bit == "0":
-                        inverse += "1"
-                    else:
-                        inverse += "0"
-                if ((len(gene.ADN[:place_caractere_aleatoire]
-                        + inverse
-                        + gene.ADN[place_caractere_aleatoire
-                                   + nbr_caractere_a_muter:])) !=
-                                                                len(gene.ADN)):
-                    raise ValueError
+        if rd.random() < Gene_naif.taux_mutation_carra:
+            nbr_caractere_a_muter = rd.randint(1, round(Gene_naif.pourcentage_max_mutation*len(self.ADN)))
+            place_caractere = rd.randint(0, len(self.ADN)-nbr_caractere_a_muter-1)
+            inverse = ""
+            for bit in self.ADN[place_caractere:place_caractere+nbr_caractere_a_muter]:
+                if bit == "0":
+                    inverse += "1"
                 else:
-                    self.ADN = self.ADN[place_caractere_aleatoire] + inverse + self.ADN[place_caractere_aleatoire + nbr_caractere_a_muter:]
+                    inverse += "0"
+            if ((len(self.ADN[:place_caractere]
+                    + inverse
+                    + self.ADN[place_caractere
+                               + nbr_caractere_a_muter:])) !=
+                                                            len(self.ADN)):
+                raise ValueError
+            else:
+                self.ADN = self.ADN[place_caractere] + inverse + self.ADN[place_caractere + nbr_caractere_a_muter:]
 
 class Composant():
     next_id = 0
@@ -577,10 +580,9 @@ class Essai():
                 break
         return essai
 
-    def evolution_statistique(self, n_mesure=10):
+    def evolution_statistique(self, plt, n_mesure=10):
         import numpy as np
         liste_indice = np.linspace(0, len(self.generations)-1, n_mesure, dtype=int)
-        from matplotlib import pyplot as plt
         distribution = []
         for n, generation in enumerate(self.generations):
             if n in liste_indice:
@@ -590,7 +592,7 @@ class Essai():
                        showmeans = True)
         plt.title("Evolution de la repartition statistique du\nrendement en fonction des generations")
         plt.xlabel("generation")
-        plt.ylabel("rendement")
+        plt.ylabel("rendement $kg/m^2$")
         return plt
 
 class Evaluateur(threading.Thread):
