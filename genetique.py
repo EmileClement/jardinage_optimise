@@ -290,7 +290,8 @@ class Gene_compose(Gene):
                 try:
                     empl = jar.emplacement[comp.position[1]][comp.position[0]]
                     plante = comp.espece()
-                    plante.planter(empl, comp.plantage, comp.recolte, jar)
+                    plante.planter(empl, comp.plantage, comp.recolte,jar)
+
                 except ValueError:
                     pass
         return jar
