@@ -256,7 +256,7 @@ class Plante(Occupant):
 
 
 
-    def planter(self, emplacement, debut, fin,jard): #,x,y,jard):
+    def planter(self, emplacement, debut, fin, jard):
         """
         Permet de planter l'objet dans l'emplacement désigné entre les deux
         semaines données.

@@ -287,10 +287,26 @@ class Gene_compose(Gene):
                 try:
                     empl = jar.emplacement[comp.position[1]][comp.position[0]]
                     plante = comp.espece()
-                    plante.planter(empl, comp.plantage, comp.recolte)
+                    plante.planter(empl, comp.plantage, comp.recolte, jar)
                 except ValueError:
                     pass
         return jar
+    
+    def recette(self):
+        jar = Jardin(self.len_x, self.len_y)
+        liste_commande = []
+        for comp in self.composants:
+            if comp.actif:
+                try:
+                    empl = jar.emplacement[comp.position[1]][comp.position[0]]
+                    plante = comp.espece()
+                    plante.planter(empl, comp.plantage, comp.recolte, jar)
+                    liste_commande.append("le jour {:0>3}, en ({},{}), planter des {}".format(comp.plantage, comp.position[1], comp.position[0], plante))
+                    liste_commande.append("le jour {:0>3}, en ({},{}), recolter des {}".format(comp.recolte, comp.position[1], comp.position[0], plante))
+                except ValueError:
+                    pass
+        liste_commande.sort()
+        return "\n".join(liste_commande)
 
 A = Gene_compose(2, 3, 15)
 
@@ -571,7 +587,7 @@ class Essai():
         plt.violinplot(distribution, liste_indice,
                        widths = len(self.generations)/(2*n_mesure),
                        showmeans = True)
-        plt.title("Evolution de la repartition statistique du rendement en fonction des generations")
+        plt.title("Evolution de la repartition statistique du\nrendement en fonction des generations")
         plt.xlabel("generation")
         plt.ylabel("rendement")
         return plt
