@@ -9,7 +9,8 @@ from herbier import *
 from genetique import *
 
 def demo(nom, n_gen=30, n_pop=200):
-    E = Essai.composee_vide(5, 7, n_pop)
+    from matplotlib import pyplot as plt
+    E = Essai.composee_vide(2, 3, n_pop)
     try:
         for i in range(n_gen):
             print("generation {}".format(i))
@@ -17,9 +18,38 @@ def demo(nom, n_gen=30, n_pop=200):
     except KeyboardInterrupt:
         pass
     E.save(nom)
-    E.evolution_statistique(5)
+    E.evolution_statistique(plt, 5)
     generation = E.generations[-1]
     generation.evaluation()
     return generation.genes[0]
 
-E = demo('profiler', 15, 150)
+def comparateur_identique(n_concurents, n_gen=30, n_pop=200):
+    concurents = [Essai.composee_vide(2, 3, n_pop) for _ in range(n_concurents)]
+    try:
+        for i in range(n_gen):
+            print("generation {}".format(i))
+            for elem in concurents:
+                elem.generation_suivante()
+    except KeyboardInterrupt:
+        pass
+    from matplotlib import pyplot as plt
+    for elem in concurents:
+        elem.evolution_statistique(plt, 5)
+    return concurents
+
+def comparateur_representation(n_gen=30, n_pop=200):
+    concurents = [Essai.naif_non_random(2, 3, n_pop), Essai.composee_vide(2, 3, n_pop)]
+    try:
+        for i in range(n_gen):
+            print("generation {}".format(i))
+            for elem in concurents:
+                elem.generation_suivante()
+    except KeyboardInterrupt:
+        pass
+    from matplotlib import pyplot as plt
+    concurents[0].evolution_statistique(plt, 5)
+    concurents[1].evolution_statistique(plt, 5)
+    return concurents
+    
+
+#E = demo('profiler', 30, 150)
