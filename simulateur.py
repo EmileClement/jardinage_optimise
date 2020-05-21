@@ -34,7 +34,7 @@ class Jardin():
         for ligne in self.emplacement:
             for case in ligne:
                 masse += case.rendement(biais)
-        return masse
+        return masse/(len(self.emplacement) * len(self.emplacement[0]))
 
     def representation_interactive(self):
         """
@@ -257,8 +257,8 @@ class Plante(Occupant):
         else:
             return 0.
 
-        
-    def planter(self, emplacement, debut, fin,jard): #,x,y,jard):
+    def planter(self, emplacement, debut, fin, jard):
+
         """
         Permet de planter l'objet dans l'emplacement désigné entre les deux
         semaines données.

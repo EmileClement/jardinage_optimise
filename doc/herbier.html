@@ -39,52 +39,253 @@ from simulateur import *
 class Patate(Plante):
     def __init__(self):
         self.plantage = [False] * 52 + [True] * 253 + [False] * (365 - 305)
-        self.time_chunk = 100
-        self.masse_produite = 1.
+        self.time_chunk = 80
         self.jour_semis = None
         self.deja_recolte = False
         self.color = &#34;#b28310&#34;
+        self.id = 1
+        self.multiplicateur = 1.
 
     def __repr__(self):
         return &#34;Patate&#34;
     def __str__(self):
         return &#34;Patate&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 10/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20))
+        else:
+            return 0.
 
 class Tomate(Plante):
+    
     def __init__(self):
         self.plantage = [False] * 121 + [True] * 60 + [False] * (365 - 171)
-        self.time_chunk = 134
-        self.masse_produite = 2.5
+        self.time_chunk = 119
         self.jour_semis = None
         self.deja_recolte = False
         self.color = &#34;#eb4b3d&#34;
+        self.id = 2
+        self.multiplicateur = 1.
 
     def __repr__(self):
         return &#34;Tomate&#34;
     def __str__(self):
         return &#34;Tomate&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 10/(1 + 9**((15- ((jour - self.jour_semis)%365 - self.time_chunk))/10))
+        else:
+            return 0.
 
 
 class Poireau(Plante):
     def __init__(self):
-        self.plantage = [True] * 360 #[True] * 90 + [False] * 153 + [False] * (122)
-        self.time_chunk = 30
-        self.masse_produite = 0.150
+        self.plantage = [True] * 90 + [False] * 153 + [True] * (122)
+        self.time_chunk = 20
         self.jour_semis = None
         self.deja_recolte = False
         self.color = &#34;#80c44a&#34;
+        self.id = 3
+        self.multiplicateur = 1.
     def __repr__(self):
         return &#34;Poireau&#34;
     def __str__(self):
         return &#34;Poireau&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
 
-N_bit_espece = 2
+        Parameters
+        ----------
+        jour : int
 
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 4/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/5))
+        else:
+            return 0.
+
+class Epinards(Plante):
+    def __init__(self):
+        self.plantage = [True] * 80 + [False] *147  + [True] * (138)
+        self.time_chunk = 30
+
+        self.jour_semis = None
+        self.deja_recolte = False
+        self.color = &#34;#80c44a&#34;
+        self.id = 4
+        self.multiplicateur = 1.
+    def __repr__(self):
+        return &#34;Epinards&#34;
+    def __str__(self):
+        return &#34;Epinards&#34;
+
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 1.5/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
+        else:
+            return 0.
+    
+
+class Radis(Plante):
+    def __init__(self):
+        self.plantage = [False] * 50 + [True] * 91 + [False] * (224)
+        self.time_chunk = 20
+        self.jour_semis = None
+        self.deja_recolte = False
+        self.color = &#34;#80c44a&#34;
+        self.id = 5
+        self.multiplicateur = 1.
+    def __repr__(self):
+        return &#34;Radis&#34;
+    def __str__(self):
+        return &#34;Radis&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 2.1/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
+        else:
+            return 0.
+
+class Choux(Plante):
+    def __init__(self):
+        self.plantage = [False] * 60 + [True] * 60 + [False] * (245)
+        self.time_chunk = 90
+        self.jour_semis = None
+        self.deja_recolte = False
+        self.color = &#34;#80c44a&#34;
+        self.id = 6
+        self.multiplicateur = 1.
+    def __repr__(self):
+        return &#34;Choux&#34;
+    def __str__(self):
+        return &#34;Choux&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 1.2/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/30))
+        else:
+            return 0.
+
+class Navets(Plante):
+    def __init__(self):
+        self.plantage = [False] * 182 + [True] * 90 + [False] * (93)
+        self.time_chunk = 75
+        self.jour_semis = None
+        self.deja_recolte = False
+        self.color = &#34;#80c44a&#34;
+        self.id = 7
+        self.multiplicateur = 1.
+    def __repr__(self):
+        return &#34;Navets&#34;
+    def __str__(self):
+        return &#34;Navets&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 2./(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/15))
+        else:
+            return 0.
+
+N_bit_espece = 3
+
+list_espece = [Patate, Tomate, Poireau, Epinards, Radis, Choux, Navets]
 dict_herbier = {
-        &#34;00&#34; : Jachere,
-        &#34;01&#34; : Patate,
-        &#34;11&#34; : Tomate,
-        &#34;10&#34; : Poireau
+        &#34;000&#34; : Jachere,
+        &#34;001&#34; : Patate,
+        &#34;011&#34; : Tomate,
+        &#34;010&#34; : Poireau,
+        &#34;100&#34; : Epinards,
+        &#34;101&#34; : Radis,
+        &#34;110&#34; : Choux,
+        &#34;111&#34; : Navets
         }</code></pre>
 </details>
 </section>
@@ -97,6 +298,311 @@ dict_herbier = {
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
+<dt id="herbier.Choux"><code class="flex name class">
+<span>class <span class="ident">Choux</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Choux(Plante):
+    def __init__(self):
+        self.plantage = [False] * 60 + [True] * 60 + [False] * (245)
+        self.time_chunk = 90
+        self.jour_semis = None
+        self.deja_recolte = False
+        self.color = &#34;#80c44a&#34;
+        self.id = 6
+        self.multiplicateur = 1.
+    def __repr__(self):
+        return &#34;Choux&#34;
+    def __str__(self):
+        return &#34;Choux&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 1.2/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/30))
+        else:
+            return 0.</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></li>
+<li><a title="simulateur.Occupant" href="simulateur.html#simulateur.Occupant">Occupant</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="herbier.Choux.masse_produite"><code class="name flex">
+<span>def <span class="ident">masse_produite</span></span>(<span>self, jour)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie la masse produite par le légume à un jour donné de l'année</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>jour</code></strong> :&ensp;<code>int</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse produite par le légume</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def masse_produite(self,jour):
+    &#34;&#34;&#34;
+    Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+    Parameters
+    ----------
+    jour : int
+
+    Returns
+    -------
+    float
+        Masse produite par le légume
+
+    &#34;&#34;&#34;
+    if (self.deja_recolte == False):
+        self.deja_recolte = True
+        return 1.2/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/30))
+    else:
+        return 0.</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></b></code>:
+<ul class="hlist">
+<li><code><a title="simulateur.Plante.plantable" href="simulateur.html#simulateur.Plante.plantable">plantable</a></code></li>
+<li><code><a title="simulateur.Plante.planter" href="simulateur.html#simulateur.Plante.planter">planter</a></code></li>
+<li><code><a title="simulateur.Plante.recolte_masse" href="simulateur.html#simulateur.Plante.recolte_masse">recolte_masse</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="herbier.Epinards"><code class="flex name class">
+<span>class <span class="ident">Epinards</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Epinards(Plante):
+    def __init__(self):
+        self.plantage = [True] * 80 + [False] *147  + [True] * (138)
+        self.time_chunk = 30
+
+        self.jour_semis = None
+        self.deja_recolte = False
+        self.color = &#34;#80c44a&#34;
+        self.id = 4
+        self.multiplicateur = 1.
+    def __repr__(self):
+        return &#34;Epinards&#34;
+    def __str__(self):
+        return &#34;Epinards&#34;
+
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 1.5/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
+        else:
+            return 0.</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></li>
+<li><a title="simulateur.Occupant" href="simulateur.html#simulateur.Occupant">Occupant</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="herbier.Epinards.masse_produite"><code class="name flex">
+<span>def <span class="ident">masse_produite</span></span>(<span>self, jour)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie la masse produite par le légume à un jour donné de l'année</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>jour</code></strong> :&ensp;<code>int</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse produite par le légume</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def masse_produite(self,jour):
+    &#34;&#34;&#34;
+    Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+    Parameters
+    ----------
+    jour : int
+
+    Returns
+    -------
+    float
+        Masse produite par le légume
+
+    &#34;&#34;&#34;
+    if (self.deja_recolte == False):
+        self.deja_recolte = True
+        return 1.5/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
+    else:
+        return 0.</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></b></code>:
+<ul class="hlist">
+<li><code><a title="simulateur.Plante.plantable" href="simulateur.html#simulateur.Plante.plantable">plantable</a></code></li>
+<li><code><a title="simulateur.Plante.planter" href="simulateur.html#simulateur.Plante.planter">planter</a></code></li>
+<li><code><a title="simulateur.Plante.recolte_masse" href="simulateur.html#simulateur.Plante.recolte_masse">recolte_masse</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="herbier.Navets"><code class="flex name class">
+<span>class <span class="ident">Navets</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Navets(Plante):
+    def __init__(self):
+        self.plantage = [False] * 182 + [True] * 90 + [False] * (93)
+        self.time_chunk = 75
+        self.jour_semis = None
+        self.deja_recolte = False
+        self.color = &#34;#80c44a&#34;
+        self.id = 7
+        self.multiplicateur = 1.
+    def __repr__(self):
+        return &#34;Navets&#34;
+    def __str__(self):
+        return &#34;Navets&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 2./(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/15))
+        else:
+            return 0.</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></li>
+<li><a title="simulateur.Occupant" href="simulateur.html#simulateur.Occupant">Occupant</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="herbier.Navets.masse_produite"><code class="name flex">
+<span>def <span class="ident">masse_produite</span></span>(<span>self, jour)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie la masse produite par le légume à un jour donné de l'année</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>jour</code></strong> :&ensp;<code>int</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse produite par le légume</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def masse_produite(self,jour):
+    &#34;&#34;&#34;
+    Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+    Parameters
+    ----------
+    jour : int
+
+    Returns
+    -------
+    float
+        Masse produite par le légume
+
+    &#34;&#34;&#34;
+    if (self.deja_recolte == False):
+        self.deja_recolte = True
+        return 2./(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/15))
+    else:
+        return 0.</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></b></code>:
+<ul class="hlist">
+<li><code><a title="simulateur.Plante.plantable" href="simulateur.html#simulateur.Plante.plantable">plantable</a></code></li>
+<li><code><a title="simulateur.Plante.planter" href="simulateur.html#simulateur.Plante.planter">planter</a></code></li>
+<li><code><a title="simulateur.Plante.recolte_masse" href="simulateur.html#simulateur.Plante.recolte_masse">recolte_masse</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="herbier.Patate"><code class="flex name class">
 <span>class <span class="ident">Patate</span></span>
 </code></dt>
@@ -109,22 +615,85 @@ dict_herbier = {
 <pre><code class="python">class Patate(Plante):
     def __init__(self):
         self.plantage = [False] * 52 + [True] * 253 + [False] * (365 - 305)
-        self.time_chunk = 100
-        self.masse_produite = 1.
+        self.time_chunk = 80
         self.jour_semis = None
         self.deja_recolte = False
         self.color = &#34;#b28310&#34;
+        self.id = 1
+        self.multiplicateur = 1.
 
     def __repr__(self):
         return &#34;Patate&#34;
     def __str__(self):
-        return &#34;Patate&#34;</code></pre>
+        return &#34;Patate&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 10/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20))
+        else:
+            return 0.</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></li>
 <li><a title="simulateur.Occupant" href="simulateur.html#simulateur.Occupant">Occupant</a></li>
 </ul>
+<h3>Methods</h3>
+<dl>
+<dt id="herbier.Patate.masse_produite"><code class="name flex">
+<span>def <span class="ident">masse_produite</span></span>(<span>self, jour)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie la masse produite par le légume à un jour donné de l'année</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>jour</code></strong> :&ensp;<code>int</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse produite par le légume</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def masse_produite(self,jour):
+    &#34;&#34;&#34;
+    Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+    Parameters
+    ----------
+    jour : int
+
+    Returns
+    -------
+    float
+        Masse produite par le légume
+
+    &#34;&#34;&#34;
+    if (self.deja_recolte == False):
+        self.deja_recolte = True
+        return 10/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20))
+    else:
+        return 0.</code></pre>
+</details>
+</dd>
+</dl>
 <h3>Inherited members</h3>
 <ul class="hlist">
 <li><code><b><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></b></code>:
@@ -147,22 +716,186 @@ dict_herbier = {
 </summary>
 <pre><code class="python">class Poireau(Plante):
     def __init__(self):
-        self.plantage = [True] * 360 #[True] * 90 + [False] * 153 + [False] * (122)
-        self.time_chunk = 30
-        self.masse_produite = 0.150
+        self.plantage = [True] * 90 + [False] * 153 + [True] * (122)
+        self.time_chunk = 20
         self.jour_semis = None
         self.deja_recolte = False
         self.color = &#34;#80c44a&#34;
+        self.id = 3
+        self.multiplicateur = 1.
     def __repr__(self):
         return &#34;Poireau&#34;
     def __str__(self):
-        return &#34;Poireau&#34;</code></pre>
+        return &#34;Poireau&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 4/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/5))
+        else:
+            return 0.</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></li>
 <li><a title="simulateur.Occupant" href="simulateur.html#simulateur.Occupant">Occupant</a></li>
 </ul>
+<h3>Methods</h3>
+<dl>
+<dt id="herbier.Poireau.masse_produite"><code class="name flex">
+<span>def <span class="ident">masse_produite</span></span>(<span>self, jour)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie la masse produite par le légume à un jour donné de l'année</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>jour</code></strong> :&ensp;<code>int</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse produite par le légume</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def masse_produite(self,jour):
+    &#34;&#34;&#34;
+    Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+    Parameters
+    ----------
+    jour : int
+
+    Returns
+    -------
+    float
+        Masse produite par le légume
+
+    &#34;&#34;&#34;
+    if (self.deja_recolte == False):
+        self.deja_recolte = True
+        return 4/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/5))
+    else:
+        return 0.</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></b></code>:
+<ul class="hlist">
+<li><code><a title="simulateur.Plante.plantable" href="simulateur.html#simulateur.Plante.plantable">plantable</a></code></li>
+<li><code><a title="simulateur.Plante.planter" href="simulateur.html#simulateur.Plante.planter">planter</a></code></li>
+<li><code><a title="simulateur.Plante.recolte_masse" href="simulateur.html#simulateur.Plante.recolte_masse">recolte_masse</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="herbier.Radis"><code class="flex name class">
+<span>class <span class="ident">Radis</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Radis(Plante):
+    def __init__(self):
+        self.plantage = [False] * 50 + [True] * 91 + [False] * (224)
+        self.time_chunk = 20
+        self.jour_semis = None
+        self.deja_recolte = False
+        self.color = &#34;#80c44a&#34;
+        self.id = 5
+        self.multiplicateur = 1.
+    def __repr__(self):
+        return &#34;Radis&#34;
+    def __str__(self):
+        return &#34;Radis&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 2.1/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
+        else:
+            return 0.</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></li>
+<li><a title="simulateur.Occupant" href="simulateur.html#simulateur.Occupant">Occupant</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="herbier.Radis.masse_produite"><code class="name flex">
+<span>def <span class="ident">masse_produite</span></span>(<span>self, jour)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie la masse produite par le légume à un jour donné de l'année</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>jour</code></strong> :&ensp;<code>int</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse produite par le légume</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def masse_produite(self,jour):
+    &#34;&#34;&#34;
+    Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+    Parameters
+    ----------
+    jour : int
+
+    Returns
+    -------
+    float
+        Masse produite par le légume
+
+    &#34;&#34;&#34;
+    if (self.deja_recolte == False):
+        self.deja_recolte = True
+        return 2.1/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
+    else:
+        return 0.</code></pre>
+</details>
+</dd>
+</dl>
 <h3>Inherited members</h3>
 <ul class="hlist">
 <li><code><b><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></b></code>:
@@ -184,24 +917,88 @@ dict_herbier = {
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Tomate(Plante):
+    
     def __init__(self):
         self.plantage = [False] * 121 + [True] * 60 + [False] * (365 - 171)
-        self.time_chunk = 134
-        self.masse_produite = 2.5
+        self.time_chunk = 119
         self.jour_semis = None
         self.deja_recolte = False
         self.color = &#34;#eb4b3d&#34;
+        self.id = 2
+        self.multiplicateur = 1.
 
     def __repr__(self):
         return &#34;Tomate&#34;
     def __str__(self):
-        return &#34;Tomate&#34;</code></pre>
+        return &#34;Tomate&#34;
+    def masse_produite(self,jour):
+        &#34;&#34;&#34;
+        Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+        Parameters
+        ----------
+        jour : int
+
+        Returns
+        -------
+        float
+            Masse produite par le légume
+
+        &#34;&#34;&#34;
+        if (self.deja_recolte == False):
+            self.deja_recolte = True
+            return 10/(1 + 9**((15- ((jour - self.jour_semis)%365 - self.time_chunk))/10))
+        else:
+            return 0.</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></li>
 <li><a title="simulateur.Occupant" href="simulateur.html#simulateur.Occupant">Occupant</a></li>
 </ul>
+<h3>Methods</h3>
+<dl>
+<dt id="herbier.Tomate.masse_produite"><code class="name flex">
+<span>def <span class="ident">masse_produite</span></span>(<span>self, jour)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie la masse produite par le légume à un jour donné de l'année</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>jour</code></strong> :&ensp;<code>int</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Masse produite par le légume</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def masse_produite(self,jour):
+    &#34;&#34;&#34;
+    Renvoie la masse produite par le légume à un jour donné de l&#39;année
+
+    Parameters
+    ----------
+    jour : int
+
+    Returns
+    -------
+    float
+        Masse produite par le légume
+
+    &#34;&#34;&#34;
+    if (self.deja_recolte == False):
+        self.deja_recolte = True
+        return 10/(1 + 9**((15- ((jour - self.jour_semis)%365 - self.time_chunk))/10))
+    else:
+        return 0.</code></pre>
+</details>
+</dd>
+</dl>
 <h3>Inherited members</h3>
 <ul class="hlist">
 <li><code><b><a title="simulateur.Plante" href="simulateur.html#simulateur.Plante">Plante</a></b></code>:
@@ -225,13 +1022,46 @@ dict_herbier = {
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
+<h4><code><a title="herbier.Choux" href="#herbier.Choux">Choux</a></code></h4>
+<ul class="">
+<li><code><a title="herbier.Choux.masse_produite" href="#herbier.Choux.masse_produite">masse_produite</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="herbier.Epinards" href="#herbier.Epinards">Epinards</a></code></h4>
+<ul class="">
+<li><code><a title="herbier.Epinards.masse_produite" href="#herbier.Epinards.masse_produite">masse_produite</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="herbier.Navets" href="#herbier.Navets">Navets</a></code></h4>
+<ul class="">
+<li><code><a title="herbier.Navets.masse_produite" href="#herbier.Navets.masse_produite">masse_produite</a></code></li>
+</ul>
+</li>
+<li>
 <h4><code><a title="herbier.Patate" href="#herbier.Patate">Patate</a></code></h4>
+<ul class="">
+<li><code><a title="herbier.Patate.masse_produite" href="#herbier.Patate.masse_produite">masse_produite</a></code></li>
+</ul>
 </li>
 <li>
 <h4><code><a title="herbier.Poireau" href="#herbier.Poireau">Poireau</a></code></h4>
+<ul class="">
+<li><code><a title="herbier.Poireau.masse_produite" href="#herbier.Poireau.masse_produite">masse_produite</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="herbier.Radis" href="#herbier.Radis">Radis</a></code></h4>
+<ul class="">
+<li><code><a title="herbier.Radis.masse_produite" href="#herbier.Radis.masse_produite">masse_produite</a></code></li>
+</ul>
 </li>
 <li>
 <h4><code><a title="herbier.Tomate" href="#herbier.Tomate">Tomate</a></code></h4>
+<ul class="">
+<li><code><a title="herbier.Tomate.masse_produite" href="#herbier.Tomate.masse_produite">masse_produite</a></code></li>
+</ul>
 </li>
 </ul>
 </li>

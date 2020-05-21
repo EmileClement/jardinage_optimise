@@ -8,8 +8,8 @@ from simulateur import *
 from herbier import *
 from genetique import *
 
-def demo(nom, n_gen=15, n_pop=200):
-    E = Essai.composee_vide(2, 3, n_pop)
+def demo(nom, n_gen=30, n_pop=200):
+    E = Essai.composee_vide(5, 7, n_pop)
     try:
         for i in range(n_gen):
             print("generation {}".format(i))
@@ -22,4 +22,4 @@ def demo(nom, n_gen=15, n_pop=200):
     generation.evaluation()
     return generation.genes[0]
 
-E = demo('profiler', 50, 150)
+E = demo('profiler', 15, 150)

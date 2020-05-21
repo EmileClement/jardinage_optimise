@@ -38,18 +38,21 @@ from simulateur import *
 from herbier import *
 from genetique import *
 
-def demo(nom):
-    E = Essai(2, 3, 200)
+def demo(nom, n_gen=30, n_pop=200):
+    E = Essai.composee_vide(5, 7, n_pop)
     try:
-        for i in range(15):
+        for i in range(n_gen):
+            print(&#34;generation {}&#34;.format(i))
             E.generation_suivante()
     except KeyboardInterrupt:
         pass
     E.save(nom)
-    E.evolution_statistique()
+    E.evolution_statistique(5)
     generation = E.generations[-1]
     generation.evaluation()
-    return generation.genes[0]        </code></pre>
+    return generation.genes[0]
+
+E = demo(&#39;profiler&#39;, 15, 150)</code></pre>
 </details>
 </section>
 <section>
@@ -60,7 +63,7 @@ def demo(nom):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="main.demo"><code class="name flex">
-<span>def <span class="ident">demo</span></span>(<span>nom)</span>
+<span>def <span class="ident">demo</span></span>(<span>nom, n_gen=30, n_pop=200)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -68,18 +71,19 @@ def demo(nom):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def demo(nom):
-    E = Essai(2, 3, 200)
+<pre><code class="python">def demo(nom, n_gen=30, n_pop=200):
+    E = Essai.composee_vide(5, 7, n_pop)
     try:
-        for i in range(15):
+        for i in range(n_gen):
+            print(&#34;generation {}&#34;.format(i))
             E.generation_suivante()
     except KeyboardInterrupt:
         pass
     E.save(nom)
-    E.evolution_statistique()
+    E.evolution_statistique(5)
     generation = E.generations[-1]
     generation.evaluation()
-    return generation.genes[0]        </code></pre>
+    return generation.genes[0]</code></pre>
 </details>
 </dd>
 </dl>
