@@ -3,6 +3,8 @@
 Created on Fri May  8 11:27:10 2020
 
 @author: Leopold & Thomas
+
+Module implementant toute les plantes
 """
 import simulateur
 

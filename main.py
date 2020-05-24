@@ -13,7 +13,7 @@ Essai = genetique.Essai
 def demo_naif(n_gen=30, n_pop=200):
     """pour faire un essaie simple avec les `genetique.Gene_naif`"""
     from matplotlib import pyplot as plt
-    E = Essai.composee_vide(2, 3, n_pop)
+    E = Essai.naif_non_random(2, 3, n_pop)
     try:
         for i in range(n_gen):
             print("generation {}".format(i))

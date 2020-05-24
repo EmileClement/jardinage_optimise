@@ -3,6 +3,8 @@
 Created on Fri May  8 11:30:45 2020
 
 @author: Leopold & Thomas
+
+Module permetant la representation d'un jardin
 """
 import random as rd
 

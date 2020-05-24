@@ -3,6 +3,8 @@
 Created on Fri May  8 11:31:42 2020
 
 @author: Leopold & Thomas
+
+Module contenant les algorithmes d'optimisations
 """
 import random as rd
 import threading
