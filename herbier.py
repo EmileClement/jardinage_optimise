@@ -7,6 +7,7 @@ Created on Fri May  8 11:27:10 2020
 from simulateur import *
 
 class Patate(Plante):
+    """Classe representant les pommes de Terres"""
     def __init__(self):
         self.plantage = [False] * 52 + [True] * 109 + [False] * 204
         self.time_chunk = 80
@@ -39,7 +40,7 @@ class Patate(Plante):
 
 
 class Tomate(Plante):
-    
+    """Classe representant les Tomates"""
     def __init__(self):
         self.plantage = [False] * 92 + [True] * 90 + [False] * (183)
         self.time_chunk = 80
@@ -72,6 +73,7 @@ class Tomate(Plante):
 
 
 class Poireau(Plante):
+    """Classe representant les Poireau"""
     def __init__(self):
         self.plantage = [False] *245  + [True] * 90 + [False] * (30)
         self.time_chunk = 20
@@ -103,6 +105,7 @@ class Poireau(Plante):
 
 
 class Epinards(Plante):
+    """Classe representant les Epinards"""
     def __init__(self):
         self.plantage = [True] * 80 + [False] *147  + [True] * (138)
         self.time_chunk = 30
@@ -137,6 +140,7 @@ class Epinards(Plante):
     
 
 class Radis(Plante):
+    """Classe representant les Radis"""
     def __init__(self):
         self.plantage = [False] * 50 + [True] * 91 + [False] * (224)
         self.time_chunk = 20
@@ -168,6 +172,7 @@ class Radis(Plante):
 
 
 class Choux(Plante):
+    """Classe representant les Choux"""
     def __init__(self):
         self.plantage = [False] * 60 + [True] * 60 + [False] * (245)
         self.time_chunk = 90
@@ -199,6 +204,7 @@ class Choux(Plante):
 
 
 class Navets(Plante):
+    """Classe representant les Navets"""
     def __init__(self):
         self.plantage = [False] * 182 + [True] * 90 + [False] * (93)
         self.time_chunk = 30
@@ -244,6 +250,7 @@ dict_herbier = {
         }
 
 def graphe_production(plante,jour_semis):
+    """ Permet de tracer la production des esepces en fonctions du temps suivant leur jour de plantation. Attention: ne prend pas en compte la saisonnalité des plantes"""
     import matplotlib.pyplot as plt
     levert = plante()
     levert.jour_semis = jour_semis
