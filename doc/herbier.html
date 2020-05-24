@@ -34,9 +34,10 @@ Created on Fri May  8 11:27:10 2020
 
 @author: Leopold &amp; Thomas
 &#34;&#34;&#34;
-from simulateur import *
+import simulateur
 
-class Patate(Plante):
+class Patate(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les pommes de Terres&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 52 + [True] * 109 + [False] * 204
         self.time_chunk = 80
@@ -68,8 +69,8 @@ class Patate(Plante):
         return 5*(1/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 10**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/15)))
 
 
-class Tomate(Plante):
-    
+class Tomate(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Tomates&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 92 + [True] * 90 + [False] * (183)
         self.time_chunk = 80
@@ -101,7 +102,8 @@ class Tomate(Plante):
         
 
 
-class Poireau(Plante):
+class Poireau(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Poireau&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] *245  + [True] * 90 + [False] * (30)
         self.time_chunk = 20
@@ -132,7 +134,8 @@ class Poireau(Plante):
         return 4*(1/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/10)) -1/(1 + 10**((150 -((jour - self.jour_semis)%365 - self.time_chunk))/20)))
 
 
-class Epinards(Plante):
+class Epinards(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Epinards&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [True] * 80 + [False] *147  + [True] * (138)
         self.time_chunk = 30
@@ -166,7 +169,8 @@ class Epinards(Plante):
 
     
 
-class Radis(Plante):
+class Radis(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Radis&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 50 + [True] * 91 + [False] * (224)
         self.time_chunk = 20
@@ -197,7 +201,8 @@ class Radis(Plante):
         return 2.1*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/10)) - 1/(1 + 10**((130-((jour - self.jour_semis)%365) + self.time_chunk)/30)))
 
 
-class Choux(Plante):
+class Choux(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Choux&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 60 + [True] * 60 + [False] * (245)
         self.time_chunk = 90
@@ -228,7 +233,8 @@ class Choux(Plante):
         return 1.2/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/30))
 
 
-class Navets(Plante):
+class Navets(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Navets&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 182 + [True] * 90 + [False] * (93)
         self.time_chunk = 30
@@ -263,7 +269,7 @@ N_bit_espece = 3
 
 list_espece = [Patate, Tomate, Poireau, Epinards, Radis, Choux, Navets]
 dict_herbier = {
-        &#34;000&#34; : Jachere,
+        &#34;000&#34; : simulateur.Jachere,
         &#34;001&#34; : Patate,
         &#34;011&#34; : Tomate,
         &#34;010&#34; : Poireau,
@@ -274,6 +280,7 @@ dict_herbier = {
         }
 
 def graphe_production(plante,jour_semis):
+    &#34;&#34;&#34; Permet de tracer la production des esepces en fonctions du temps suivant leur jour de plantation. Attention: ne prend pas en compte la saisonnalité des plantes&#34;&#34;&#34;
     import matplotlib.pyplot as plt
     levert = plante()
     levert.jour_semis = jour_semis
@@ -294,12 +301,13 @@ def graphe_production(plante,jour_semis):
 <span>def <span class="ident">graphe_production</span></span>(<span>plante, jour_semis)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Permet de tracer la production des esepces en fonctions du temps suivant leur jour de plantation. Attention: ne prend pas en compte la saisonnalité des plantes</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def graphe_production(plante,jour_semis):
+    &#34;&#34;&#34; Permet de tracer la production des esepces en fonctions du temps suivant leur jour de plantation. Attention: ne prend pas en compte la saisonnalité des plantes&#34;&#34;&#34;
     import matplotlib.pyplot as plt
     levert = plante()
     levert.jour_semis = jour_semis
@@ -318,12 +326,13 @@ def graphe_production(plante,jour_semis):
 <span>class <span class="ident">Choux</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe representant les Choux</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Choux(Plante):
+<pre><code class="python">class Choux(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Choux&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 60 + [True] * 60 + [False] * (245)
         self.time_chunk = 90
@@ -413,12 +422,13 @@ def graphe_production(plante,jour_semis):
 <span>class <span class="ident">Epinards</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe representant les Epinards</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Epinards(Plante):
+<pre><code class="python">class Epinards(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Epinards&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [True] * 80 + [False] *147  + [True] * (138)
         self.time_chunk = 30
@@ -510,12 +520,13 @@ def graphe_production(plante,jour_semis):
 <span>class <span class="ident">Navets</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe representant les Navets</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Navets(Plante):
+<pre><code class="python">class Navets(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Navets&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 182 + [True] * 90 + [False] * (93)
         self.time_chunk = 30
@@ -605,12 +616,13 @@ def graphe_production(plante,jour_semis):
 <span>class <span class="ident">Patate</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe representant les pommes de Terres</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Patate(Plante):
+<pre><code class="python">class Patate(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les pommes de Terres&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 52 + [True] * 109 + [False] * 204
         self.time_chunk = 80
@@ -701,12 +713,13 @@ def graphe_production(plante,jour_semis):
 <span>class <span class="ident">Poireau</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe representant les Poireau</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Poireau(Plante):
+<pre><code class="python">class Poireau(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Poireau&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] *245  + [True] * 90 + [False] * (30)
         self.time_chunk = 20
@@ -796,12 +809,13 @@ def graphe_production(plante,jour_semis):
 <span>class <span class="ident">Radis</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe representant les Radis</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Radis(Plante):
+<pre><code class="python">class Radis(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Radis&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 50 + [True] * 91 + [False] * (224)
         self.time_chunk = 20
@@ -891,13 +905,13 @@ def graphe_production(plante,jour_semis):
 <span>class <span class="ident">Tomate</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe representant les Tomates</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Tomate(Plante):
-    
+<pre><code class="python">class Tomate(simulateur.Plante):
+    &#34;&#34;&#34;Classe representant les Tomates&#34;&#34;&#34;
     def __init__(self):
         self.plantage = [False] * 92 + [True] * 90 + [False] * (183)
         self.time_chunk = 80

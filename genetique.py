@@ -7,17 +7,19 @@ Created on Fri May  8 11:31:42 2020
 import random as rd
 import threading
 
-from simulateur import *
-from herbier import *
+
+import herbier
+simulateur = herbier.simulateur
+N_bit_espece = herbier.N_bit_espece
 
 class Gene():
     """Class abstraite pour l'encapsulation des diférents types de gènes"""
-    decodeur_espece = dict_herbier
+    decodeur_espece = herbier.dict_herbier
 
     def __init__(self, *args):
         assert 0, "not implemented"
 
-    def jardin(self) -> Jardin:
+    def jardin(self) -> simulateur.Jardin:
         """renvoie le `simulateur.jardin` corespondant au gène"""
         assert 0, "not implemented"
 
@@ -69,7 +71,7 @@ class Gene_naif(Gene):
                     if iterateur + time_chunk < 363:
                         calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
                         ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
-                        calendrier[iterateur + time_chunk] = Jachere()
+                        calendrier[iterateur + time_chunk] = simulateur.Jachere()
                         ADN[iterateur + time_chunk] = N_bit_espece*"0"
                         iterateur += time_chunk + 1
                     else:
@@ -124,8 +126,8 @@ class Gene_naif(Gene):
         n = int(self.ADN, 2)
         return "gene : {}".format(hex(n))
 
-    def jardin(self) -> Jardin:
-        jar = Jardin(self.len_x, self.len_y)
+    def jardin(self) -> simulateur.Jardin:
+        jar = simulateur.Jardin(self.len_x, self.len_y)
         for x in range(self.len_x):
             for y in range(self.len_y):
                 emplacement = jar.emplacement[y][x]
@@ -137,11 +139,11 @@ class Gene_naif(Gene):
                     try:
                         ebauche += [Gene.decodeur_espece[allele]]
                     except KeyError:
-                        ebauche += [Jachere]
+                        ebauche += [simulateur.Jachere]
                 idx_exploration = 0
                 while idx_exploration < 365:
                     type_actuel = ebauche[idx_exploration]
-                    if type_actuel == Jachere:
+                    if type_actuel == simulateur.Jachere:
                         idx_exploration += 1
                     else:
                         idx_depart = idx_exploration
@@ -216,7 +218,7 @@ class Composant():
     @classmethod
     def random(cls, len_x, len_y):
         """permet de creer un nouvau composant aleatoire avec un nouveau numero d'innovation"""
-        return cls(rd.choice(list_espece),
+        return cls(rd.choice(herbier.list_espece),
                    rd.randint(0, 364),
                    rd.randint(0, 364),
                    (rd.randint(0,len_x-1), rd.randint(0, len_y-1)))
@@ -285,7 +287,7 @@ class Gene_compose(Gene):
         return gene
 
     def jardin(self):
-        jar = Jardin(self.len_x, self.len_y)
+        jar = simulateur.Jardin(self.len_x, self.len_y)
         for comp in self.composants:
             if comp.actif:
                 try:
@@ -299,7 +301,7 @@ class Gene_compose(Gene):
     
     def recette(self):
         """permet de convertir le gene en un texte comprehensible pour l'utilisateur representant la plannification des cultures du jardin"""
-        jar = Jardin(self.len_x, self.len_y)
+        jar = simulateur.Jardin(self.len_x, self.len_y)
         liste_commande = []
         for comp in self.composants:
             if comp.actif:

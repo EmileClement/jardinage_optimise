@@ -4,9 +4,9 @@ Created on Fri May  8 11:27:10 2020
 
 @author: Leopold & Thomas
 """
-from simulateur import *
+import simulateur
 
-class Patate(Plante):
+class Patate(simulateur.Plante):
     """Classe representant les pommes de Terres"""
     def __init__(self):
         self.plantage = [False] * 52 + [True] * 109 + [False] * 204
@@ -39,7 +39,7 @@ class Patate(Plante):
         return 5*(1/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 10**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/15)))
 
 
-class Tomate(Plante):
+class Tomate(simulateur.Plante):
     """Classe representant les Tomates"""
     def __init__(self):
         self.plantage = [False] * 92 + [True] * 90 + [False] * (183)
@@ -72,7 +72,7 @@ class Tomate(Plante):
         
 
 
-class Poireau(Plante):
+class Poireau(simulateur.Plante):
     """Classe representant les Poireau"""
     def __init__(self):
         self.plantage = [False] *245  + [True] * 90 + [False] * (30)
@@ -104,7 +104,7 @@ class Poireau(Plante):
         return 4*(1/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/10)) -1/(1 + 10**((150 -((jour - self.jour_semis)%365 - self.time_chunk))/20)))
 
 
-class Epinards(Plante):
+class Epinards(simulateur.Plante):
     """Classe representant les Epinards"""
     def __init__(self):
         self.plantage = [True] * 80 + [False] *147  + [True] * (138)
@@ -139,7 +139,7 @@ class Epinards(Plante):
 
     
 
-class Radis(Plante):
+class Radis(simulateur.Plante):
     """Classe representant les Radis"""
     def __init__(self):
         self.plantage = [False] * 50 + [True] * 91 + [False] * (224)
@@ -171,7 +171,7 @@ class Radis(Plante):
         return 2.1*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/10)) - 1/(1 + 10**((130-((jour - self.jour_semis)%365) + self.time_chunk)/30)))
 
 
-class Choux(Plante):
+class Choux(simulateur.Plante):
     """Classe representant les Choux"""
     def __init__(self):
         self.plantage = [False] * 60 + [True] * 60 + [False] * (245)
@@ -203,7 +203,7 @@ class Choux(Plante):
         return 1.2/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/30))
 
 
-class Navets(Plante):
+class Navets(simulateur.Plante):
     """Classe representant les Navets"""
     def __init__(self):
         self.plantage = [False] * 182 + [True] * 90 + [False] * (93)
@@ -239,7 +239,7 @@ N_bit_espece = 3
 
 list_espece = [Patate, Tomate, Poireau, Epinards, Radis, Choux, Navets]
 dict_herbier = {
-        "000" : Jachere,
+        "000" : simulateur.Jachere,
         "001" : Patate,
         "011" : Tomate,
         "010" : Poireau,

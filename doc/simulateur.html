@@ -37,6 +37,7 @@ Created on Fri May  8 11:30:45 2020
 import random as rd
 
 class Jardin():
+    &#34;&#34;&#34; Representation du jardin, porte les emplacements&#34;&#34;&#34;
     def __init__(self, len_x: int, len_y: int):
         self.emplacement = [[Emplacement(self,i,j) for i in range(len_x)] for j in range(len_y)]
         for y in range(len(self.emplacement)):
@@ -119,6 +120,7 @@ class Jardin():
         plot(fig)
 
 class Emplacement():
+    &#34;&#34;&#34;Representation d&#39;une parcelle de 1m x 1m du jardin, porte les plantes&#34;&#34;&#34;
     def __init__(self,jardin,x,y):
         self.jardin = jardin
         self.calendrier = [Jachere() for i in range(365)]
@@ -213,10 +215,12 @@ class Emplacement():
         return masse
 
 class Occupant():
+    &#34;&#34;&#34;representation generique d&#39;un occupant de parcelle: une absence de plante (Jachere) ou une Plante&#34;&#34;&#34;
     def __init__(self):
         assert 0, &#34;Not implemeted&#34;
 
 class Jachere(Occupant):
+    &#34;&#34;&#34;representation de l&#39;absence de plante&#34;&#34;&#34;
     def __init__(self):
         self.time_chunk = 0
         self.color = &#34;#000000&#34;
@@ -228,14 +232,16 @@ class Jachere(Occupant):
         return &#34;Jachère&#34;
 
 class Plante(Occupant):
-    table_associations = [[1.1,1,1,1,1,1,1,1],
-                      [1,1.1,1,1,1,1,1,1],
-                      [1,1,1.1,1,1,1,1,1],
-                      [1,1,1,1.1,1,1,1,1],
-                      [1,1,1,1,1.1,1,1,1],
-                      [1,1,1,1,1,1.1,1,1],
-                      [1,1,1,1,1,1,1.1,1],
-                      [1,1,1,1,1,1,1,1.1]]
+    &#34;&#34;&#34; Classe generique de plante&#34;&#34;&#34;
+    table_associations = [[1. ,1. ,1. ,1. ,1. ,1. ,1. ,1. ],
+                          [1. ,1.1,0.95,1. ,1. ,1.1,1.1,1. ],
+                          [1. ,0.95,1.1,1. ,1. ,1.1,0.95,1. ],
+                          [1. ,1. ,1. ,1.1,1. ,1. ,0.95,1. ],
+                          [1. ,1. ,1. ,1. ,1.1,1. ,1.1,1. ],
+                          [1. ,1. ,1.1,1. ,1. ,1.1,1.1,1. ],
+                          [1. ,1.1,0.95,1. ,1. ,1. ,1.1,1. ],
+                          [1. ,1. ,1.1,1. ,1. ,1. ,1. ,1.1]]
+    #table des influences mutuelles des plantes sur leur croissance
     def __init__(self):
         self.plantage = [False]*365
         self.time_chunk = 0
@@ -283,9 +289,10 @@ class Plante(Occupant):
 
         if self.deja_recolte == False:
             self.deja_recolte = True
-            return self.masse_produite(jour)*self.multiplicateur
+            return self.masse_produite(jour)*self.multiplicateur 
         else:
             return 0.
+    
 
     def planter(self, emplacement, debut, fin, jard):
 
@@ -343,12 +350,13 @@ class Plante(Occupant):
 <span>(</span><span>jardin, x, y)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Representation d'une parcelle de 1m x 1m du jardin, porte les plantes</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Emplacement():
+    &#34;&#34;&#34;Representation d&#39;une parcelle de 1m x 1m du jardin, porte les plantes&#34;&#34;&#34;
     def __init__(self,jardin,x,y):
         self.jardin = jardin
         self.calendrier = [Jachere() for i in range(365)]
@@ -593,12 +601,13 @@ class Plante(Occupant):
 <span>class <span class="ident">Jachere</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>representation de l'absence de plante</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Jachere(Occupant):
+    &#34;&#34;&#34;representation de l&#39;absence de plante&#34;&#34;&#34;
     def __init__(self):
         self.time_chunk = 0
         self.color = &#34;#000000&#34;
@@ -619,12 +628,13 @@ class Plante(Occupant):
 <span>(</span><span>len_x: int, len_y: int)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Representation du jardin, porte les emplacements</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Jardin():
+    &#34;&#34;&#34; Representation du jardin, porte les emplacements&#34;&#34;&#34;
     def __init__(self, len_x: int, len_y: int):
         self.emplacement = [[Emplacement(self,i,j) for i in range(len_x)] for j in range(len_y)]
         for y in range(len(self.emplacement)):
@@ -819,12 +829,13 @@ class Plante(Occupant):
 <span>class <span class="ident">Occupant</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>representation generique d'un occupant de parcelle: une absence de plante (Jachere) ou une Plante</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Occupant():
+    &#34;&#34;&#34;representation generique d&#39;un occupant de parcelle: une absence de plante (Jachere) ou une Plante&#34;&#34;&#34;
     def __init__(self):
         assert 0, &#34;Not implemeted&#34;</code></pre>
 </details>
@@ -838,20 +849,22 @@ class Plante(Occupant):
 <span>class <span class="ident">Plante</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe generique de plante</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Plante(Occupant):
-    table_associations = [[1.1,1,1,1,1,1,1,1],
-                      [1,1.1,1,1,1,1,1,1],
-                      [1,1,1.1,1,1,1,1,1],
-                      [1,1,1,1.1,1,1,1,1],
-                      [1,1,1,1,1.1,1,1,1],
-                      [1,1,1,1,1,1.1,1,1],
-                      [1,1,1,1,1,1,1.1,1],
-                      [1,1,1,1,1,1,1,1.1]]
+    &#34;&#34;&#34; Classe generique de plante&#34;&#34;&#34;
+    table_associations = [[1. ,1. ,1. ,1. ,1. ,1. ,1. ,1. ],
+                          [1. ,1.1,0.95,1. ,1. ,1.1,1.1,1. ],
+                          [1. ,0.95,1.1,1. ,1. ,1.1,0.95,1. ],
+                          [1. ,1. ,1. ,1.1,1. ,1. ,0.95,1. ],
+                          [1. ,1. ,1. ,1. ,1.1,1. ,1.1,1. ],
+                          [1. ,1. ,1.1,1. ,1. ,1.1,1.1,1. ],
+                          [1. ,1.1,0.95,1. ,1. ,1. ,1.1,1. ],
+                          [1. ,1. ,1.1,1. ,1. ,1. ,1. ,1.1]]
+    #table des influences mutuelles des plantes sur leur croissance
     def __init__(self):
         self.plantage = [False]*365
         self.time_chunk = 0
@@ -899,9 +912,10 @@ class Plante(Occupant):
 
         if self.deja_recolte == False:
             self.deja_recolte = True
-            return self.masse_produite(jour)*self.multiplicateur
+            return self.masse_produite(jour)*self.multiplicateur 
         else:
             return 0.
+    
 
     def planter(self, emplacement, debut, fin, jard):
 
@@ -1116,7 +1130,7 @@ semaines données.</p>
 
     if self.deja_recolte == False:
         self.deja_recolte = True
-        return self.masse_produite(jour)*self.multiplicateur
+        return self.masse_produite(jour)*self.multiplicateur 
     else:
         return 0.</code></pre>
 </details>

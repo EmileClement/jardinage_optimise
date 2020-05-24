@@ -37,17 +37,19 @@ Created on Fri May  8 11:31:42 2020
 import random as rd
 import threading
 
-from simulateur import *
-from herbier import *
+
+import herbier
+simulateur = herbier.simulateur
+N_bit_espece = herbier.N_bit_espece
 
 class Gene():
-    &#34;&#34;&#34;Class abstraite pour l&#39;encapsulation des diférents type de gène&#34;&#34;&#34;
-    decodeur_espece = dict_herbier
+    &#34;&#34;&#34;Class abstraite pour l&#39;encapsulation des diférents types de gènes&#34;&#34;&#34;
+    decodeur_espece = herbier.dict_herbier
 
     def __init__(self, *args):
         assert 0, &#34;not implemented&#34;
 
-    def jardin(self) -&gt; Jardin:
+    def jardin(self) -&gt; simulateur.Jardin:
         &#34;&#34;&#34;renvoie le `simulateur.jardin` corespondant au gène&#34;&#34;&#34;
         assert 0, &#34;not implemented&#34;
 
@@ -75,7 +77,7 @@ class Gene():
         assert 0, &#34;not implemented&#34;
 
 class Gene_naif(Gene):
-    &#34;&#34;&#34;Implementation de la representation naive, le gène est une chaine de carractère&#34;&#34;&#34;
+    &#34;&#34;&#34;Implementation de la representation naive, le gène est une chaine de caractère&#34;&#34;&#34;
     taux_mutation_carra = 0.05
     pourcentage_max_mutation = 0.3
 
@@ -99,7 +101,7 @@ class Gene_naif(Gene):
                     if iterateur + time_chunk &lt; 363:
                         calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
                         ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
-                        calendrier[iterateur + time_chunk] = Jachere()
+                        calendrier[iterateur + time_chunk] = simulateur.Jachere()
                         ADN[iterateur + time_chunk] = N_bit_espece*&#34;0&#34;
                         iterateur += time_chunk + 1
                     else:
@@ -122,7 +124,7 @@ class Gene_naif(Gene):
     @classmethod
     def from_file(cls, adn, fit, len_x, len_y):
         &#34;&#34;&#34;
-        reconstruit le gene à partir des informations contenues dans le fichier de sauvgarde
+        reconstruit le gene à partir des informations contenues dans le fichier de sauvegarde
 
         Parameters
         ----------
@@ -154,8 +156,8 @@ class Gene_naif(Gene):
         n = int(self.ADN, 2)
         return &#34;gene : {}&#34;.format(hex(n))
 
-    def jardin(self) -&gt; Jardin:
-        jar = Jardin(self.len_x, self.len_y)
+    def jardin(self) -&gt; simulateur.Jardin:
+        jar = simulateur.Jardin(self.len_x, self.len_y)
         for x in range(self.len_x):
             for y in range(self.len_y):
                 emplacement = jar.emplacement[y][x]
@@ -167,11 +169,11 @@ class Gene_naif(Gene):
                     try:
                         ebauche += [Gene.decodeur_espece[allele]]
                     except KeyError:
-                        ebauche += [Jachere]
+                        ebauche += [simulateur.Jachere]
                 idx_exploration = 0
                 while idx_exploration &lt; 365:
                     type_actuel = ebauche[idx_exploration]
-                    if type_actuel == Jachere:
+                    if type_actuel == simulateur.Jachere:
                         idx_exploration += 1
                     else:
                         idx_depart = idx_exploration
@@ -209,7 +211,7 @@ class Gene_naif(Gene):
                 self.ADN = self.ADN[place_caractere] + inverse + self.ADN[place_caractere + nbr_caractere_a_muter:]
 
 class Composant():
-    &#34;&#34;&#34;implementation des composant des gene composes&#34;&#34;&#34;
+    &#34;&#34;&#34;implementation des composants des genes composes&#34;&#34;&#34;
     next_id = 0
 
     taux_mutation_date = 0.3
@@ -234,7 +236,7 @@ class Composant():
         return &#34;{0}:{1}@{2},{3}-&gt;{4},{5}&#34;.format(self.id, self.espece, self.position,
                                         self.plantage, self.recolte, self.actif)
     def copy(self):
-        &#34;&#34;&#34;permet de creer une copie du composant avec le meme numero d&#39;inovation&#34;&#34;&#34;
+        &#34;&#34;&#34;permet de creer une copie du composant avec le meme numero d&#39;innovation&#34;&#34;&#34;
         x, y = self.position
         espece = self.espece
         date_plantaison = self. plantage
@@ -245,8 +247,8 @@ class Composant():
 
     @classmethod
     def random(cls, len_x, len_y):
-        &#34;&#34;&#34;permet de creer un nouvau composant aleatoire avec un nouveau numero d&#39;inovation&#34;&#34;&#34;
-        return cls(rd.choice(list_espece),
+        &#34;&#34;&#34;permet de creer un nouvau composant aleatoire avec un nouveau numero d&#39;innovation&#34;&#34;&#34;
+        return cls(rd.choice(herbier.list_espece),
                    rd.randint(0, 364),
                    rd.randint(0, 364),
                    (rd.randint(0,len_x-1), rd.randint(0, len_y-1)))
@@ -265,7 +267,7 @@ class Composant():
             self.actif = not self.actif
 
 class Gene_compose(Gene):
-    &#34;&#34;&#34;implementation des gene compose&#34;&#34;&#34;
+    &#34;&#34;&#34;implementation des genes composes&#34;&#34;&#34;
     taux_mutation_new_componant = 0.3
 
     def __init__(self, len_x, len_y, composants = 10):
@@ -315,7 +317,7 @@ class Gene_compose(Gene):
         return gene
 
     def jardin(self):
-        jar = Jardin(self.len_x, self.len_y)
+        jar = simulateur.Jardin(self.len_x, self.len_y)
         for comp in self.composants:
             if comp.actif:
                 try:
@@ -328,8 +330,8 @@ class Gene_compose(Gene):
         return jar
     
     def recette(self):
-        &#34;&#34;&#34;permet de convertir le gene en une chaine comprensible, pour comprendre ce qu&#39;il represente comme plan de culture&#34;&#34;&#34;
-        jar = Jardin(self.len_x, self.len_y)
+        &#34;&#34;&#34;permet de convertir le gene en un texte comprehensible pour l&#39;utilisateur representant la plannification des cultures du jardin&#34;&#34;&#34;
+        jar = simulateur.Jardin(self.len_x, self.len_y)
         liste_commande = []
         for comp in self.composants:
             if comp.actif:
@@ -346,7 +348,7 @@ class Gene_compose(Gene):
 
 
 class Generation():
-    &#34;&#34;&#34;objet permetant de representer une generation dans l&#39;algoritme&#34;&#34;&#34;
+    &#34;&#34;&#34;objet permettant de representer une generation dans l&#39;algorithme&#34;&#34;&#34;
     multithreading_actif = False
     
     @classmethod
@@ -480,29 +482,6 @@ class Generation():
         selection += rd.choices(self.genes[(len(self.genes)//10):], weight, k = len(selection))
         return selection
 
-    # def _croisement(self) -&gt; list:
-    #     &#34;&#34;&#34;
-    #     Permet de croiser les genes.
-
-    #     Returns
-    #     -------
-    #     None.
-
-    #     &#34;&#34;&#34;
-
-    #     population_depart = self.genes
-    #     len_x, len_y = population_depart[0].len_x, population_depart[0].len_y
-    #     liste_gene = []
-    #     for pop_index in range(5):
-    #         population = population_depart[pop_index*(len(population_depart)//5) :(pop_index+1)*(len(population_depart)//5)]
-    #         for index in population:
-    #             for multi in range(10):
-    #                 ADN = &#34;&#34;
-    #                 for i in range(5):
-    #                     ADN += population[rd.randint(0, len(population)-1)].ADN[int(len(population[0].ADN)/5)*i:(i+1)*int(len(population[0].ADN)/5)]
-    #                 liste_gene.append(Gene(len_x, len_y, ADN))
-    #     self.genes = liste_gene
-
     def __str__(self):
         chaine = &#34;{1};{2};{0}\n&#34;.format(int(self.evaluee), self.genes[0].len_x,  self.genes[0].len_y)
         for gene in self.genes:
@@ -548,7 +527,7 @@ class Generation():
 
 
 class Essai():
-    &#34;&#34;&#34;objet representant un simuation en entier&#34;&#34;&#34;
+    &#34;&#34;&#34;objet representant un simulation en entier&#34;&#34;&#34;
     def __init__(self, generation_initial):
 
         self.generations = []
@@ -556,14 +535,14 @@ class Essai():
 
     @classmethod
     def naif_non_random(cls, len_x, len_y, taille):
-        &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_naif`, les genes ne sont pas entirement aleatoire&#34;&#34;&#34;
+        &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_naif`, les genes ne sont pas entierement aleatoires&#34;&#34;&#34;
         genes = [Gene_naif(len_x, len_y) for _ in range(taille)]
         generation = Generation(genes)
         return cls(generation)
 
     @classmethod
     def composee_vide(cls, len_x, len_y, taille):
-        &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_compose`, les genes ne sont pas entirement aleatoire&#34;&#34;&#34;
+        &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_compose`, les genes ne sont pas entierement aleatoires&#34;&#34;&#34;
         genes = [Gene_compose(len_x, len_y, 0) for _ in range(taille)]
         generation = Generation(genes)
         return cls(generation)
@@ -600,7 +579,7 @@ class Essai():
 
     @classmethod
     def load_save(cls, nom, emplacement = &#34;save&#34;):
-        &#34;&#34;&#34;chrge une sauvegard d&#39;essai, ne fonctionne que pour les gene naif.&#34;&#34;&#34;
+        &#34;&#34;&#34;charge une sauvegarde d&#39;essai, ne fonctionne que pour les genes naifs.&#34;&#34;&#34;
         essai = cls(0, 0, 0, True)
         idx = 0
         essai.generations.append(Generation.from_file(
@@ -615,7 +594,7 @@ class Essai():
         return essai
 
     def evolution_statistique(self, plt, n_mesure=10):
-        &#34;&#34;&#34;permet de tracer une evolution de la repartition de la fitness au cours du temps, utile pour voire l&#39;evolution des genes.&#34;&#34;&#34;
+        &#34;&#34;&#34;permet de tracer une evolution de la repartition de la fitness au cours du temps, utile pour voir l&#39;evolution des genes.&#34;&#34;&#34;
         import numpy as np
         liste_indice = np.linspace(0, len(self.generations)-1, n_mesure, dtype=int)
         distribution = []
@@ -631,7 +610,7 @@ class Essai():
         return plt
 
 class Evaluateur(threading.Thread):
-    &#34;&#34;&#34;class permetant le calcule en parrallele du rendement des genes, permet un gain notable mais pas enorme&#34;&#34;&#34;
+    &#34;&#34;&#34;classe permetant le calcul en parallele du rendement des genes, permet un gain de temps notable &#34;&#34;&#34;
     def __init__(self, gene):
         threading.Thread.__init__(self)
         self.gene = gene
@@ -654,13 +633,13 @@ class Evaluateur(threading.Thread):
 <span>(</span><span>espece, date_plantaison, date_recolte, position, actif=True, idx=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>implementation des composant des gene composes</p></div>
+<div class="desc"><p>implementation des composants des genes composes</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Composant():
-    &#34;&#34;&#34;implementation des composant des gene composes&#34;&#34;&#34;
+    &#34;&#34;&#34;implementation des composants des genes composes&#34;&#34;&#34;
     next_id = 0
 
     taux_mutation_date = 0.3
@@ -685,7 +664,7 @@ class Evaluateur(threading.Thread):
         return &#34;{0}:{1}@{2},{3}-&gt;{4},{5}&#34;.format(self.id, self.espece, self.position,
                                         self.plantage, self.recolte, self.actif)
     def copy(self):
-        &#34;&#34;&#34;permet de creer une copie du composant avec le meme numero d&#39;inovation&#34;&#34;&#34;
+        &#34;&#34;&#34;permet de creer une copie du composant avec le meme numero d&#39;innovation&#34;&#34;&#34;
         x, y = self.position
         espece = self.espece
         date_plantaison = self. plantage
@@ -696,8 +675,8 @@ class Evaluateur(threading.Thread):
 
     @classmethod
     def random(cls, len_x, len_y):
-        &#34;&#34;&#34;permet de creer un nouvau composant aleatoire avec un nouveau numero d&#39;inovation&#34;&#34;&#34;
-        return cls(rd.choice(list_espece),
+        &#34;&#34;&#34;permet de creer un nouvau composant aleatoire avec un nouveau numero d&#39;innovation&#34;&#34;&#34;
+        return cls(rd.choice(herbier.list_espece),
                    rd.randint(0, 364),
                    rd.randint(0, 364),
                    (rd.randint(0,len_x-1), rd.randint(0, len_y-1)))
@@ -744,15 +723,15 @@ class Evaluateur(threading.Thread):
 <span>def <span class="ident">random</span></span>(<span>len_x, len_y)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>permet de creer un nouvau composant aleatoire avec un nouveau numero d'inovation</p></div>
+<div class="desc"><p>permet de creer un nouvau composant aleatoire avec un nouveau numero d'innovation</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
 def random(cls, len_x, len_y):
-    &#34;&#34;&#34;permet de creer un nouvau composant aleatoire avec un nouveau numero d&#39;inovation&#34;&#34;&#34;
-    return cls(rd.choice(list_espece),
+    &#34;&#34;&#34;permet de creer un nouvau composant aleatoire avec un nouveau numero d&#39;innovation&#34;&#34;&#34;
+    return cls(rd.choice(herbier.list_espece),
                rd.randint(0, 364),
                rd.randint(0, 364),
                (rd.randint(0,len_x-1), rd.randint(0, len_y-1)))</code></pre>
@@ -765,13 +744,13 @@ def random(cls, len_x, len_y):
 <span>def <span class="ident">copy</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>permet de creer une copie du composant avec le meme numero d'inovation</p></div>
+<div class="desc"><p>permet de creer une copie du composant avec le meme numero d'innovation</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def copy(self):
-    &#34;&#34;&#34;permet de creer une copie du composant avec le meme numero d&#39;inovation&#34;&#34;&#34;
+    &#34;&#34;&#34;permet de creer une copie du composant avec le meme numero d&#39;innovation&#34;&#34;&#34;
     x, y = self.position
     espece = self.espece
     date_plantaison = self. plantage
@@ -808,13 +787,13 @@ def random(cls, len_x, len_y):
 <span>(</span><span>generation_initial)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>objet representant un simuation en entier</p></div>
+<div class="desc"><p>objet representant un simulation en entier</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Essai():
-    &#34;&#34;&#34;objet representant un simuation en entier&#34;&#34;&#34;
+    &#34;&#34;&#34;objet representant un simulation en entier&#34;&#34;&#34;
     def __init__(self, generation_initial):
 
         self.generations = []
@@ -822,14 +801,14 @@ def random(cls, len_x, len_y):
 
     @classmethod
     def naif_non_random(cls, len_x, len_y, taille):
-        &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_naif`, les genes ne sont pas entirement aleatoire&#34;&#34;&#34;
+        &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_naif`, les genes ne sont pas entierement aleatoires&#34;&#34;&#34;
         genes = [Gene_naif(len_x, len_y) for _ in range(taille)]
         generation = Generation(genes)
         return cls(generation)
 
     @classmethod
     def composee_vide(cls, len_x, len_y, taille):
-        &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_compose`, les genes ne sont pas entirement aleatoire&#34;&#34;&#34;
+        &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_compose`, les genes ne sont pas entierement aleatoires&#34;&#34;&#34;
         genes = [Gene_compose(len_x, len_y, 0) for _ in range(taille)]
         generation = Generation(genes)
         return cls(generation)
@@ -866,7 +845,7 @@ def random(cls, len_x, len_y):
 
     @classmethod
     def load_save(cls, nom, emplacement = &#34;save&#34;):
-        &#34;&#34;&#34;chrge une sauvegard d&#39;essai, ne fonctionne que pour les gene naif.&#34;&#34;&#34;
+        &#34;&#34;&#34;charge une sauvegarde d&#39;essai, ne fonctionne que pour les genes naifs.&#34;&#34;&#34;
         essai = cls(0, 0, 0, True)
         idx = 0
         essai.generations.append(Generation.from_file(
@@ -881,7 +860,7 @@ def random(cls, len_x, len_y):
         return essai
 
     def evolution_statistique(self, plt, n_mesure=10):
-        &#34;&#34;&#34;permet de tracer une evolution de la repartition de la fitness au cours du temps, utile pour voire l&#39;evolution des genes.&#34;&#34;&#34;
+        &#34;&#34;&#34;permet de tracer une evolution de la repartition de la fitness au cours du temps, utile pour voir l&#39;evolution des genes.&#34;&#34;&#34;
         import numpy as np
         liste_indice = np.linspace(0, len(self.generations)-1, n_mesure, dtype=int)
         distribution = []
@@ -902,14 +881,14 @@ def random(cls, len_x, len_y):
 <span>def <span class="ident">composee_vide</span></span>(<span>len_x, len_y, taille)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>permet d'initialiser une nouvelle simulation avec des <code><a title="genetique.Gene_compose" href="#genetique.Gene_compose">Gene_compose</a></code>, les genes ne sont pas entirement aleatoire</p></div>
+<div class="desc"><p>permet d'initialiser une nouvelle simulation avec des <code><a title="genetique.Gene_compose" href="#genetique.Gene_compose">Gene_compose</a></code>, les genes ne sont pas entierement aleatoires</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
 def composee_vide(cls, len_x, len_y, taille):
-    &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_compose`, les genes ne sont pas entirement aleatoire&#34;&#34;&#34;
+    &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_compose`, les genes ne sont pas entierement aleatoires&#34;&#34;&#34;
     genes = [Gene_compose(len_x, len_y, 0) for _ in range(taille)]
     generation = Generation(genes)
     return cls(generation)</code></pre>
@@ -919,14 +898,14 @@ def composee_vide(cls, len_x, len_y, taille):
 <span>def <span class="ident">load_save</span></span>(<span>nom, emplacement='save')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>chrge une sauvegard d'essai, ne fonctionne que pour les gene naif.</p></div>
+<div class="desc"><p>charge une sauvegarde d'essai, ne fonctionne que pour les genes naifs.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
 def load_save(cls, nom, emplacement = &#34;save&#34;):
-    &#34;&#34;&#34;chrge une sauvegard d&#39;essai, ne fonctionne que pour les gene naif.&#34;&#34;&#34;
+    &#34;&#34;&#34;charge une sauvegarde d&#39;essai, ne fonctionne que pour les genes naifs.&#34;&#34;&#34;
     essai = cls(0, 0, 0, True)
     idx = 0
     essai.generations.append(Generation.from_file(
@@ -945,14 +924,14 @@ def load_save(cls, nom, emplacement = &#34;save&#34;):
 <span>def <span class="ident">naif_non_random</span></span>(<span>len_x, len_y, taille)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>permet d'initialiser une nouvelle simulation avec des <code><a title="genetique.Gene_naif" href="#genetique.Gene_naif">Gene_naif</a></code>, les genes ne sont pas entirement aleatoire</p></div>
+<div class="desc"><p>permet d'initialiser une nouvelle simulation avec des <code><a title="genetique.Gene_naif" href="#genetique.Gene_naif">Gene_naif</a></code>, les genes ne sont pas entierement aleatoires</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
 def naif_non_random(cls, len_x, len_y, taille):
-    &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_naif`, les genes ne sont pas entirement aleatoire&#34;&#34;&#34;
+    &#34;&#34;&#34;permet d&#39;initialiser une nouvelle simulation avec des `genetique.Gene_naif`, les genes ne sont pas entierement aleatoires&#34;&#34;&#34;
     genes = [Gene_naif(len_x, len_y) for _ in range(taille)]
     generation = Generation(genes)
     return cls(generation)</code></pre>
@@ -965,13 +944,13 @@ def naif_non_random(cls, len_x, len_y, taille):
 <span>def <span class="ident">evolution_statistique</span></span>(<span>self, plt, n_mesure=10)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>permet de tracer une evolution de la repartition de la fitness au cours du temps, utile pour voire l'evolution des genes.</p></div>
+<div class="desc"><p>permet de tracer une evolution de la repartition de la fitness au cours du temps, utile pour voir l'evolution des genes.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def evolution_statistique(self, plt, n_mesure=10):
-    &#34;&#34;&#34;permet de tracer une evolution de la repartition de la fitness au cours du temps, utile pour voire l&#39;evolution des genes.&#34;&#34;&#34;
+    &#34;&#34;&#34;permet de tracer une evolution de la repartition de la fitness au cours du temps, utile pour voir l&#39;evolution des genes.&#34;&#34;&#34;
     import numpy as np
     liste_indice = np.linspace(0, len(self.generations)-1, n_mesure, dtype=int)
     distribution = []
@@ -1055,7 +1034,7 @@ def naif_non_random(cls, len_x, len_y, taille):
 <span>(</span><span>gene)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>class permetant le calcule en parrallele du rendement des genes, permet un gain notable mais pas enorme</p>
+<div class="desc"><p>classe permetant le calcul en parallele du rendement des genes, permet un gain de temps notable </p>
 <p>This constructor should always be called with keyword arguments. Arguments are:</p>
 <p><em>group</em> should be None; reserved for future extension when a ThreadGroup
 class is implemented.</p>
@@ -1074,7 +1053,7 @@ else to the thread.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Evaluateur(threading.Thread):
-    &#34;&#34;&#34;class permetant le calcule en parrallele du rendement des genes, permet un gain notable mais pas enorme&#34;&#34;&#34;
+    &#34;&#34;&#34;classe permetant le calcul en parallele du rendement des genes, permet un gain de temps notable &#34;&#34;&#34;
     def __init__(self, gene):
         threading.Thread.__init__(self)
         self.gene = gene
@@ -1112,19 +1091,19 @@ from the args and kwargs arguments, respectively.</p></div>
 <span>(</span><span>*args)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Class abstraite pour l'encapsulation des diférents type de gène</p></div>
+<div class="desc"><p>Class abstraite pour l'encapsulation des diférents types de gènes</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Gene():
-    &#34;&#34;&#34;Class abstraite pour l&#39;encapsulation des diférents type de gène&#34;&#34;&#34;
-    decodeur_espece = dict_herbier
+    &#34;&#34;&#34;Class abstraite pour l&#39;encapsulation des diférents types de gènes&#34;&#34;&#34;
+    decodeur_espece = herbier.dict_herbier
 
     def __init__(self, *args):
         assert 0, &#34;not implemented&#34;
 
-    def jardin(self) -&gt; Jardin:
+    def jardin(self) -&gt; simulateur.Jardin:
         &#34;&#34;&#34;renvoie le `simulateur.jardin` corespondant au gène&#34;&#34;&#34;
         assert 0, &#34;not implemented&#34;
 
@@ -1204,7 +1183,7 @@ from the args and kwargs arguments, respectively.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def jardin(self) -&gt; Jardin:
+<pre><code class="python">def jardin(self) -&gt; simulateur.Jardin:
     &#34;&#34;&#34;renvoie le `simulateur.jardin` corespondant au gène&#34;&#34;&#34;
     assert 0, &#34;not implemented&#34;</code></pre>
 </details>
@@ -1230,13 +1209,13 @@ from the args and kwargs arguments, respectively.</p></div>
 <span>(</span><span>len_x, len_y, composants=10)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>implementation des gene compose</p></div>
+<div class="desc"><p>implementation des genes composes</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Gene_compose(Gene):
-    &#34;&#34;&#34;implementation des gene compose&#34;&#34;&#34;
+    &#34;&#34;&#34;implementation des genes composes&#34;&#34;&#34;
     taux_mutation_new_componant = 0.3
 
     def __init__(self, len_x, len_y, composants = 10):
@@ -1286,7 +1265,7 @@ from the args and kwargs arguments, respectively.</p></div>
         return gene
 
     def jardin(self):
-        jar = Jardin(self.len_x, self.len_y)
+        jar = simulateur.Jardin(self.len_x, self.len_y)
         for comp in self.composants:
             if comp.actif:
                 try:
@@ -1299,8 +1278,8 @@ from the args and kwargs arguments, respectively.</p></div>
         return jar
     
     def recette(self):
-        &#34;&#34;&#34;permet de convertir le gene en une chaine comprensible, pour comprendre ce qu&#39;il represente comme plan de culture&#34;&#34;&#34;
-        jar = Jardin(self.len_x, self.len_y)
+        &#34;&#34;&#34;permet de convertir le gene en un texte comprehensible pour l&#39;utilisateur representant la plannification des cultures du jardin&#34;&#34;&#34;
+        jar = simulateur.Jardin(self.len_x, self.len_y)
         liste_commande = []
         for comp in self.composants:
             if comp.actif:
@@ -1332,14 +1311,14 @@ from the args and kwargs arguments, respectively.</p></div>
 <span>def <span class="ident">recette</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>permet de convertir le gene en une chaine comprensible, pour comprendre ce qu'il represente comme plan de culture</p></div>
+<div class="desc"><p>permet de convertir le gene en un texte comprehensible pour l'utilisateur representant la plannification des cultures du jardin</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def recette(self):
-    &#34;&#34;&#34;permet de convertir le gene en une chaine comprensible, pour comprendre ce qu&#39;il represente comme plan de culture&#34;&#34;&#34;
-    jar = Jardin(self.len_x, self.len_y)
+    &#34;&#34;&#34;permet de convertir le gene en un texte comprehensible pour l&#39;utilisateur representant la plannification des cultures du jardin&#34;&#34;&#34;
+    jar = simulateur.Jardin(self.len_x, self.len_y)
     liste_commande = []
     for comp in self.composants:
         if comp.actif:
@@ -1372,13 +1351,13 @@ from the args and kwargs arguments, respectively.</p></div>
 <span>(</span><span>len_x, len_y, ADN='')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Implementation de la representation naive, le gène est une chaine de carractère</p></div>
+<div class="desc"><p>Implementation de la representation naive, le gène est une chaine de caractère</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Gene_naif(Gene):
-    &#34;&#34;&#34;Implementation de la representation naive, le gène est une chaine de carractère&#34;&#34;&#34;
+    &#34;&#34;&#34;Implementation de la representation naive, le gène est une chaine de caractère&#34;&#34;&#34;
     taux_mutation_carra = 0.05
     pourcentage_max_mutation = 0.3
 
@@ -1402,7 +1381,7 @@ from the args and kwargs arguments, respectively.</p></div>
                     if iterateur + time_chunk &lt; 363:
                         calendrier[iterateur:iterateur + time_chunk] = [plante_aléatoire()]*time_chunk
                         ADN[iterateur:iterateur + time_chunk] = [identificateur]*time_chunk
-                        calendrier[iterateur + time_chunk] = Jachere()
+                        calendrier[iterateur + time_chunk] = simulateur.Jachere()
                         ADN[iterateur + time_chunk] = N_bit_espece*&#34;0&#34;
                         iterateur += time_chunk + 1
                     else:
@@ -1425,7 +1404,7 @@ from the args and kwargs arguments, respectively.</p></div>
     @classmethod
     def from_file(cls, adn, fit, len_x, len_y):
         &#34;&#34;&#34;
-        reconstruit le gene à partir des informations contenues dans le fichier de sauvgarde
+        reconstruit le gene à partir des informations contenues dans le fichier de sauvegarde
 
         Parameters
         ----------
@@ -1457,8 +1436,8 @@ from the args and kwargs arguments, respectively.</p></div>
         n = int(self.ADN, 2)
         return &#34;gene : {}&#34;.format(hex(n))
 
-    def jardin(self) -&gt; Jardin:
-        jar = Jardin(self.len_x, self.len_y)
+    def jardin(self) -&gt; simulateur.Jardin:
+        jar = simulateur.Jardin(self.len_x, self.len_y)
         for x in range(self.len_x):
             for y in range(self.len_y):
                 emplacement = jar.emplacement[y][x]
@@ -1470,11 +1449,11 @@ from the args and kwargs arguments, respectively.</p></div>
                     try:
                         ebauche += [Gene.decodeur_espece[allele]]
                     except KeyError:
-                        ebauche += [Jachere]
+                        ebauche += [simulateur.Jachere]
                 idx_exploration = 0
                 while idx_exploration &lt; 365:
                     type_actuel = ebauche[idx_exploration]
-                    if type_actuel == Jachere:
+                    if type_actuel == simulateur.Jachere:
                         idx_exploration += 1
                     else:
                         idx_depart = idx_exploration
@@ -1532,7 +1511,7 @@ from the args and kwargs arguments, respectively.</p></div>
 <span>def <span class="ident">from_file</span></span>(<span>adn, fit, len_x, len_y)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>reconstruit le gene à partir des informations contenues dans le fichier de sauvgarde</p>
+<div class="desc"><p>reconstruit le gene à partir des informations contenues dans le fichier de sauvegarde</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>cls</code></strong> :&ensp;<code>type</code></dt>
@@ -1558,7 +1537,7 @@ from the args and kwargs arguments, respectively.</p></div>
 <pre><code class="python">@classmethod
 def from_file(cls, adn, fit, len_x, len_y):
     &#34;&#34;&#34;
-    reconstruit le gene à partir des informations contenues dans le fichier de sauvgarde
+    reconstruit le gene à partir des informations contenues dans le fichier de sauvegarde
 
     Parameters
     ----------
@@ -1601,13 +1580,13 @@ def from_file(cls, adn, fit, len_x, len_y):
 <span>(</span><span>genes)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>objet permetant de representer une generation dans l'algoritme</p></div>
+<div class="desc"><p>objet permettant de representer une generation dans l'algorithme</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Generation():
-    &#34;&#34;&#34;objet permetant de representer une generation dans l&#39;algoritme&#34;&#34;&#34;
+    &#34;&#34;&#34;objet permettant de representer une generation dans l&#39;algorithme&#34;&#34;&#34;
     multithreading_actif = False
     
     @classmethod
@@ -1740,29 +1719,6 @@ def from_file(cls, adn, fit, len_x, len_y):
         weight = [gene.fitness() for gene in self.genes[(len(self.genes)//10):]]
         selection += rd.choices(self.genes[(len(self.genes)//10):], weight, k = len(selection))
         return selection
-
-    # def _croisement(self) -&gt; list:
-    #     &#34;&#34;&#34;
-    #     Permet de croiser les genes.
-
-    #     Returns
-    #     -------
-    #     None.
-
-    #     &#34;&#34;&#34;
-
-    #     population_depart = self.genes
-    #     len_x, len_y = population_depart[0].len_x, population_depart[0].len_y
-    #     liste_gene = []
-    #     for pop_index in range(5):
-    #         population = population_depart[pop_index*(len(population_depart)//5) :(pop_index+1)*(len(population_depart)//5)]
-    #         for index in population:
-    #             for multi in range(10):
-    #                 ADN = &#34;&#34;
-    #                 for i in range(5):
-    #                     ADN += population[rd.randint(0, len(population)-1)].ADN[int(len(population[0].ADN)/5)*i:(i+1)*int(len(population[0].ADN)/5)]
-    #                 liste_gene.append(Gene(len_x, len_y, ADN))
-    #     self.genes = liste_gene
 
     def __str__(self):
         chaine = &#34;{1};{2};{0}\n&#34;.format(int(self.evaluee), self.genes[0].len_x,  self.genes[0].len_y)

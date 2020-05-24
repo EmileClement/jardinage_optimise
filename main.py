@@ -4,9 +4,11 @@ Created on Fri May  8 11:32:38 2020
 
 @author: Leopold
 """
-from simulateur import *
-from herbier import *
-from genetique import *
+
+import genetique
+herbier = genetique.herbier
+simulateur = herbier.simulateur
+Essai = genetique.Essai
 
 def demo_naif(nom, n_gen=30, n_pop=200):
     """pour faire un essaie simple avec les gene naif"""
