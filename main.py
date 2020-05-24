@@ -11,7 +11,7 @@ simulateur = herbier.simulateur
 Essai = genetique.Essai
 
 def demo_naif(nom, n_gen=30, n_pop=200):
-    """pour faire un essaie simple avec les gene naif"""
+    """pour faire un essaie simple avec les `genetique.Gene_naif`"""
     from matplotlib import pyplot as plt
     E = Essai.composee_vide(2, 3, n_pop)
     try:
@@ -27,7 +27,7 @@ def demo_naif(nom, n_gen=30, n_pop=200):
     return generation.genes[0]
 
 def demo_composee(nom, n_gen=30, n_pop=200):
-    """pour faire un essaie simple avec les gene compose"""
+    """pour faire un essaie simple avec les `genetique.Gene_compose`"""
     from matplotlib import pyplot as plt
     E = Essai.composee_vide(2, 3, n_pop)
     try:
