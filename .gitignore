@@ -1,7 +1,7 @@
 /save/*
-/.pylint.d/*
-/.spyproject/*
-/__pycache__/*
+/.pylint.d
+/.spyproject
+/__pycache__
 7.2
 temp-plot.html
 optimisation_calcule
