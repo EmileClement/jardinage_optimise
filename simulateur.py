@@ -7,6 +7,7 @@ Created on Fri May  8 11:30:45 2020
 import random as rd
 
 class Jardin():
+    """ Representation du jardin, porte les emplacements"""
     def __init__(self, len_x: int, len_y: int):
         self.emplacement = [[Emplacement(self,i,j) for i in range(len_x)] for j in range(len_y)]
         for y in range(len(self.emplacement)):
@@ -89,6 +90,7 @@ class Jardin():
         plot(fig)
 
 class Emplacement():
+    """Representation d'une parcelle de 1m x 1m du jardin, porte les plantes"""
     def __init__(self,jardin,x,y):
         self.jardin = jardin
         self.calendrier = [Jachere() for i in range(365)]
@@ -183,10 +185,12 @@ class Emplacement():
         return masse
 
 class Occupant():
+    """representation generique d'un occupant de parcelle: une absence de plante (Jachere) ou une Plante"""
     def __init__(self):
         assert 0, "Not implemeted"
 
 class Jachere(Occupant):
+    """representation de l'absence de plante"""
     def __init__(self):
         self.time_chunk = 0
         self.color = "#000000"
@@ -198,6 +202,7 @@ class Jachere(Occupant):
         return "Jachère"
 
 class Plante(Occupant):
+    """ Classe generique de plante"""
     table_associations = [[1. ,1. ,1. ,1. ,1. ,1. ,1. ,1. ],
                           [1. ,1.1,0.95,1. ,1. ,1.1,1.1,1. ],
                           [1. ,0.95,1.1,1. ,1. ,1.1,0.95,1. ],
@@ -206,6 +211,7 @@ class Plante(Occupant):
                           [1. ,1. ,1.1,1. ,1. ,1.1,1.1,1. ],
                           [1. ,1.1,0.95,1. ,1. ,1. ,1.1,1. ],
                           [1. ,1. ,1.1,1. ,1. ,1. ,1. ,1.1]]
+    #table des influences mutuelles des plantes sur leur croissance
     def __init__(self):
         self.plantage = [False]*365
         self.time_chunk = 0
