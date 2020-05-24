@@ -41,7 +41,7 @@ def demo_composee(n_gen=30, n_pop=200):
     return generation.genes[0]
 
 def comparateur_identique(n_concurents, n_gen=30, n_pop=200):
-    """permet de comparer deux essei avec la representation composee, pour mettre en evidence la partie aleatoire"""
+    """permet de comparer deux essais avec la representation composee, pour mettre en evidence la partie aleatoire"""
     concurents = [Essai.composee_vide(2, 3, n_pop) for _ in range(n_concurents)]
     try:
         for i in range(n_gen):
@@ -70,3 +70,18 @@ def comparateur_representation(n_gen=30, n_pop=200):
     concurents[1].evolution_statistique(plt, 5)
     return concurents
 
+def comparateur_taille(n_gen=30, n_pop=200):
+    """permet de comparer deux essais avec la representation composee mais avec deu"""
+    concurents = [Essai.composee_vide(2, 3, n_pop)]
+    concurents += [Essai.composee_vide(2,3, 2*n_pop)]
+    try:
+        for i in range(n_gen):
+            print("generation {}".format(i))
+            for elem in concurents:
+                elem.generation_suivante()
+    except KeyboardInterrupt:
+        pass
+    from matplotlib import pyplot as plt
+    for elem in concurents:
+        elem.evolution_statistique(plt, 5)
+    return concurents
