@@ -23,7 +23,7 @@
 <section id="section-intro">
 <p>Created on Fri May
 8 11:27:10 2020</p>
-<p>@author: Leopold</p>
+<p>@author: Leopold &amp; Thomas</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -32,13 +32,13 @@
 &#34;&#34;&#34;
 Created on Fri May  8 11:27:10 2020
 
-@author: Leopold
+@author: Leopold &amp; Thomas
 &#34;&#34;&#34;
 from simulateur import *
 
 class Patate(Plante):
     def __init__(self):
-        self.plantage = [False] * 52 + [True] * 253 + [False] * (365 - 305)
+        self.plantage = [False] * 52 + [True] * 109 + [False] * 204
         self.time_chunk = 80
         self.jour_semis = None
         self.deja_recolte = False
@@ -64,17 +64,15 @@ class Patate(Plante):
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 10/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20))
-        else:
-            return 0.
+
+        return 5*(1/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 10**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/15)))
+
 
 class Tomate(Plante):
     
     def __init__(self):
-        self.plantage = [False] * 121 + [True] * 60 + [False] * (365 - 171)
-        self.time_chunk = 119
+        self.plantage = [False] * 92 + [True] * 90 + [False] * (183)
+        self.time_chunk = 80
         self.jour_semis = None
         self.deja_recolte = False
         self.color = &#34;#eb4b3d&#34;
@@ -99,16 +97,13 @@ class Tomate(Plante):
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 10/(1 + 9**((15- ((jour - self.jour_semis)%365 - self.time_chunk))/10))
-        else:
-            return 0.
+        return 10*(1/(1 + 9**(( -((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 9**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/20)))
+        
 
 
 class Poireau(Plante):
     def __init__(self):
-        self.plantage = [True] * 90 + [False] * 153 + [True] * (122)
+        self.plantage = [False] *245  + [True] * 90 + [False] * (30)
         self.time_chunk = 20
         self.jour_semis = None
         self.deja_recolte = False
@@ -133,11 +128,9 @@ class Poireau(Plante):
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 4/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/5))
-        else:
-            return 0.
+
+        return 4*(1/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/10)) -1/(1 + 10**((150 -((jour - self.jour_semis)%365 - self.time_chunk))/20)))
+
 
 class Epinards(Plante):
     def __init__(self):
@@ -146,7 +139,7 @@ class Epinards(Plante):
 
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = &#34;#80c44a&#34;
+        self.color = &#34;#26661d&#34;
         self.id = 4
         self.multiplicateur = 1.
     def __repr__(self):
@@ -168,11 +161,9 @@ class Epinards(Plante):
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 1.5/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
-        else:
-            return 0.
+
+        return 1.5/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/15))
+
     
 
 class Radis(Plante):
@@ -181,7 +172,7 @@ class Radis(Plante):
         self.time_chunk = 20
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = &#34;#80c44a&#34;
+        self.color = &#34;#f07f77&#34;
         self.id = 5
         self.multiplicateur = 1.
     def __repr__(self):
@@ -202,11 +193,9 @@ class Radis(Plante):
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 2.1/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
-        else:
-            return 0.
+
+        return 2.1*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/10)) - 1/(1 + 10**((130-((jour - self.jour_semis)%365) + self.time_chunk)/30)))
+
 
 class Choux(Plante):
     def __init__(self):
@@ -214,7 +203,7 @@ class Choux(Plante):
         self.time_chunk = 90
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = &#34;#80c44a&#34;
+        self.color = &#34;#7e9e71&#34;
         self.id = 6
         self.multiplicateur = 1.
     def __repr__(self):
@@ -235,19 +224,17 @@ class Choux(Plante):
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 1.2/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/30))
-        else:
-            return 0.
+
+        return 1.2/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/30))
+
 
 class Navets(Plante):
     def __init__(self):
         self.plantage = [False] * 182 + [True] * 90 + [False] * (93)
-        self.time_chunk = 75
+        self.time_chunk = 30
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = &#34;#80c44a&#34;
+        self.color = &#34;#c8d4a9&#34;
         self.id = 7
         self.multiplicateur = 1.
     def __repr__(self):
@@ -268,11 +255,9 @@ class Navets(Plante):
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 2./(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/15))
-        else:
-            return 0.
+
+        return 2.*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/25)) -1/(1 + 10**((100-((jour - self.jour_semis)%365) + self.time_chunk)/15)))
+
 
 N_bit_espece = 3
 
@@ -286,7 +271,16 @@ dict_herbier = {
         &#34;101&#34; : Radis,
         &#34;110&#34; : Choux,
         &#34;111&#34; : Navets
-        }</code></pre>
+        }
+
+def graphe_production(plante,jour_semis):
+    import matplotlib.pyplot as plt
+    levert = plante()
+    levert.jour_semis = jour_semis
+    prod = []
+    for i in range(365):
+        prod.append(levert.masse_produite(i))
+    plt.plot(range(365),prod)</code></pre>
 </details>
 </section>
 <section>
@@ -294,6 +288,28 @@ dict_herbier = {
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="herbier.graphe_production"><code class="name flex">
+<span>def <span class="ident">graphe_production</span></span>(<span>plante, jour_semis)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def graphe_production(plante,jour_semis):
+    import matplotlib.pyplot as plt
+    levert = plante()
+    levert.jour_semis = jour_semis
+    prod = []
+    for i in range(365):
+        prod.append(levert.masse_produite(i))
+    plt.plot(range(365),prod)</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
@@ -313,7 +329,7 @@ dict_herbier = {
         self.time_chunk = 90
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = &#34;#80c44a&#34;
+        self.color = &#34;#7e9e71&#34;
         self.id = 6
         self.multiplicateur = 1.
     def __repr__(self):
@@ -334,11 +350,8 @@ dict_herbier = {
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 1.2/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/30))
-        else:
-            return 0.</code></pre>
+
+        return 1.2/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/30))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -380,11 +393,8 @@ dict_herbier = {
         Masse produite par le légume
 
     &#34;&#34;&#34;
-    if (self.deja_recolte == False):
-        self.deja_recolte = True
-        return 1.2/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/30))
-    else:
-        return 0.</code></pre>
+
+    return 1.2/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/30))</code></pre>
 </details>
 </dd>
 </dl>
@@ -415,7 +425,7 @@ dict_herbier = {
 
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = &#34;#80c44a&#34;
+        self.color = &#34;#26661d&#34;
         self.id = 4
         self.multiplicateur = 1.
     def __repr__(self):
@@ -437,11 +447,8 @@ dict_herbier = {
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 1.5/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
-        else:
-            return 0.</code></pre>
+
+        return 1.5/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/15))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -483,11 +490,8 @@ dict_herbier = {
         Masse produite par le légume
 
     &#34;&#34;&#34;
-    if (self.deja_recolte == False):
-        self.deja_recolte = True
-        return 1.5/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
-    else:
-        return 0.</code></pre>
+
+    return 1.5/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/15))</code></pre>
 </details>
 </dd>
 </dl>
@@ -514,10 +518,10 @@ dict_herbier = {
 <pre><code class="python">class Navets(Plante):
     def __init__(self):
         self.plantage = [False] * 182 + [True] * 90 + [False] * (93)
-        self.time_chunk = 75
+        self.time_chunk = 30
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = &#34;#80c44a&#34;
+        self.color = &#34;#c8d4a9&#34;
         self.id = 7
         self.multiplicateur = 1.
     def __repr__(self):
@@ -538,11 +542,8 @@ dict_herbier = {
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 2./(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/15))
-        else:
-            return 0.</code></pre>
+
+        return 2.*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/25)) -1/(1 + 10**((100-((jour - self.jour_semis)%365) + self.time_chunk)/15)))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -584,11 +585,8 @@ dict_herbier = {
         Masse produite par le légume
 
     &#34;&#34;&#34;
-    if (self.deja_recolte == False):
-        self.deja_recolte = True
-        return 2./(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/15))
-    else:
-        return 0.</code></pre>
+
+    return 2.*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/25)) -1/(1 + 10**((100-((jour - self.jour_semis)%365) + self.time_chunk)/15)))</code></pre>
 </details>
 </dd>
 </dl>
@@ -614,7 +612,7 @@ dict_herbier = {
 </summary>
 <pre><code class="python">class Patate(Plante):
     def __init__(self):
-        self.plantage = [False] * 52 + [True] * 253 + [False] * (365 - 305)
+        self.plantage = [False] * 52 + [True] * 109 + [False] * 204
         self.time_chunk = 80
         self.jour_semis = None
         self.deja_recolte = False
@@ -640,11 +638,8 @@ dict_herbier = {
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 10/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20))
-        else:
-            return 0.</code></pre>
+
+        return 5*(1/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 10**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/15)))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -686,11 +681,8 @@ dict_herbier = {
         Masse produite par le légume
 
     &#34;&#34;&#34;
-    if (self.deja_recolte == False):
-        self.deja_recolte = True
-        return 10/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20))
-    else:
-        return 0.</code></pre>
+
+    return 5*(1/(1 + 10**((- ((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 10**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/15)))</code></pre>
 </details>
 </dd>
 </dl>
@@ -716,7 +708,7 @@ dict_herbier = {
 </summary>
 <pre><code class="python">class Poireau(Plante):
     def __init__(self):
-        self.plantage = [True] * 90 + [False] * 153 + [True] * (122)
+        self.plantage = [False] *245  + [True] * 90 + [False] * (30)
         self.time_chunk = 20
         self.jour_semis = None
         self.deja_recolte = False
@@ -741,11 +733,8 @@ dict_herbier = {
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 4/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/5))
-        else:
-            return 0.</code></pre>
+
+        return 4*(1/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/10)) -1/(1 + 10**((150 -((jour - self.jour_semis)%365 - self.time_chunk))/20)))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -787,11 +776,8 @@ dict_herbier = {
         Masse produite par le légume
 
     &#34;&#34;&#34;
-    if (self.deja_recolte == False):
-        self.deja_recolte = True
-        return 4/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/5))
-    else:
-        return 0.</code></pre>
+
+    return 4*(1/(1 + 10**((10- ((jour - self.jour_semis)%365 - self.time_chunk))/10)) -1/(1 + 10**((150 -((jour - self.jour_semis)%365 - self.time_chunk))/20)))</code></pre>
 </details>
 </dd>
 </dl>
@@ -821,7 +807,7 @@ dict_herbier = {
         self.time_chunk = 20
         self.jour_semis = None
         self.deja_recolte = False
-        self.color = &#34;#80c44a&#34;
+        self.color = &#34;#f07f77&#34;
         self.id = 5
         self.multiplicateur = 1.
     def __repr__(self):
@@ -842,11 +828,8 @@ dict_herbier = {
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 2.1/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
-        else:
-            return 0.</code></pre>
+
+        return 2.1*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/10)) - 1/(1 + 10**((130-((jour - self.jour_semis)%365) + self.time_chunk)/30)))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -888,11 +871,8 @@ dict_herbier = {
         Masse produite par le légume
 
     &#34;&#34;&#34;
-    if (self.deja_recolte == False):
-        self.deja_recolte = True
-        return 2.1/(1 + 10**((-(jour - self.jour_semis)%365 + self.time_chunk)/5))
-    else:
-        return 0.</code></pre>
+
+    return 2.1*(1/(1 + 10**((-((jour - self.jour_semis)%365) + self.time_chunk)/10)) - 1/(1 + 10**((130-((jour - self.jour_semis)%365) + self.time_chunk)/30)))</code></pre>
 </details>
 </dd>
 </dl>
@@ -919,8 +899,8 @@ dict_herbier = {
 <pre><code class="python">class Tomate(Plante):
     
     def __init__(self):
-        self.plantage = [False] * 121 + [True] * 60 + [False] * (365 - 171)
-        self.time_chunk = 119
+        self.plantage = [False] * 92 + [True] * 90 + [False] * (183)
+        self.time_chunk = 80
         self.jour_semis = None
         self.deja_recolte = False
         self.color = &#34;#eb4b3d&#34;
@@ -945,11 +925,7 @@ dict_herbier = {
             Masse produite par le légume
 
         &#34;&#34;&#34;
-        if (self.deja_recolte == False):
-            self.deja_recolte = True
-            return 10/(1 + 9**((15- ((jour - self.jour_semis)%365 - self.time_chunk))/10))
-        else:
-            return 0.</code></pre>
+        return 10*(1/(1 + 9**(( -((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 9**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/20)))</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -991,11 +967,7 @@ dict_herbier = {
         Masse produite par le légume
 
     &#34;&#34;&#34;
-    if (self.deja_recolte == False):
-        self.deja_recolte = True
-        return 10/(1 + 9**((15- ((jour - self.jour_semis)%365 - self.time_chunk))/10))
-    else:
-        return 0.</code></pre>
+    return 10*(1/(1 + 9**(( -((jour - self.jour_semis)%365 - self.time_chunk))/20)) - 1/(1 + 9**((100- ((jour - self.jour_semis)%365 - self.time_chunk))/20)))</code></pre>
 </details>
 </dd>
 </dl>
@@ -1019,6 +991,11 @@ dict_herbier = {
 <ul></ul>
 </div>
 <ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="herbier.graphe_production" href="#herbier.graphe_production">graphe_production</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>

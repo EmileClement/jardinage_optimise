@@ -2,7 +2,7 @@
 """
 Created on Fri May  8 11:31:42 2020
 
-@author: Leopold
+@author: Leopold & Thomas
 """
 import random as rd
 import threading
@@ -11,13 +11,14 @@ from simulateur import *
 from herbier import *
 
 class Gene():
-
+    """Class abstraite pour l'encapsulation des diférents type de gène"""
     decodeur_espece = dict_herbier
 
     def __init__(self, *args):
         assert 0, "not implemented"
 
     def jardin(self) -> Jardin:
+        """renvoie le `simulateur.jardin` corespondant au gène"""
         assert 0, "not implemented"
 
     def fitness(self) -> float:
@@ -36,12 +37,15 @@ class Gene():
         return self.fit
 
     def __mul__(self, other):
+        """enjambement de deux gène"""
         assert 0, "not implemented"
 
     def mutation(self):
+        """fait muter le gène"""
         assert 0, "not implemented"
 
 class Gene_naif(Gene):
+    """Implementation de la representation naive, le gène est une chaine de carractère"""
     taux_mutation_carra = 0.05
     pourcentage_max_mutation = 0.3
 
@@ -121,13 +125,6 @@ class Gene_naif(Gene):
         return "gene : {}".format(hex(n))
 
     def jardin(self) -> Jardin:
-        """
-        Créer le jardin corespondant à ce gene
-        Returns
-        -------
-        Jardin
-            Jardin correspondant.
-        """
         jar = Jardin(self.len_x, self.len_y)
         for x in range(self.len_x):
             for y in range(self.len_y):
@@ -182,6 +179,7 @@ class Gene_naif(Gene):
                 self.ADN = self.ADN[place_caractere] + inverse + self.ADN[place_caractere + nbr_caractere_a_muter:]
 
 class Composant():
+    """implementation des composant des gene composes"""
     next_id = 0
 
     taux_mutation_date = 0.3
@@ -206,6 +204,7 @@ class Composant():
         return "{0}:{1}@{2},{3}->{4},{5}".format(self.id, self.espece, self.position,
                                         self.plantage, self.recolte, self.actif)
     def copy(self):
+        """permet de creer une copie du composant avec le meme numero d'inovation"""
         x, y = self.position
         espece = self.espece
         date_plantaison = self. plantage
@@ -216,6 +215,7 @@ class Composant():
 
     @classmethod
     def random(cls, len_x, len_y):
+        """permet de creer un nouvau composant aleatoire avec un nouveau numero d'inovation"""
         return cls(rd.choice(list_espece),
                    rd.randint(0, 364),
                    rd.randint(0, 364),
@@ -235,6 +235,7 @@ class Composant():
             self.actif = not self.actif
 
 class Gene_compose(Gene):
+    """implementation des gene compose"""
     taux_mutation_new_componant = 0.3
 
     def __init__(self, len_x, len_y, composants = 10):
@@ -297,6 +298,7 @@ class Gene_compose(Gene):
         return jar
     
     def recette(self):
+        """permet de convertir le gene en une chaine comprensible, pour comprendre ce qu'il represente comme plan de culture"""
         jar = Jardin(self.len_x, self.len_y)
         liste_commande = []
         for comp in self.composants:
@@ -312,11 +314,9 @@ class Gene_compose(Gene):
         liste_commande.sort()
         return "\n".join(liste_commande)
 
-A = Gene_compose(2, 3, 15)
-
-
 
 class Generation():
+    """objet permetant de representer une generation dans l'algoritme"""
     multithreading_actif = False
     
     @classmethod
@@ -518,6 +518,7 @@ class Generation():
 
 
 class Essai():
+    """objet representant un simuation en entier"""
     def __init__(self, generation_initial):
 
         self.generations = []
@@ -525,12 +526,14 @@ class Essai():
 
     @classmethod
     def naif_non_random(cls, len_x, len_y, taille):
+        """permet d'initialiser une nouvelle simulation avec des `genetique.Gene_naif`, les genes ne sont pas entirement aleatoire"""
         genes = [Gene_naif(len_x, len_y) for _ in range(taille)]
         generation = Generation(genes)
         return cls(generation)
 
     @classmethod
     def composee_vide(cls, len_x, len_y, taille):
+        """permet d'initialiser une nouvelle simulation avec des `genetique.Gene_compose`, les genes ne sont pas entirement aleatoire"""
         genes = [Gene_compose(len_x, len_y, 0) for _ in range(taille)]
         generation = Generation(genes)
         return cls(generation)
@@ -548,7 +551,7 @@ class Essai():
 
     def save(self, nom, emplacement = "save"):
         """
-        sauvegarde l'essai dans l'emplacement voulu, avec le nom voulu.
+        sauvegarde l'essai dans l'emplacement voulu, avec le nom voulu. ne fonctionne que pour les gene_naif
 
         Parameters
         ----------
@@ -567,6 +570,7 @@ class Essai():
 
     @classmethod
     def load_save(cls, nom, emplacement = "save"):
+        """chrge une sauvegard d'essai, ne fonctionne que pour les gene naif."""
         essai = cls(0, 0, 0, True)
         idx = 0
         essai.generations.append(Generation.from_file(
@@ -581,6 +585,7 @@ class Essai():
         return essai
 
     def evolution_statistique(self, plt, n_mesure=10):
+        """permet de tracer une evolution de la repartition de la fitness au cours du temps, utile pour voire l'evolution des genes."""
         import numpy as np
         liste_indice = np.linspace(0, len(self.generations)-1, n_mesure, dtype=int)
         distribution = []
@@ -596,6 +601,7 @@ class Essai():
         return plt
 
 class Evaluateur(threading.Thread):
+    """class permetant le calcule en parrallele du rendement des genes, permet un gain notable mais pas enorme"""
     def __init__(self, gene):
         threading.Thread.__init__(self)
         self.gene = gene

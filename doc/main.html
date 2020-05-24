@@ -38,8 +38,10 @@ from simulateur import *
 from herbier import *
 from genetique import *
 
-def demo(nom, n_gen=30, n_pop=200):
-    E = Essai.composee_vide(5, 7, n_pop)
+def demo_naif(nom, n_gen=30, n_pop=200):
+    &#34;&#34;&#34;pour faire un essaie simple avec les gene naif&#34;&#34;&#34;
+    from matplotlib import pyplot as plt
+    E = Essai.composee_vide(2, 3, n_pop)
     try:
         for i in range(n_gen):
             print(&#34;generation {}&#34;.format(i))
@@ -47,12 +49,59 @@ def demo(nom, n_gen=30, n_pop=200):
     except KeyboardInterrupt:
         pass
     E.save(nom)
-    E.evolution_statistique(5)
+    E.evolution_statistique(plt, 5)
     generation = E.generations[-1]
     generation.evaluation()
     return generation.genes[0]
 
-E = demo(&#39;profiler&#39;, 15, 150)</code></pre>
+def demo_composee(nom, n_gen=30, n_pop=200):
+    &#34;&#34;&#34;pour faire un essaie simple avec les gene compose&#34;&#34;&#34;
+    from matplotlib import pyplot as plt
+    E = Essai.composee_vide(2, 3, n_pop)
+    try:
+        for i in range(n_gen):
+            print(&#34;generation {}&#34;.format(i))
+            E.generation_suivante()
+    except KeyboardInterrupt:
+        pass
+    E.save(nom)
+    E.evolution_statistique(plt, 5)
+    generation = E.generations[-1]
+    generation.evaluation()
+    return generation.genes[0]
+
+def comparateur_identique(n_concurents, n_gen=30, n_pop=200):
+    &#34;&#34;&#34;permet de comparer deux essei avec la representation composee, pour mettre en evidence la partie aleatoire&#34;&#34;&#34;
+    concurents = [Essai.composee_vide(2, 3, n_pop) for _ in range(n_concurents)]
+    try:
+        for i in range(n_gen):
+            print(&#34;generation {}&#34;.format(i))
+            for elem in concurents:
+                elem.generation_suivante()
+    except KeyboardInterrupt:
+        pass
+    from matplotlib import pyplot as plt
+    for elem in concurents:
+        elem.evolution_statistique(plt, 5)
+    return concurents
+
+def comparateur_representation(n_gen=30, n_pop=200):
+    &#34;&#34;&#34;permet de comparer deux essais avec les deux representation&#34;&#34;&#34;
+    concurents = [Essai.naif_non_random(2, 3, n_pop), Essai.composee_vide(2, 3, n_pop)]
+    try:
+        for i in range(n_gen):
+            print(&#34;generation {}&#34;.format(i))
+            for elem in concurents:
+                elem.generation_suivante()
+    except KeyboardInterrupt:
+        pass
+    from matplotlib import pyplot as plt
+    concurents[0].evolution_statistique(plt, 5)
+    concurents[1].evolution_statistique(plt, 5)
+    return concurents
+    
+
+#E = demo(&#39;profiler&#39;, 30, 150)</code></pre>
 </details>
 </section>
 <section>
@@ -62,17 +111,69 @@ E = demo(&#39;profiler&#39;, 15, 150)</code></pre>
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="main.demo"><code class="name flex">
-<span>def <span class="ident">demo</span></span>(<span>nom, n_gen=30, n_pop=200)</span>
+<dt id="main.comparateur_identique"><code class="name flex">
+<span>def <span class="ident">comparateur_identique</span></span>(<span>n_concurents, n_gen=30, n_pop=200)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>permet de comparer deux essei avec la representation composee, pour mettre en evidence la partie aleatoire</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def demo(nom, n_gen=30, n_pop=200):
-    E = Essai.composee_vide(5, 7, n_pop)
+<pre><code class="python">def comparateur_identique(n_concurents, n_gen=30, n_pop=200):
+    &#34;&#34;&#34;permet de comparer deux essei avec la representation composee, pour mettre en evidence la partie aleatoire&#34;&#34;&#34;
+    concurents = [Essai.composee_vide(2, 3, n_pop) for _ in range(n_concurents)]
+    try:
+        for i in range(n_gen):
+            print(&#34;generation {}&#34;.format(i))
+            for elem in concurents:
+                elem.generation_suivante()
+    except KeyboardInterrupt:
+        pass
+    from matplotlib import pyplot as plt
+    for elem in concurents:
+        elem.evolution_statistique(plt, 5)
+    return concurents</code></pre>
+</details>
+</dd>
+<dt id="main.comparateur_representation"><code class="name flex">
+<span>def <span class="ident">comparateur_representation</span></span>(<span>n_gen=30, n_pop=200)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>permet de comparer deux essais avec les deux representation</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def comparateur_representation(n_gen=30, n_pop=200):
+    &#34;&#34;&#34;permet de comparer deux essais avec les deux representation&#34;&#34;&#34;
+    concurents = [Essai.naif_non_random(2, 3, n_pop), Essai.composee_vide(2, 3, n_pop)]
+    try:
+        for i in range(n_gen):
+            print(&#34;generation {}&#34;.format(i))
+            for elem in concurents:
+                elem.generation_suivante()
+    except KeyboardInterrupt:
+        pass
+    from matplotlib import pyplot as plt
+    concurents[0].evolution_statistique(plt, 5)
+    concurents[1].evolution_statistique(plt, 5)
+    return concurents</code></pre>
+</details>
+</dd>
+<dt id="main.demo_composee"><code class="name flex">
+<span>def <span class="ident">demo_composee</span></span>(<span>nom, n_gen=30, n_pop=200)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>pour faire un essaie simple avec les gene compose</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def demo_composee(nom, n_gen=30, n_pop=200):
+    &#34;&#34;&#34;pour faire un essaie simple avec les gene compose&#34;&#34;&#34;
+    from matplotlib import pyplot as plt
+    E = Essai.composee_vide(2, 3, n_pop)
     try:
         for i in range(n_gen):
             print(&#34;generation {}&#34;.format(i))
@@ -80,7 +181,33 @@ E = demo(&#39;profiler&#39;, 15, 150)</code></pre>
     except KeyboardInterrupt:
         pass
     E.save(nom)
-    E.evolution_statistique(5)
+    E.evolution_statistique(plt, 5)
+    generation = E.generations[-1]
+    generation.evaluation()
+    return generation.genes[0]</code></pre>
+</details>
+</dd>
+<dt id="main.demo_naif"><code class="name flex">
+<span>def <span class="ident">demo_naif</span></span>(<span>nom, n_gen=30, n_pop=200)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>pour faire un essaie simple avec les gene naif</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def demo_naif(nom, n_gen=30, n_pop=200):
+    &#34;&#34;&#34;pour faire un essaie simple avec les gene naif&#34;&#34;&#34;
+    from matplotlib import pyplot as plt
+    E = Essai.composee_vide(2, 3, n_pop)
+    try:
+        for i in range(n_gen):
+            print(&#34;generation {}&#34;.format(i))
+            E.generation_suivante()
+    except KeyboardInterrupt:
+        pass
+    E.save(nom)
+    E.evolution_statistique(plt, 5)
     generation = E.generations[-1]
     generation.evaluation()
     return generation.genes[0]</code></pre>
@@ -99,7 +226,10 @@ E = demo(&#39;profiler&#39;, 15, 150)</code></pre>
 <ul id="index">
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="main.demo" href="#main.demo">demo</a></code></li>
+<li><code><a title="main.comparateur_identique" href="#main.comparateur_identique">comparateur_identique</a></code></li>
+<li><code><a title="main.comparateur_representation" href="#main.comparateur_representation">comparateur_representation</a></code></li>
+<li><code><a title="main.demo_composee" href="#main.demo_composee">demo_composee</a></code></li>
+<li><code><a title="main.demo_naif" href="#main.demo_naif">demo_naif</a></code></li>
 </ul>
 </li>
 </ul>

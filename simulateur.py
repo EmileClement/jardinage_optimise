@@ -2,7 +2,7 @@
 """
 Created on Fri May  8 11:30:45 2020
 
-@author: Leopold
+@author: Leopold & Thomas
 """
 import random as rd
 

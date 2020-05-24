@@ -2,7 +2,7 @@
 """
 Created on Fri May  8 11:27:10 2020
 
-@author: Leopold
+@author: Leopold & Thomas
 """
 from simulateur import *
 

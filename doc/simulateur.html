@@ -23,7 +23,7 @@
 <section id="section-intro">
 <p>Created on Fri May
 8 11:30:45 2020</p>
-<p>@author: Leopold</p>
+<p>@author: Leopold &amp; Thomas</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -32,7 +32,7 @@
 &#34;&#34;&#34;
 Created on Fri May  8 11:30:45 2020
 
-@author: Leopold
+@author: Leopold &amp; Thomas
 &#34;&#34;&#34;
 import random as rd
 
@@ -64,7 +64,7 @@ class Jardin():
         for ligne in self.emplacement:
             for case in ligne:
                 masse += case.rendement(biais)
-        return masse
+        return masse/(len(self.emplacement) * len(self.emplacement[0]))
 
     def representation_interactive(self):
         &#34;&#34;&#34;
@@ -281,12 +281,14 @@ class Plante(Occupant):
 
         
 
-
-        return self.masse_produite(jour)*self.multiplicateur
-
-
+        if self.deja_recolte == False:
+            self.deja_recolte = True
+            return self.masse_produite(jour)*self.multiplicateur
+        else:
+            return 0.
 
     def planter(self, emplacement, debut, fin, jard):
+
         &#34;&#34;&#34;
         Permet de planter l&#39;objet dans l&#39;emplacement désigné entre les deux
         semaines données.
@@ -650,7 +652,7 @@ class Plante(Occupant):
         for ligne in self.emplacement:
             for case in ligne:
                 masse += case.rendement(biais)
-        return masse
+        return masse/(len(self.emplacement) * len(self.emplacement[0]))
 
     def representation_interactive(self):
         &#34;&#34;&#34;
@@ -744,7 +746,7 @@ class Plante(Occupant):
     for ligne in self.emplacement:
         for case in ligne:
             masse += case.rendement(biais)
-    return masse</code></pre>
+    return masse/(len(self.emplacement) * len(self.emplacement[0]))</code></pre>
 </details>
 </dd>
 <dt id="simulateur.Jardin.representation_interactive"><code class="name flex">
@@ -895,12 +897,14 @@ class Plante(Occupant):
 
         
 
-
-        return self.masse_produite(jour)*self.multiplicateur
-
-
+        if self.deja_recolte == False:
+            self.deja_recolte = True
+            return self.masse_produite(jour)*self.multiplicateur
+        else:
+            return 0.
 
     def planter(self, emplacement, debut, fin, jard):
+
         &#34;&#34;&#34;
         Permet de planter l&#39;objet dans l&#39;emplacement désigné entre les deux
         semaines données.
@@ -1031,6 +1035,7 @@ semaines données.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def planter(self, emplacement, debut, fin, jard):
+
     &#34;&#34;&#34;
     Permet de planter l&#39;objet dans l&#39;emplacement désigné entre les deux
     semaines données.
@@ -1109,8 +1114,11 @@ semaines données.</p>
 
     
 
-
-    return self.masse_produite(jour)*self.multiplicateur</code></pre>
+    if self.deja_recolte == False:
+        self.deja_recolte = True
+        return self.masse_produite(jour)*self.multiplicateur
+    else:
+        return 0.</code></pre>
 </details>
 </dd>
 </dl>
