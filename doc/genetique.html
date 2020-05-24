@@ -52,20 +52,13 @@ class Gene():
     def jardin(self) -&gt; simulateur.Jardin:
         &#34;&#34;&#34;renvoie le `simulateur.Jardin` corespondant au gène&#34;&#34;&#34;
         assert 0, &#34;not implemented&#34;
-
+        
+    @property
     def fitness(self) -&gt; float:
-        &#34;&#34;&#34;
-        met a jour la caractéristique fit du gene
-
-        Returns
-        -------
-        fit : float
-            le rendement du gene.
-
-        &#34;&#34;&#34;
-        if self.fit == None:
-            fit = self.jardin().rendement(True)
-            self.fit = fit
+        &#34;&#34;&#34; permet de ne calculer la production du gene que une seul fois&#34;&#34;&#34;
+        if self._fit == None:
+            _fit = self.jardin().rendement(True)
+            self._fit = _fit
         return self.fit
 
     def __mul__(self, other):
@@ -119,7 +112,7 @@ class Gene_naif(Gene):
                 for y in range(len_y):
                     self.ADN += generateur_aleatoire_mais_pas_trop()
                     #print(self.ADN)
-        self.fit = None
+        self._fit = None
 
     @classmethod
     def from_file(cls, adn, fit, len_x, len_y):
@@ -257,6 +250,7 @@ class Composant():
         return rd.choice([self, other])
 
     def mutation(self):
+        &#34;&#34;&#34;Mutation des carractéristique du composant&#34;&#34;&#34;
         if rd.random()&lt;=Composant.taux_mutation_date:
             self.plantage += round(rd.gauss(0, Composant.ecart_type_mutation_date))
             self.plantage %= 365
@@ -277,7 +271,7 @@ class Gene_compose(Gene):
             self.composants = [Composant.random(len_x, len_y) for _ in range(composants)]
         else:
             self.composants = composants
-        self.fit = None
+        self._fit = None
 
     def __repr__(self):
         chaine = &#34;&#34;
@@ -478,7 +472,7 @@ class Generation():
             self.evaluation()
         selection = []
         selection += self.genes[:(len(self.genes)//10)]
-        weight = [gene.fitness() for gene in self.genes[(len(self.genes)//10):]]
+        weight = [gene.fitness for gene in self.genes[(len(self.genes)//10):]]
         selection += rd.choices(self.genes[(len(self.genes)//10):], weight, k = len(selection))
         return selection
 
@@ -616,7 +610,8 @@ class Evaluateur(threading.Thread):
         self.gene = gene
     
     def run(self):
-        self.gene.fitness()</code></pre>
+        &#34;&#34;&#34;declanche le calcule du rendement du jardin represente par le gene&#34;&#34;&#34;
+        A = self.gene.fitness</code></pre>
 </details>
 </section>
 <section>
@@ -685,6 +680,7 @@ class Evaluateur(threading.Thread):
         return rd.choice([self, other])
 
     def mutation(self):
+        &#34;&#34;&#34;Mutation des carractéristique du composant&#34;&#34;&#34;
         if rd.random()&lt;=Composant.taux_mutation_date:
             self.plantage += round(rd.gauss(0, Composant.ecart_type_mutation_date))
             self.plantage %= 365
@@ -764,12 +760,13 @@ def random(cls, len_x, len_y):
 <span>def <span class="ident">mutation</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Mutation des carractéristique du composant</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def mutation(self):
+    &#34;&#34;&#34;Mutation des carractéristique du composant&#34;&#34;&#34;
     if rd.random()&lt;=Composant.taux_mutation_date:
         self.plantage += round(rd.gauss(0, Composant.ecart_type_mutation_date))
         self.plantage %= 365
@@ -1059,7 +1056,8 @@ else to the thread.</p></div>
         self.gene = gene
     
     def run(self):
-        self.gene.fitness()</code></pre>
+        &#34;&#34;&#34;declanche le calcule du rendement du jardin represente par le gene&#34;&#34;&#34;
+        A = self.gene.fitness</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1071,17 +1069,14 @@ else to the thread.</p></div>
 <span>def <span class="ident">run</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Method representing the thread's activity.</p>
-<p>You may override this method in a subclass. The standard run() method
-invokes the callable object passed to the object's constructor as the
-target argument, if any, with sequential and keyword arguments taken
-from the args and kwargs arguments, respectively.</p></div>
+<div class="desc"><p>declanche le calcule du rendement du jardin represente par le gene</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def run(self):
-    self.gene.fitness()</code></pre>
+    &#34;&#34;&#34;declanche le calcule du rendement du jardin represente par le gene&#34;&#34;&#34;
+    A = self.gene.fitness</code></pre>
 </details>
 </dd>
 </dl>
@@ -1106,20 +1101,13 @@ from the args and kwargs arguments, respectively.</p></div>
     def jardin(self) -&gt; simulateur.Jardin:
         &#34;&#34;&#34;renvoie le `simulateur.Jardin` corespondant au gène&#34;&#34;&#34;
         assert 0, &#34;not implemented&#34;
-
+        
+    @property
     def fitness(self) -&gt; float:
-        &#34;&#34;&#34;
-        met a jour la caractéristique fit du gene
-
-        Returns
-        -------
-        fit : float
-            le rendement du gene.
-
-        &#34;&#34;&#34;
-        if self.fit == None:
-            fit = self.jardin().rendement(True)
-            self.fit = fit
+        &#34;&#34;&#34; permet de ne calculer la production du gene que une seul fois&#34;&#34;&#34;
+        if self._fit == None:
+            _fit = self.jardin().rendement(True)
+            self._fit = _fit
         return self.fit
 
     def __mul__(self, other):
@@ -1142,38 +1130,27 @@ from the args and kwargs arguments, respectively.</p></div>
 <div class="desc"></div>
 </dd>
 </dl>
-<h3>Methods</h3>
+<h3>Instance variables</h3>
 <dl>
-<dt id="genetique.Gene.fitness"><code class="name flex">
-<span>def <span class="ident">fitness</span></span>(<span>self) -> float</span>
-</code></dt>
+<dt id="genetique.Gene.fitness"><code class="name">var <span class="ident">fitness</span> : float</code></dt>
 <dd>
-<div class="desc"><p>met a jour la caractéristique fit du gene</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><strong><code>fit</code></strong> :&ensp;<code>float</code></dt>
-<dd>le rendement du gene.</dd>
-</dl></div>
+<div class="desc"><p>permet de ne calculer la production du gene que une seul fois</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def fitness(self) -&gt; float:
-    &#34;&#34;&#34;
-    met a jour la caractéristique fit du gene
-
-    Returns
-    -------
-    fit : float
-        le rendement du gene.
-
-    &#34;&#34;&#34;
-    if self.fit == None:
-        fit = self.jardin().rendement(True)
-        self.fit = fit
+<pre><code class="python">@property
+def fitness(self) -&gt; float:
+    &#34;&#34;&#34; permet de ne calculer la production du gene que une seul fois&#34;&#34;&#34;
+    if self._fit == None:
+        _fit = self.jardin().rendement(True)
+        self._fit = _fit
     return self.fit</code></pre>
 </details>
 </dd>
+</dl>
+<h3>Methods</h3>
+<dl>
 <dt id="genetique.Gene.jardin"><code class="name flex">
 <span>def <span class="ident">jardin</span></span>(<span>self) -> <a title="simulateur.Jardin" href="simulateur.html#simulateur.Jardin">Jardin</a></span>
 </code></dt>
@@ -1225,7 +1202,7 @@ from the args and kwargs arguments, respectively.</p></div>
             self.composants = [Composant.random(len_x, len_y) for _ in range(composants)]
         else:
             self.composants = composants
-        self.fit = None
+        self._fit = None
 
     def __repr__(self):
         chaine = &#34;&#34;
@@ -1399,7 +1376,7 @@ from the args and kwargs arguments, respectively.</p></div>
                 for y in range(len_y):
                     self.ADN += generateur_aleatoire_mais_pas_trop()
                     #print(self.ADN)
-        self.fit = None
+        self._fit = None
 
     @classmethod
     def from_file(cls, adn, fit, len_x, len_y):
@@ -1716,7 +1693,7 @@ def from_file(cls, adn, fit, len_x, len_y):
             self.evaluation()
         selection = []
         selection += self.genes[:(len(self.genes)//10)]
-        weight = [gene.fitness() for gene in self.genes[(len(self.genes)//10):]]
+        weight = [gene.fitness for gene in self.genes[(len(self.genes)//10):]]
         selection += rd.choices(self.genes[(len(self.genes)//10):], weight, k = len(selection))
         return selection
 

@@ -22,20 +22,13 @@ class Gene():
     def jardin(self) -> simulateur.Jardin:
         """renvoie le `simulateur.Jardin` corespondant au gène"""
         assert 0, "not implemented"
-
+        
+    @property
     def fitness(self) -> float:
-        """
-        met a jour la caractéristique fit du gene
-
-        Returns
-        -------
-        fit : float
-            le rendement du gene.
-
-        """
-        if self.fit == None:
-            fit = self.jardin().rendement(True)
-            self.fit = fit
+        """ permet de ne calculer la production du gene que une seul fois"""
+        if self._fit == None:
+            _fit = self.jardin().rendement(True)
+            self._fit = _fit
         return self.fit
 
     def __mul__(self, other):
@@ -89,7 +82,7 @@ class Gene_naif(Gene):
                 for y in range(len_y):
                     self.ADN += generateur_aleatoire_mais_pas_trop()
                     #print(self.ADN)
-        self.fit = None
+        self._fit = None
 
     @classmethod
     def from_file(cls, adn, fit, len_x, len_y):
@@ -227,6 +220,7 @@ class Composant():
         return rd.choice([self, other])
 
     def mutation(self):
+        """Mutation des carractéristique du composant"""
         if rd.random()<=Composant.taux_mutation_date:
             self.plantage += round(rd.gauss(0, Composant.ecart_type_mutation_date))
             self.plantage %= 365
@@ -247,7 +241,7 @@ class Gene_compose(Gene):
             self.composants = [Composant.random(len_x, len_y) for _ in range(composants)]
         else:
             self.composants = composants
-        self.fit = None
+        self._fit = None
 
     def __repr__(self):
         chaine = ""
@@ -448,7 +442,7 @@ class Generation():
             self.evaluation()
         selection = []
         selection += self.genes[:(len(self.genes)//10)]
-        weight = [gene.fitness() for gene in self.genes[(len(self.genes)//10):]]
+        weight = [gene.fitness for gene in self.genes[(len(self.genes)//10):]]
         selection += rd.choices(self.genes[(len(self.genes)//10):], weight, k = len(selection))
         return selection
 
@@ -586,7 +580,8 @@ class Evaluateur(threading.Thread):
         self.gene = gene
     
     def run(self):
-        self.gene.fitness()
+        """declanche le calcule du rendement du jardin represente par le gene"""
+        A = self.gene.fitness
 
 
 
