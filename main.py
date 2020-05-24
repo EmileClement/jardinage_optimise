@@ -71,6 +71,4 @@ def comparateur_representation(n_gen=30, n_pop=200):
     concurents[0].evolution_statistique(plt, 5)
     concurents[1].evolution_statistique(plt, 5)
     return concurents
-    
 
-#E = demo('profiler', 30, 150)

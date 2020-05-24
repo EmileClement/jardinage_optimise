@@ -20,7 +20,7 @@ class Gene():
         assert 0, "not implemented"
 
     def jardin(self) -> simulateur.Jardin:
-        """renvoie le `simulateur.jardin` corespondant au gène"""
+        """renvoie le `simulateur.Jardin` corespondant au gène"""
         assert 0, "not implemented"
 
     def fitness(self) -> float:

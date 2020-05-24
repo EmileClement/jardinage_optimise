@@ -185,7 +185,7 @@ class Emplacement():
         return masse
 
 class Occupant():
-    """representation generique d'un occupant de parcelle: une absence de plante (Jachere) ou une Plante"""
+    """Classe abstraite representant un occupant de parcelle: une absence de plante (Jachere) ou une Plante"""
     def __init__(self):
         assert 0, "Not implemeted"
 
@@ -202,7 +202,7 @@ class Jachere(Occupant):
         return "Jachère"
 
 class Plante(Occupant):
-    """ Classe generique de plante"""
+    """Classe abstraite dont herite toutes les plantes"""
     table_associations = [[1. ,1. ,1. ,1. ,1. ,1. ,1. ,1. ],
                           [1. ,1.1,0.95,1. ,1. ,1.1,1.1,1. ],
                           [1. ,0.95,1.1,1. ,1. ,1.1,0.95,1. ],

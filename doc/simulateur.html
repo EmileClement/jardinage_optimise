@@ -215,7 +215,7 @@ class Emplacement():
         return masse
 
 class Occupant():
-    &#34;&#34;&#34;representation generique d&#39;un occupant de parcelle: une absence de plante (Jachere) ou une Plante&#34;&#34;&#34;
+    &#34;&#34;&#34;Classe abstraite representant un occupant de parcelle: une absence de plante (Jachere) ou une Plante&#34;&#34;&#34;
     def __init__(self):
         assert 0, &#34;Not implemeted&#34;
 
@@ -232,7 +232,7 @@ class Jachere(Occupant):
         return &#34;Jachère&#34;
 
 class Plante(Occupant):
-    &#34;&#34;&#34; Classe generique de plante&#34;&#34;&#34;
+    &#34;&#34;&#34;Classe abstraite dont herite toutes les plantes&#34;&#34;&#34;
     table_associations = [[1. ,1. ,1. ,1. ,1. ,1. ,1. ,1. ],
                           [1. ,1.1,0.95,1. ,1. ,1.1,1.1,1. ],
                           [1. ,0.95,1.1,1. ,1. ,1.1,0.95,1. ],
@@ -829,13 +829,13 @@ class Plante(Occupant):
 <span>class <span class="ident">Occupant</span></span>
 </code></dt>
 <dd>
-<div class="desc"><p>representation generique d'un occupant de parcelle: une absence de plante (Jachere) ou une Plante</p></div>
+<div class="desc"><p>Classe abstraite representant un occupant de parcelle: une absence de plante (Jachere) ou une Plante</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Occupant():
-    &#34;&#34;&#34;representation generique d&#39;un occupant de parcelle: une absence de plante (Jachere) ou une Plante&#34;&#34;&#34;
+    &#34;&#34;&#34;Classe abstraite representant un occupant de parcelle: une absence de plante (Jachere) ou une Plante&#34;&#34;&#34;
     def __init__(self):
         assert 0, &#34;Not implemeted&#34;</code></pre>
 </details>
@@ -849,13 +849,13 @@ class Plante(Occupant):
 <span>class <span class="ident">Plante</span></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Classe generique de plante</p></div>
+<div class="desc"><p>Classe abstraite dont herite toutes les plantes</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Plante(Occupant):
-    &#34;&#34;&#34; Classe generique de plante&#34;&#34;&#34;
+    &#34;&#34;&#34;Classe abstraite dont herite toutes les plantes&#34;&#34;&#34;
     table_associations = [[1. ,1. ,1. ,1. ,1. ,1. ,1. ,1. ],
                           [1. ,1.1,0.95,1. ,1. ,1.1,1.1,1. ],
                           [1. ,0.95,1.1,1. ,1. ,1.1,0.95,1. ],
