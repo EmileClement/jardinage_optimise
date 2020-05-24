@@ -10,7 +10,7 @@ herbier = genetique.herbier
 simulateur = herbier.simulateur
 Essai = genetique.Essai
 
-def demo_naif(nom, n_gen=30, n_pop=200):
+def demo_naif(n_gen=30, n_pop=200):
     """pour faire un essaie simple avec les `genetique.Gene_naif`"""
     from matplotlib import pyplot as plt
     E = Essai.composee_vide(2, 3, n_pop)
@@ -20,13 +20,12 @@ def demo_naif(nom, n_gen=30, n_pop=200):
             E.generation_suivante()
     except KeyboardInterrupt:
         pass
-    E.save(nom)
     E.evolution_statistique(plt, 5)
     generation = E.generations[-1]
     generation.evaluation()
     return generation.genes[0]
 
-def demo_composee(nom, n_gen=30, n_pop=200):
+def demo_composee(n_gen=30, n_pop=200):
     """pour faire un essaie simple avec les `genetique.Gene_compose`"""
     from matplotlib import pyplot as plt
     E = Essai.composee_vide(2, 3, n_pop)
@@ -36,7 +35,6 @@ def demo_composee(nom, n_gen=30, n_pop=200):
             E.generation_suivante()
     except KeyboardInterrupt:
         pass
-    E.save(nom)
     E.evolution_statistique(plt, 5)
     generation = E.generations[-1]
     generation.evaluation()
