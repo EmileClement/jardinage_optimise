@@ -3,6 +3,8 @@
 Created on Fri May  8 11:31:42 2020
 
 @author: Leopold & Thomas
+
+Module contenant les algorithmes d'optimisations
 """
 import random as rd
 import threading
@@ -13,30 +15,30 @@ simulateur = herbier.simulateur
 N_bit_espece = herbier.N_bit_espece
 
 class Gene():
-    """Class abstraite pour l'encapsulation des diférents types de gènes"""
+    """Class abstraite pour l'encapsulation des diférents types de gènes."""
     decodeur_espece = herbier.dict_herbier
 
     def __init__(self, *args):
         assert 0, "not implemented"
 
     def jardin(self) -> simulateur.Jardin:
-        """renvoie le `simulateur.Jardin` corespondant au gène"""
+        """Eenvoie le `simulateur.Jardin` corespondant au gène."""
         assert 0, "not implemented"
         
     @property
     def fitness(self) -> float:
-        """ permet de ne calculer la production du gene que une seul fois"""
+        """Permet de ne calculer la production du gene que une seul fois."""
         if self._fit == None:
             _fit = self.jardin().rendement(True)
             self._fit = _fit
-        return self.fit
+        return self._fit
 
     def __mul__(self, other):
-        """enjambement de deux gène"""
+        """Enjambement de deux gène."""
         assert 0, "not implemented"
 
     def mutation(self):
-        """fait muter le gène"""
+        """Fait muter le gène."""
         assert 0, "not implemented"
 
 class Gene_naif(Gene):
@@ -87,7 +89,7 @@ class Gene_naif(Gene):
     @classmethod
     def from_file(cls, adn, fit, len_x, len_y):
         """
-        reconstruit le gene à partir des informations contenues dans le fichier de sauvegarde
+        Reconstruit le gene à partir des informations contenues dans le fichier de sauvegarde.
 
         Parameters
         ----------
@@ -104,7 +106,7 @@ class Gene_naif(Gene):
 
         Returns
         -------
-        gene : Gene
+        gene : Gene_naif
             gene reconstruit
 
         """
@@ -174,7 +176,7 @@ class Gene_naif(Gene):
                 self.ADN = self.ADN[place_caractere] + inverse + self.ADN[place_caractere + nbr_caractere_a_muter:]
 
 class Composant():
-    """implementation des composants des genes composes"""
+    """Implementation des composants des genes composes."""
     next_id = 0
 
     taux_mutation_date = 0.3
@@ -199,7 +201,7 @@ class Composant():
         return "{0}:{1}@{2},{3}->{4},{5}".format(self.id, self.espece, self.position,
                                         self.plantage, self.recolte, self.actif)
     def copy(self):
-        """permet de creer une copie du composant avec le meme numero d'innovation"""
+        """Permet de creer une copie du composant avec le meme numero d'innovation."""
         x, y = self.position
         espece = self.espece
         date_plantaison = self. plantage
@@ -210,7 +212,7 @@ class Composant():
 
     @classmethod
     def random(cls, len_x, len_y):
-        """permet de creer un nouvau composant aleatoire avec un nouveau numero d'innovation"""
+        """Permet de creer un nouvau composant aleatoire avec un nouveau numero d'innovation."""
         return cls(rd.choice(herbier.list_espece),
                    rd.randint(0, 364),
                    rd.randint(0, 364),
@@ -220,7 +222,7 @@ class Composant():
         return rd.choice([self, other])
 
     def mutation(self):
-        """Mutation des carractéristique du composant"""
+        """Mutation des carractéristique du composant."""
         if rd.random()<=Composant.taux_mutation_date:
             self.plantage += round(rd.gauss(0, Composant.ecart_type_mutation_date))
             self.plantage %= 365
@@ -231,7 +233,7 @@ class Composant():
             self.actif = not self.actif
 
 class Gene_compose(Gene):
-    """implementation des genes composes"""
+    """Implementation des genes composes."""
     taux_mutation_new_componant = 0.3
 
     def __init__(self, len_x, len_y, composants = 10):
@@ -294,7 +296,7 @@ class Gene_compose(Gene):
         return jar
     
     def recette(self):
-        """permet de convertir le gene en un texte comprehensible pour l'utilisateur representant la plannification des cultures du jardin"""
+        """Permet de convertir le gene en un texte comprehensible pour l'utilisateur representant la plannification des cultures du jardin."""
         jar = simulateur.Jardin(self.len_x, self.len_y)
         liste_commande = []
         for comp in self.composants:
@@ -312,13 +314,13 @@ class Gene_compose(Gene):
 
 
 class Generation():
-    """objet permettant de representer une generation dans l'algorithme"""
+    """Objet permettant de representer une generation dans l'algorithme."""
     multithreading_actif = False
     
     @classmethod
     def from_file(cls, path):
         """
-        reconstruit la generation a partir d'un fichier
+        Reconstruit la generation a partir d'un fichier.
 
         Parameters
         ----------
@@ -424,8 +426,9 @@ class Generation():
             
             for evaluateur in liste_evaluateur:
                 evaluateur.join()
-            
-        self.genes.sort(key=Gene.fitness, reverse=True)
+        
+        get_fitness = lambda gene: gene.fitness 
+        self.genes.sort(key=get_fitness, reverse=True)
         self.evaluee = True
 
     def _selection(self) -> list:
@@ -486,7 +489,7 @@ class Generation():
             self.evaluation()
         fitness = []
         for gene in self.genes:
-            fitness.append(gene.fit)
+            fitness.append(gene.fitness)
         return fitness
 
 
