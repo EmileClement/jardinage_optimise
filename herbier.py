@@ -257,4 +257,7 @@ def graphe_production(plante,jour_semis):
     prod = []
     for i in range(365):
         prod.append(levert.masse_produite(i))
+    plt.figure(0)
+    plt.xlabel("Jours de l'année")
+    plt.ylabel("Production en Kg")
     plt.plot(range(365),prod)
